@@ -1,9 +1,10 @@
 {
-  "name": "adems_backend",
+  "name": "adems-backend",
   "version": "1.0.0",
   "description": "A learning management system is a software application for the administration, documentation, tracking, reporting, automation, and delivery of educational courses, training programs, materials or learning and development programs",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -14,12 +15,44 @@
     "lms",
     "backend",
     "mongodb",
-    "nodejs"
+    "nodejs",
+    "cdp",
+    "cdp360",
+    "adems",
+    "product",
+    "auth",
+    "jwt",
+    "cookies",
+    "express",
+    "mongoose",
+    "cors",
+    "work-thread",
+    "env",
+    "morgan",
+    "nodemon"
   ],
   "author": "VimalV",
+  "contact": "iam@vimalv.com",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ICCCDP360/adems_backend/issues"
   },
-  "homepage": "https://github.com/ICCCDP360/adems_backend#readme"
+  "homepage": "https://github.com/ICCCDP360/adems_backend#readme",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "env": "^0.0.2",
+    "express": "^4.18.2",
+    "helmet": "^6.0.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.8.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.20",
+    "swagger-autogen": "^2.22.0",
+    "swagger-ui-express": "^4.6.0",
+    "worker-thread": "^1.1.0",
+    "yamljs": "^0.3.0"
+  }
 }
