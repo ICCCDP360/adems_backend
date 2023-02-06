@@ -3,16 +3,39 @@
   "info": {
     "version": "1.0.0",
     "title": "CDP360 Product - Swagger",
-    "description": "CDP360 Product RestFull Api in swagger framework",
+    "description": "CDP360-ADEMS-LMS RestFull Api in Swagger Framework",
     "contact": {
-      "email": "vimal@cdp360.com"
+      "email": "iam@vimalv.com"
     }
   },
-  "host": "localhost:3300",
+  "host": "localhost:8080",
   "basePath": "/",
   "schemes": [
     "http",
     "https"
   ],
-  "paths": {}
+  "paths": {
+    "/": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/get": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  }
 }

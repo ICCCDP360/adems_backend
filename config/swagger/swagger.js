@@ -1,19 +1,24 @@
 const swaggerAutogen = require("swagger-autogen");
+// const mainRouter = "./main_router.js";
+const PORT = require("../credentials/config").PORT;
+const outputFile = "./config/swagger/swagger_output.json";
+const endpointsFile = ["./routers/main_router.js"];
 
 const doc = {
   swagger: "2.0",
   info: {
     version: "1.0.0",
     title: "CDP360 Product - Swagger",
-    description: "CDP360 Product RestFull Api in swagger framework",
+    description: "CDP360-ADEMS-LMS RestFull Api in Swagger Framework",
     contact: {
-      email: "vimal@cdp360.com",
+      email: "iam@vimalv.com",
     },
   },
-  host: "localhost:3300",
+  host: `localhost:${PORT}`,
   schemes: ["http", "https"],
 };
-const outputFile = "./config/swagger/swagger_output.json";
-const endpointsFile = ["./routers/main_router.js"];
 
-swaggerAutogen(outputFile, endpointsFile, doc);
+swaggerAutogen(outputFile, endpointsFile, doc).then((d) => {
+  console.log(d);
+  // require("../../index"); // Your project's root file
+});

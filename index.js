@@ -1,10 +1,11 @@
 const express = require("express");
-const router = express.Router();
+const { PORT } = require("./config/credentials/config.js");
 const app = express();
-
-// All Router
-const mainRouter = require("./routers/main_router.js");
-app.use(mainRouter);
-app.listen(3300, () => {
-  console.log(`server is running on port :`, 3300);
+require("./config/express/express")(app);
+app.listen(PORT, () => {
+  console.log(`ADMES BACKEND - CDP360`);
+  console.log(`server is running on port : http://localhost:${PORT}`);
+  console.log(
+    `swagger restfull api is running on port : http://localhost:${PORT}/doc`
+  );
 });
