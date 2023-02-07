@@ -8,4 +8,3 @@ sch_principalrouter.post("/sch_principal",controller.PostSch_principal);
 sch_principalrouter.get("/sch_principal/:id",controller.GetbyidSch_principal);
 
 module.exports = sch_principalrouter;
-

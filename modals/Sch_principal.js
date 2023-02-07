@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const sch_principalSchema = new Schema(
+const Sch_principalSchema = new Schema(
     {
       sch_id:{type:String,min:5,max:10},
       sch_name:{type:String,min:4,max:20},
@@ -15,4 +15,4 @@ const sch_principalSchema = new Schema(
     },
     { timestamps: { createdAt:"dt", updatedAt:"u_dt"}},
 );
-module.exports =mongoose.model("sch_principal",sch_principalSchema);
+module.exports =mongoose.model("sch_principal",Sch_principalSchema);

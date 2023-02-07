@@ -1,4 +1,4 @@
-const sch_principal = require("../module/Sch_principal");
+const sch_principal = require("../modals/Sch_principal");
 var date = new Date();
 
 //Get Sch_principal

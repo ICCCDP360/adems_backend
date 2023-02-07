@@ -8,7 +8,7 @@ const doc = {
   swagger: "2.0",
   info: {
     version: "1.0.0",
-    title: "CDP360 Product - Swagger",
+    title: "Vimal Swetha",
     description: "CDP360-ADEMS-LMS RestFull Api in Swagger Framework",
     contact: {
       email: "iam@vimalv.com",
@@ -18,4 +18,4 @@ const doc = {
   schemes: ["http", "https"],
 };
 
-swaggerAutogen(outputFile, endpointsFile, doc)
+swaggerAutogen(outputFile, endpointsFile, doc);

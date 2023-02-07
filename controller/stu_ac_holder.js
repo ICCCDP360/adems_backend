@@ -1,4 +1,4 @@
-const stu_ac_holder = require("../module/stu_ac_holder");
+const stu_ac_holder = require("../modals/stu_ac_holder");
 var date = new Date();
 
  // Post Stu_ac_holder

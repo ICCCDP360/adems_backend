@@ -1,4 +1,4 @@
-const stu_details = require("../module/Stu_details");
+const stu_details = require("../modals/Stu_details");
 var date = new Date();
 
 //Get Studentdetails
