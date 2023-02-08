@@ -1,12 +1,12 @@
-const stu_details = require("../modals/Stu_details");
+const stu_details = require("../../modals/Student/Details");
 var date = new Date();
 
 //Get Studentdetails
-exports.GetStu_details = async(req, res) => {
+exports.GetDetails = async(req, res) => {
     console.log(req.query.name) 
      try{
        // get all data
-       stu_details.find().exec(function(err, users){
+       details.find().exec(function(err, users){
          if(users){
            return res.status(200).json(users)
          }else if(err){
@@ -20,12 +20,12 @@ exports.GetStu_details = async(req, res) => {
    };
      
  // Post Studentdetails
- exports.PostStu_details= async(req,res) => {
+ exports.PostDetails= async(req,res) => {
     const reqData = req.body;
     console.log("req body",reqData);
     try{
 
-        const PostStu_details = new stu_details(
+        const PostDetails = new details(
             {
                 stu_id:reqData.stu_id,
                 stu_name:reqData.stu_name, 
@@ -43,8 +43,8 @@ exports.GetStu_details = async(req, res) => {
                 assign_teacher:reqData.assign_teacher,
             }
         )
-        const savePostStu_details=await PostStu_details.save()
-        res.status(200).json(savePostStu_details);
+        const savePostDetails=await PostDetails.save()
+        res.status(200).json(savePostDetails);
     }
     catch(err){
         console.log(err);
@@ -52,7 +52,7 @@ exports.GetStu_details = async(req, res) => {
 };
  
 //Put or Update Studentdetails
-exports.PutStu_details = async (req, res) => {
+exports.PutDetails = async (req, res) => {
     const reqData = req.body;
     const id=req.params.id;
     console.log("req body",id);
@@ -60,15 +60,15 @@ exports.PutStu_details = async (req, res) => {
 
     try{
       // get user by name
-     const stu_detailsFound = await stu_details.findOneAndUpdate({_id:id},reqData, {
+     const detailsFound = await details.findOneAndUpdate({_id:id},reqData, {
         new:true,
         upsert:true,
         rawResult:true,
      });
-      console.log(stu_detailsFound);
-      if(!stu_detailsFound) return res.status(400).send("no data found");
-      console.log("kl",stu_detailsFound);
-     return res.status(200).json(stu_detailsFound);
+      console.log(detailsFound);
+      if(!detailsFound) return res.status(400).send("no data found");
+      console.log("kl",detailsFound);
+     return res.status(200).json(detailsFound);
     }
     catch(err){
       console.log(err);
@@ -76,10 +76,10 @@ exports.PutStu_details = async (req, res) => {
   };
   
   //Getbyid Studentdetails
-  exports.GetbyidStu_details = async(req,res) => {
+  exports.GetbyidDetails = async(req,res) => {
     try{
-      const stu_detailsFound = await stu_details.findById(req.params.id);
-       res.status(200).json(stu_detailsFound);
+      const detailsFound = await details.findById(req.params.id);
+       res.status(200).json(detailsFound);
       }
        catch(err){
        console.log(err);

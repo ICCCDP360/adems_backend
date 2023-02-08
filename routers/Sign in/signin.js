@@ -1,9 +1,9 @@
 const express = require("express");
-const signinrouter = express.Router();
+const router = express.Router();
 
 const controller = require("../../controller/signin");
 
-signinrouter.post("/signin",controller.PostSignin);
+router.post("/signin",controller.PostSignin);
 
-module.exports = signinrouter;
+module.exports = router;
 

@@ -1,20 +1,20 @@
 const express = require("express");
 const mainRouter = express.Router();
 
-const studentRouter = require("./student/stu_ac_holder");
-const studentDetails = require("./student/stu_details");
-const RouterTeacherdetails = require("./teacher/teacherdetails");
-const RouterSch_principal = require("./school principal/sch_principal");
+const AccountHolderRouter = require("./student/account_holder");
+const DetailsRouter = require("./student/details");
+const TeacherRouter = require("./teacher/teacher_details");
+const SchoolRouter = require("./schoolPrincipal/school");
 const RouterSignin = require("./Sign in/signin");
 //sample router
 mainRouter.get("/", (req, res) => {
   res.status(200).json({ title: "admes & cdp360 backend", version: "v1.0.0" });
 });
  
-mainRouter.use(studentRouter);  
-mainRouter.use(studentDetails);  
-mainRouter.use(RouterTeacherdetails);  
-mainRouter.use(RouterSch_principal);
+mainRouter.use(AccountHolderRouter);  
+mainRouter.use(DetailsRouter);  //for student
+mainRouter.use(TeacherRouter);  
+mainRouter.use(SchoolRouter);
 mainRouter.use(RouterSignin);   
 
 module.exports = mainRouter;

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const TeacherdetailsSchema = new Schema(
+const TeacherSchema = new Schema(
   {
     teacher_id: { type: String,min:5,max:10},
     teacher_name: { type:String,min:4,max:25},
@@ -11,4 +11,4 @@ const TeacherdetailsSchema = new Schema(
   },
   { timestamps: { createdAt:"dt", updatedAt:"u_dt"}}, 
 );
-module.exports = mongoose.model("teacherdetails", TeacherdetailsSchema);
+module.exports = mongoose.model("TeacherDetails", TeacherSchema);

@@ -26,7 +26,25 @@
         }
       }
     },
-    "/stu_ac_holder": {
+    "/accountHolder/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/accountHolder": {
       "post": {
         "description": "",
         "parameters": [
@@ -56,25 +74,7 @@
         }
       }
     },
-    "/stu_ac_holder/{id}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/stu_details": {
+    "/details": {
       "get": {
         "description": "",
         "parameters": [
@@ -155,7 +155,7 @@
         }
       }
     },
-    "/stu_details/{id}": {
+    "/details/{id}": {
       "put": {
         "description": "",
         "parameters": [
@@ -192,7 +192,7 @@
         }
       }
     },
-    "/teacherdetails": {
+    "/teacher_details": {
       "get": {
         "description": "",
         "parameters": [
@@ -246,7 +246,7 @@
         }
       }
     },
-    "/teacherdetails/{id}": {
+    "/teacher_details/{id}": {
       "put": {
         "description": "",
         "parameters": [
@@ -282,6 +282,90 @@
           }
         }
       },
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/school": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      },
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "sch_id": {
+                  "example": "any"
+                },
+                "sch_name": {
+                  "example": "any"
+                },
+                "address": {
+                  "example": "any"
+                },
+                "city": {
+                  "example": "any"
+                },
+                "teacher": {
+                  "example": "any"
+                },
+                "student": {
+                  "example": "any"
+                },
+                "user_name": {
+                  "example": "any"
+                },
+                "pwd": {
+                  "example": "any"
+                },
+                "goadem_admin": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/school/{id}": {
       "get": {
         "description": "",
         "parameters": [

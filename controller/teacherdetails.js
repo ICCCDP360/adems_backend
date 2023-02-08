@@ -1,12 +1,12 @@
-const teacherdetails = require("../modals/Teacherdetails");
+const teacherDetails = require("../modals/TeacherDetails");
 var date = new Date();
 
 //Get Teacherdetails
-exports.GetTeacherdetails = async(req, res) => {
+exports.TeacherDetails = async(req, res) => {
     console.log(req.query.name) 
      try{
        // get all data
-        teacherdetails.find().exec(function(err, users){
+        teacherDetails.find().exec(function(err, users){
          if(users){
            return res.status(200).json(users)
          }else if(err){
@@ -20,12 +20,12 @@ exports.GetTeacherdetails = async(req, res) => {
    };
      
  // Post teacherdetails
- exports.PostTeacherdetails= async(req,res) => {
+ exports.PostTeacherDetails= async(req,res) => {
     const reqData = req.body
     console.log("print data fron frontend",reqData);
     try{
 
-        const PostTeacherdetails = new teacherdetails(
+        const PostTeacherDetails = new teacherDetails(
             {
                 teacher_id:reqData.teacher_id,
                 teacher_name:reqData.teacher_name,
@@ -34,8 +34,8 @@ exports.GetTeacherdetails = async(req, res) => {
                 subjects:reqData.subjects
             }
         )
-        const savePostTeacherdetails=await PostTeacherdetails.save()
-        res.status(200).json(savePostTeacherdetails);
+        const savePostTeacherDetails=await PostTeacherDetails.save()
+        res.status(200).json(savePostTeacherDetails);
     }
     catch(err){
         console.log(err)
@@ -43,7 +43,7 @@ exports.GetTeacherdetails = async(req, res) => {
 };
  
 //Put or Update teacherdetails
-exports.PutTeacherdetails = async (req, res) => {
+exports.PutTeacherDetails = async (req, res) => {
     const reqData = req.body;
     const id=req.params.id;
     console.log("print data",id);
@@ -51,24 +51,24 @@ exports.PutTeacherdetails = async (req, res) => {
 
     try{
       // get user by name
-     const teacherdetailsFound = await teacherdetails.findOneAndUpdate({_id:id},reqData, {
+     const teacherDetailsFound = await teacherDetails.findOneAndUpdate({_id:id},reqData, {
         new:true,
         upsert:true,
         rawResult:true,
      });
-      console.log(teacherdetailsFound)
-      if(!teacherdetailsFound) return res.status(400).send("no profile found");
-      console.log("kl",teacherdetailsFound);
-     return res.status(200).json(teacherdetailsFound);
+      console.log(teacherDetailsFound)
+      if(!teacherDetailsFound) return res.status(400).send("no profile found");
+      console.log("kl",teacherDetailsFound);
+     return res.status(200).json(teacherDetailsFound);
     }
     catch(err){
       console.log(err);
     }
   };
   //Delete Teacherdetails
-  exports.DeleteTeacherdetails=async(req,res) => {
+  exports.DeleteTeacherDetails=async(req,res) => {
     try {
-        const deleteFound = await teacherdetails.findOneAndDelete(req.params.id);
+        const deleteFound = await teacherDetails.findOneAndDelete(req.params.id);
         return res.status(200).json("database deleted success");
     }
     catch(err) {
@@ -77,10 +77,10 @@ exports.PutTeacherdetails = async (req, res) => {
   };
   
   // Getbyid teacherdetails
-  exports.GetbyidTeacherdetails= async(req,res) => {
+  exports.GetbyidTeacherDetails= async(req,res) => {
     try{
-      const teacherdetailsFound = await teacherdetails.findById(req.params.id);
-      res.status(200).json(teacherdetailsFound);
+      const teacherDetailsFound = await teacherDetails.findById(req.params.id);
+      res.status(200).json(teacherDetailsFound);
     }
     catch(err) {
       console.log(err);

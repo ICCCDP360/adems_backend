@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema =mongoose.Schema;
 
-const Stu_detailsSchema = new Schema (
+const StudentSchema = new Schema (
     {
       stu_id:{type:String,min:5,max:10},
       stu_name:{type:String,min:4,max:20}, 
@@ -20,4 +20,4 @@ const Stu_detailsSchema = new Schema (
     },
      { timestamps: { createdAt:"dt", updatedAt:"u_dt"}},
 );
-module.exports =mongoose.model("stu_details",Stu_detailsSchema);
+module.exports =mongoose.model("Details",StudentSchema);
