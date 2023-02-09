@@ -18,7 +18,4 @@ const doc = {
   schemes: ["http", "https"],
 };
 
-swaggerAutogen(outputFile, endpointsFile, doc).then((d) => {
-  console.log(d);
-  // require("../../index"); // Your project's root file
-});
+swaggerAutogen(outputFile, endpointsFile, doc);

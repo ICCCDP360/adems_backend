@@ -4,7 +4,7 @@
   "description": "A learning management system is a software application for the administration, documentation, tracking, reporting, automation, and delivery of educational courses, training programs, materials or learning and development programs",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "npm run swagger && nodemon index.js",
     "swagger": "node ./config/swagger/swagger.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
