@@ -3,9 +3,30 @@ const Schema = mongoose.Schema;
 
 const AccountHolderSchema = new Schema(
   {
-    phn_code: { type: String,min:0,max:6},
-    phn_num: { type: Array,min:0,max:20 },
-    holder_name: { type: String,min:0,max:20 },
+    ph_code: {
+      type: String,
+      min: 2,
+      max: 6,
+      require: ["phone country code is required"],
+    },
+    ph_num: {
+      type: Array,
+      min: 8,
+      max: 16,
+      require: ["phone Number is required"],
+    },
+    holder: {
+      type: String,
+      min: 0,
+      max: 20,
+      require: ["Account Holder Name  is required (parents or guardian)"],
+    },
+    student_id: [
+      {
+        type: String,
+        require: ["Student Database ID is required (parents or guardian)"],
+      },
+    ],
   },
   { timestamps: { createdAt: "dt", updatedAt: "u_dt" } }
 );
