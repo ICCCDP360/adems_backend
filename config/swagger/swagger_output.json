@@ -192,24 +192,11 @@
         }
       }
     },
-    "/teacher_details": {
+    "/teacherDetails": {
       "get": {
         "description": "",
-        "parameters": [
-          {
-            "name": "name",
-            "in": "query",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
+        "parameters": [],
+        "responses": {}
       },
       "post": {
         "description": "",
@@ -246,7 +233,7 @@
         }
       }
     },
-    "/teacher_details/{id}": {
+    "/teacherDetails/{id}": {
       "put": {
         "description": "",
         "parameters": [

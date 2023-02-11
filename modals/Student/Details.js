@@ -20,4 +20,4 @@ const StudentSchema = new Schema (
     },
      { timestamps: { createdAt:"dt", updatedAt:"u_dt"}},
 );
-module.exports =mongoose.model("Details",StudentSchema);
+module.exports =mongoose.model("StudentDetails",StudentSchema);

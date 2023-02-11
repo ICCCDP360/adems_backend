@@ -1,0 +1,84 @@
+{
+  "task-rem": [
+    {
+      "english": {
+        "title":"Task Remainder",
+        "subject": "physics",
+        "total": ["Total", "hours"]
+      }
+    },
+    {
+      "tamil": {
+        "title":"மீதமுள்ள பணி",
+        "subject": "இயற்பியல்",
+        "total": ["மொத்தம்", "மணி"]
+      }
+    }
+  ],
+
+  "notic-board": [
+    {
+      "english": {
+        "title":"Notice Board",
+        "content": "New video on thermodynamics was uploaded.",
+        "total": ["Total", "hours"]
+      }
+    },
+    {
+      "tamil": {
+        "title":"அறிவிப்பு பலகை",
+        "content": "வெப்ப இயக்கவியல் பற்றிய புதிய வீடியோ பதிவேற்றப்பட்டது.",
+        "total": ["மொத்தம்", "மணி"]
+      }
+    }
+  ],
+  
+  "standing": [
+    {
+      "english": {
+        "standing":"standing",
+        "avergescore": "percentage",
+        "totaltimespent": ["hours"]
+      }
+    },
+    {
+      "tamil": {
+        "standing":"நின்று",
+        "avergescore": "சராசரி மதிப்பெண்",
+        "totaltimespent": ["மொத்த நேரத்தை செலவிடுகிறது"]
+      }
+    }
+  ],
+  "performance_score": [
+    {
+      "english": {
+        "title":"performance score",
+        "maths": "maths",
+        "science": "science"
+      }
+    },
+    {
+      "tamil": {
+        "title":"செயல்திறன் மதிப்பெண்",
+        "maths": "கணிதம்",
+        "science": "அறிவியல்"
+      }
+    }
+  ],
+  "topics_completed": [
+    {
+      "english": {
+        "title":"topics completed",
+        "topics": ["videos","PDF","practice","assessment"]
+      }
+    },
+    {
+      "tamil": {
+        "title":"தலைப்புகள் முடிக்கப்பட்டன",
+        "topics": ["வீடியோக்கள்","PDF","பயிற்சி","மதிப்பீடு"]
+      }
+    }
+  ]
+}
+
+
