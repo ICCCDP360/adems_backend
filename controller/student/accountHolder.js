@@ -9,9 +9,10 @@ var date = new Date();
 
         const PostAccountHolder = new accountHolder(
             {
-                phn_code:reqData.phn_code ,
-                phn_num:reqData.phn_num,
-                holder_name:reqData.holder_name,
+                ph_code:reqData.ph_code ,
+                ph_num:reqData.ph_num,
+                holder:reqData.holder,
+                student_id:reqData.student_id
             }
         )
         const savePostAccountHolder=await PostAccountHolder.save()

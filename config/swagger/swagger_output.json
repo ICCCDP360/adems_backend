@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
-    "title": "ADEMS",
+    "title": "Vimal Swetha",
     "description": "CDP360-ADEMS-LMS RestFull Api in Swagger Framework",
     "contact": {
       "email": "iam@vimalv.com"
@@ -10,10 +10,7 @@
   },
   "host": "localhost:8080",
   "basePath": "/",
-  "schemes": [
-    "http",
-    "https"
-  ],
+  "schemes": ["http", "https"],
   "paths": {
     "/": {
       "get": {

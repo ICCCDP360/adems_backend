@@ -8,6 +8,7 @@ exports.GetDashboard = async (req, res) => {
   try {
     // get all data
     Dashboard.find().exec(function (err, users) {
+    Dashboard.find().exec(function (err, users) {
       if (users) {
         console.log("---------------", users[0].task_rem[lang]);
         const data = {
@@ -33,86 +34,98 @@ exports.GetDashboard = async (req, res) => {
 exports.PostDashboard = async (req, res) => {
   const reqData = req.body;
   try {
-    console.log("req body", reqData);
-    const value = await Dashboard.find();
-    console.log(value.length);
-    if (value.length >= 1) return res.status(400).send("data found : ");
-    const publisher = new Dashboard(req.body);
-    await publisher.save();
-    // const postDashbord = Dashboard.create(reqData);
-    // console.log(postDashbord);
-    // const PostDashboard = new Dashboard({
-    //   // task_rem: [
-    //   //   {
-    //   //     english: {
-    //   //       title: reqData["english"].title,
-    //   //       subject: reqData["english"].subject,
-    //   //       total: reqData["english"].total,
-    //   //     },
-    //   //     tamil: {
-    //   //       title: reqData["tamil"].title,
-    //   //       subject: reqData["tamil"].subject,
-    //   //       total: reqData["tamil"].total,
-    //   //     },
-    //   //   },
-    //   // ],
-    //   // notic_board: [
-    //   //   {
-    //   //     english: {
-    //   //       title: reqData.title,
-    //   //       contenet: reqData.contenet,
-    //   //       total: reqData.total,
-    //   //     },
-    //   //     tamil: {
-    //   //       title: reqData.title,
-    //   //       contenet: reqData.contenet,
-    //   //       total: reqData.total,
-    //   //     },
-    //   //   },
-    //   // ],
-    //   // standing: [
-    //   //   {
-    //   //     english: {
-    //   //       standing: reqData.standing,
-    //   //       avergescore: reqData.avergescore,
-    //   //       totaltimespent: reqData.totaltimespent,
-    //   //     },
-    //   //     tamil: {
-    //   //       standing: reqData.standing,
-    //   //       avergescore: reqData.avergescore,
-    //   //       totaltimespent: reqData.totaltimespent,
-    //   //     },
-    //   //   },
-    //   // ],
-    //   // performance_score: [
-    //   //   {
-    //   //     english: {
-    //   //       title: reqData.title,
-    //   //       maths: reqData.maths,
-    //   //       science: reqData.science,
-    //   //     },
-    //   //     tamil: {
-    //   //       title: reqData.title,
-    //   //       maths: reqData.maths,
-    //   //       science: reqData.science,
-    //   //     },
-    //   //   },
-    //   // ],
-    //   // topics_completed: [
-    //   //   {
-    //   //     english: {
-    //   //       title: reqData.title,
-    //   //       topics: reqData.topics,
-    //   //     },
-    //   //     tamil: {
-    //   //       title: reqData.title,
-    //   //       topics: reqData.topics,
-    //   //     },
-    //   //   },
-    //   // ],
-    // });
-    // const savePostDashboard = await PostDashboard.save();
-    res.status(200).json(publisher);
+    const PostDashboard = new dashboard(
+      {
+        task_rem: [
+          {
+            english: {
+              title: reqData.title,
+              subject: reqData.subject,
+              total: reqData.total,
+            },
+          },
+          {
+            tamil: {
+              title: reqData.title,
+              subject: reqData.subject,
+              total: reqData.total,
+            },
+          },
+        ],
+      },
+      {
+        notic_board: [
+          {
+            english: {
+              title: reqData.title,
+              contenet: reqData.contenet,
+              total: reqData.total,
+            },
+          },
+          {
+            tamil: {
+              title: reqData.title,
+              contenet: reqData.contenet,
+              total: reqData.total,
+            },
+          },
+        ],
+      },
+      {
+        standing: [
+          {
+            english: {
+              standing: reqData.standing,
+              avergescore: reqData.avergescore,
+              totaltimespent: reqData.totaltimespent,
+            },
+          },
+          {
+            tamil: {
+              standing: reqData.standing,
+              avergescore: reqData.avergescore,
+              totaltimespent: reqData.totaltimespent,
+            },
+          },
+        ],
+      },
+      {
+        performance_score: [
+          {
+            english: {
+              title: reqData.title,
+              maths: reqData.maths,
+              science: reqData.science,
+            },
+          },
+          {
+            tamil: {
+              title: reqData.title,
+              maths: reqData.maths,
+              science: reqData.science,
+            },
+          },
+        ],
+      },
+      {
+        topics_completed: [
+          {
+            english: {
+              title: reqData.title,
+              topics: reqData.topics,
+            },
+          },
+          {
+            tamil: {
+              title: reqData.title,
+              topics: reqData.topics,
+            },
+          },
+        ],
+      }
+    );
+    const savePostDashboard = await PostDashboard.save();
+    res.status(200).json(savePostDashboard);
   } catch (err) {
     console.log(err);
   }
