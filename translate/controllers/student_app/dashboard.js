@@ -1,4 +1,4 @@
-const dashboard = require("../../modals/student_app/Dashboard");
+const Dashboard = require("../../modals/student_app/Dashboard");
 var date = new Date();
 
 //Get dashboard
@@ -7,7 +7,7 @@ exports.GetDashboard = async (req, res) => {
   const lang = req.query.lang;
   try {
     // get all data
-    dashboard.find().exec(function (err, users) {
+    Dashboard.find().exec(function (err, users) {
       if (users) {
         const data = {
           task_rem: users[0][lang],
@@ -33,7 +33,7 @@ exports.PostDashboard = async (req, res) => {
   const reqData = req.body;
   console.log("req body", reqData);
   try {
-    const PostDashboard = new dashboard(
+    const PostDashboard = new Dashboard(
       {
         task_rem: [
           {

@@ -6,7 +6,7 @@ const DetailsRouter = require("./student/details");
 const TeacherRouter = require("./teacher/teacher_details");
 const SchoolRouter = require("./schoolPrincipal/school");
 const RouterSignin = require("./auth_router/student/signin");
-const RouterDashboard = require("../translate/routers/student-app/dash_board");
+const RouterDashboard = require("../translate/routers/student-app/Dashboard");
 //sample router
 mainRouter.get("/", (req, res) => {
   res.status(200).json({ title: "admes & cdp360 backend", version: "v1.0.0" });

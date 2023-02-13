@@ -75,4 +75,4 @@ const DashboardSchema = new Schema(
   { timestamps: { createdAt: "dt", updatedAt: "u_dt" } }
 );
 
-module.exports = mongoose.model("Dashboard", DashboardSchema);
+module.exports = mongoose.model("Dashboards", DashboardSchema);
