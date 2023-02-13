@@ -390,7 +390,7 @@
         "description": "",
         "parameters": [
           {
-            "name": "name",
+            "name": "lang",
             "in": "query",
             "type": "string"
           }
