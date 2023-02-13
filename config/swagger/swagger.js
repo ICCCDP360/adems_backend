@@ -8,7 +8,7 @@ const doc = {
   swagger: "2.0",
   info: {
     version: "1.0.0",
-    title: "Vimal Swetha",
+    title: "Vimal",
     description: "CDP360-ADEMS-LMS RestFull Api in Swagger Framework",
     contact: {
       email: "iam@vimalv.com",
