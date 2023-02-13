@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
-    "title": "Vimal Swetha",
+    "title": "ADEMS",
     "description": "CDP360-ADEMS-LMS RestFull Api in Swagger Framework",
     "contact": {
       "email": "iam@vimalv.com"
@@ -10,7 +10,10 @@
   },
   "host": "localhost:8080",
   "basePath": "/",
-  "schemes": ["http", "https"],
+  "schemes": [
+    "http",
+    "https"
+  ],
   "paths": {
     "/": {
       "get": {
@@ -51,13 +54,16 @@
             "schema": {
               "type": "object",
               "properties": {
-                "phn_code": {
+                "ph_code": {
                   "example": "any"
                 },
-                "phn_num": {
+                "ph_num": {
                   "example": "any"
                 },
-                "holder_name": {
+                "holder": {
+                  "example": "any"
+                },
+                "student_id": {
                   "example": "any"
                 }
               }
@@ -382,7 +388,7 @@
         }
       }
     },
-    "/dashboard": {
+    "/dashboard/content": {
       "get": {
         "description": "",
         "parameters": [
@@ -410,34 +416,13 @@
             "schema": {
               "type": "object",
               "properties": {
-                "title": {
+                "tamil": {
                   "example": "any"
                 },
-                "subject": {
+                "type": {
                   "example": "any"
                 },
-                "total": {
-                  "example": "any"
-                },
-                "contenet": {
-                  "example": "any"
-                },
-                "standing": {
-                  "example": "any"
-                },
-                "avergescore": {
-                  "example": "any"
-                },
-                "totaltimespent": {
-                  "example": "any"
-                },
-                "maths": {
-                  "example": "any"
-                },
-                "science": {
-                  "example": "any"
-                },
-                "topics": {
+                "english": {
                   "example": "any"
                 }
               }
