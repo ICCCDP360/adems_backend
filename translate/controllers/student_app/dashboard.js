@@ -8,15 +8,13 @@ exports.GetDashboard = async (req, res) => {
   try {
     // get all data
     Dashboard.find().exec(function (err, users) {
-    Dashboard.find().exec(function (err, users) {
       if (users) {
-        console.log("---------------", users[0].task_rem[lang]);
         const data = {
-          task_rem: users[0].task_rem[lang],
-          notic_board: users[0].notic_board[lang],
-          standing: users[0].standing[lang],
-          performance_score: users[0].performance_score[lang],
-          topics_completed: users[0].topics_completed[lang],
+          task_rem: users[0][lang],
+          notic_board: users[1][lang],
+          standing: users[2][lang],
+          performance_score: users[3][lang],
+          topics_completed: users[4][lang],
           u_dt: users.u_dt,
           dt: users.dt,
         };
@@ -33,8 +31,9 @@ exports.GetDashboard = async (req, res) => {
 // Post dashboard
 exports.PostDashboard = async (req, res) => {
   const reqData = req.body;
+  console.log("req body", reqData);
   try {
-    const PostDashboard = new dashboard(
+    const PostDashboard = new Dashboard(
       {
         task_rem: [
           {
