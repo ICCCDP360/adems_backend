@@ -8,12 +8,14 @@ const DashboardSchema = new Schema(
         english: {
           title: { type: String },
           subject: { type: String },
-          total: { type: Array },
+          total: [],
         },
+      },
+      {
         tamil: {
           title: { type: String },
           subject: { type: String },
-          total: { type: Array },
+          total: [],
         },
       },
     ],
@@ -22,12 +24,14 @@ const DashboardSchema = new Schema(
         english: {
           title: { type: String },
           contenet: { type: String },
-          total: { type: Array },
+          total: [],
         },
+      },
+      {
         tamil: {
           title: { type: String },
           contenet: { type: String },
-          total: { type: Array },
+          total: [],
         },
       },
     ],
@@ -36,12 +40,14 @@ const DashboardSchema = new Schema(
         english: {
           standing: { type: String },
           avergescore: { type: String },
-          totaltimespent: { type: Array },
+          totaltimespent: [],
         },
+      },
+      {
         tamil: {
           standing: { type: String },
           avergescore: { type: String },
-          totaltimespent: { type: Array },
+          totaltimespent: [],
         },
       },
     ],
@@ -52,6 +58,8 @@ const DashboardSchema = new Schema(
           maths: { type: String },
           science: { type: String },
         },
+      },
+      {
         tamil: {
           title: { type: String },
           maths: { type: String },
@@ -65,6 +73,8 @@ const DashboardSchema = new Schema(
           title: { type: String },
           topics: { type: Array },
         },
+      },
+      {
         tamil: {
           title: { type: String },
           topics: { type: Array },
