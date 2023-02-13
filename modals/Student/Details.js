@@ -3,12 +3,6 @@ const Schema = mongoose.Schema;
 
 const StudentSchema = new Schema(
   {
-    _id: {
-      type: mongoose.Schema.Types.ObjectId,
-      index: true,
-      required: true,
-      auto: true,
-    },
     stu_name: { type: String, min: 4, max: 20 },
     email: { type: String, min: 5, max: 50 },
     acc_holder: { type: String },
@@ -25,4 +19,4 @@ const StudentSchema = new Schema(
   },
   { timestamps: { createdAt: "dt", updatedAt: "u_dt" } }
 );
-module.exports =mongoose.model("Details",StudentSchema);
+module.exports = mongoose.model("Details", StudentSchema);
