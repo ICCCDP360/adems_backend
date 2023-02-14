@@ -14,12 +14,12 @@ mainRouter.get("/", (req, res) => {
   res.status(200).json({ title: "admes & cdp360 backend", version: "v1.0.0" });
 });
 
-mainRouter.use(AccountHolderRouter);
-mainRouter.use(DetailsRouter); //for student
-mainRouter.use(TeacherRouter);
-mainRouter.use(SchoolRouter);
-mainRouter.use(RouterSignin);
-mainRouter.use(RouterDashboard);
-mainRouter.use(RouterSidebar);
+mainRouter.use("/student", AccountHolderRouter);
+mainRouter.use("/student", DetailsRouter); //for student
+mainRouter.use("/teacher", TeacherRouter);
+mainRouter.use("/school", SchoolRouter);
+mainRouter.use("/student", RouterSignin);
+mainRouter.use("/student", RouterDashboard);
+mainRouter.use("/student", RouterSidebar);
 
 module.exports = mainRouter;
