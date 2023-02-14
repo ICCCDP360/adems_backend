@@ -126,6 +126,9 @@
                 "city": {
                   "example": "any"
                 },
+                "acc_id": {
+                  "example": "any"
+                },
                 "sch_id": {
                   "example": "any"
                 },
@@ -389,6 +392,57 @@
       }
     },
     "/dashboard/content": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "lang",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      },
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "tamil": {
+                  "example": "any"
+                },
+                "type": {
+                  "example": "any"
+                },
+                "english": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/sidebar/content": {
       "get": {
         "description": "",
         "parameters": [
