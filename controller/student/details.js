@@ -23,7 +23,7 @@ exports.PostDetails = async (req, res) => {
   const reqData = req.body;
   console.log("req body", reqData);
   try {
-    const PostDetails = new details({
+    const PostDetails = new StudentDetails({
       stu_id: reqData.stu_id,
       stu_name: reqData.stu_name,
       email: reqData.email,
