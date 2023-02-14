@@ -470,13 +470,13 @@
             "schema": {
               "type": "object",
               "properties": {
-                "tamil": {
-                  "example": "any"
-                },
                 "type": {
                   "example": "any"
                 },
                 "english": {
+                  "example": "any"
+                },
+                "tamil": {
                   "example": "any"
                 }
               }
