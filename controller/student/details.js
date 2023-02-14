@@ -31,6 +31,7 @@ exports.PostDetails = async (req, res) => {
       dob: reqData.dob,
       gender: reqData.gender,
       city: reqData.city,
+      acc_id: reqData.acc_id,
       sch_id: reqData.sch_id,
       p_g_name: reqData.p_g_name,
       relation: reqData.relation,

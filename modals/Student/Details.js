@@ -10,6 +10,7 @@ const StudentSchema = new Schema(
     gender: { type: String },
     city: { type: String },
     sch_id: { type: Array },
+    acc_id: { type: String },
     p_g_name: { type: String },
     relation: { type: String },
     p_g_email: { type: String },
@@ -19,4 +20,4 @@ const StudentSchema = new Schema(
   },
   { timestamps: { createdAt: "dt", updatedAt: "u_dt" } }
 );
-module.exports = mongoose.model("Details", StudentSchema);
+module.exports = mongoose.model("StudentDetails", StudentSchema);
