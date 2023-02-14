@@ -1,4 +1,4 @@
-const teacherDetails = require("../modals/TeacherDetails");
+const TeacherDetails = require("../modals/TeacherDetails");
 var date = new Date();
 
 //Get Teacherdetails
@@ -6,7 +6,7 @@ exports.TeacherDetails = async(req, res) => {
     console.log(req.query.name) 
      try{
        // get all data
-        teacherDetails.find().exec(function(err, users){
+        TeacherDetails.find().exec(function(err, users){
          if(users){
            return res.status(200).json(users)
          }else if(err){
@@ -25,7 +25,7 @@ exports.TeacherDetails = async(req, res) => {
     console.log("print data fron frontend",reqData);
     try{
 
-        const PostTeacherDetails = new teacherDetails(
+        const PostTeacherDetails = new TeacherDetails(
             {
                 teacher_id:reqData.teacher_id,
                 teacher_name:reqData.teacher_name,
@@ -51,7 +51,7 @@ exports.PutTeacherDetails = async (req, res) => {
 
     try{
       // get user by name
-     const teacherDetailsFound = await teacherDetails.findOneAndUpdate({_id:id},reqData, {
+     const teacherDetailsFound = await TeacherDetails.findOneAndUpdate({_id:id},reqData, {
         new:true,
         upsert:true,
         rawResult:true,
@@ -68,7 +68,7 @@ exports.PutTeacherDetails = async (req, res) => {
   //Delete Teacherdetails
   exports.DeleteTeacherDetails=async(req,res) => {
     try {
-        const deleteFound = await teacherDetails.findOneAndDelete(req.params.id);
+        const deleteFound = await TeacherDetails.findOneAndDelete(req.params.id);
         return res.status(200).json("database deleted success");
     }
     catch(err) {
@@ -79,7 +79,7 @@ exports.PutTeacherDetails = async (req, res) => {
   // Getbyid teacherdetails
   exports.GetbyidTeacherDetails= async(req,res) => {
     try{
-      const teacherDetailsFound = await teacherDetails.findById(req.params.id);
+      const teacherDetailsFound = await TeacherDetails.findById(req.params.id);
       res.status(200).json(teacherDetailsFound);
     }
     catch(err) {

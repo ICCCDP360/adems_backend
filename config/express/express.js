@@ -23,7 +23,7 @@ module.exports = (app) => {
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
   app.use(cookieParser());
   // All Router
-  app.use(mainRouter);
+  app.use("/api/v1", mainRouter);
   app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   // app.use(auth);
 };

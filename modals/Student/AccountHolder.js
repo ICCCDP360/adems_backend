@@ -21,12 +21,7 @@ const AccountHolderSchema = new Schema(
       max: 20,
       require: ["Account Holder Name  is required (parents or guardian)"],
     },
-    student_id: [
-      {
-        type: String,
-        require: ["Student Database ID is required (parents or guardian)"],
-      },
-    ],
+    stu_id: {type:Array},
   },
   { timestamps: { createdAt: "dt", updatedAt: "u_dt" } }
 );

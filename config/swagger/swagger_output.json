@@ -63,7 +63,7 @@
                 "holder": {
                   "example": "any"
                 },
-                "student_id": {
+                "stu_id": {
                   "example": "any"
                 }
               }

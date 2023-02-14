@@ -4,14 +4,14 @@
       "english": {
         "title":"Task Remainder",
         "subject": "physics",
-        "total": ["Total", "hours"]
+        "total": ["Total", "chapter"]
       }
     },
     {
       "tamil": {
         "title":"மீதமுள்ள பணி",
         "subject": "இயற்பியல்",
-        "total": ["மொத்தம்", "மணி"]
+        "total": ["மொத்தம்", "அத்தியாயம்"]
       }
     }
   ],
@@ -37,6 +37,7 @@
     {
       "english": {
         "standing":"standing",
+        "bronze":"bronze",
         "avergescore": "percentage",
         "totaltimespent": ["hours"]
       }
@@ -44,6 +45,7 @@
     {
       "tamil": {
         "standing":"நின்று",
+        "bronze":"வெண்கலம்",
         "avergescore": "சராசரி மதிப்பெண்",
         "totaltimespent": ["மொத்த நேரத்தை செலவிடுகிறது"]
       }
