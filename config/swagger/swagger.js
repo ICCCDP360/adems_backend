@@ -2,7 +2,7 @@ const swaggerAutogen = require("swagger-autogen");
 // const mainRouter = "./main_router.js";
 const PORT = require("../credentials/config").PORT;
 const outputFile = "./config/swagger/swagger_output.json";
-const endpointsFile = ["./routers/main_router.js"];
+const endpointsFile = ["./config/express/express.js"];
 
 const doc = {
   swagger: "2.0",

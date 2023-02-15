@@ -15,7 +15,7 @@
     "https"
   ],
   "paths": {
-    "/": {
+    "/api/v1/": {
       "get": {
         "description": "",
         "parameters": [],
@@ -26,7 +26,7 @@
         }
       }
     },
-    "/accountHolder/{id}": {
+    "/api/v1/student/accountHolder/{id}": {
       "get": {
         "description": "",
         "parameters": [
@@ -44,7 +44,7 @@
         }
       }
     },
-    "/accountHolder": {
+    "/api/v1/student/accountHolder": {
       "post": {
         "description": "",
         "parameters": [
@@ -77,7 +77,7 @@
         }
       }
     },
-    "/details": {
+    "/api/v1/student/details": {
       "get": {
         "description": "",
         "parameters": [
@@ -161,7 +161,7 @@
         }
       }
     },
-    "/details/{id}": {
+    "/api/v1/student/details/{id}": {
       "put": {
         "description": "",
         "parameters": [
@@ -198,7 +198,7 @@
         }
       }
     },
-    "/teacherDetails": {
+    "/api/v1/teacher/teacherDetails": {
       "get": {
         "description": "",
         "parameters": [],
@@ -243,7 +243,7 @@
         }
       }
     },
-    "/teacherDetails/{id}": {
+    "/api/v1/teacher/teacherDetails/{id}": {
       "put": {
         "description": "",
         "parameters": [
@@ -296,7 +296,7 @@
         }
       }
     },
-    "/school": {
+    "/api/v1/school/school": {
       "get": {
         "description": "",
         "parameters": [
@@ -362,7 +362,7 @@
         }
       }
     },
-    "/school/{id}": {
+    "/api/v1/school/school/{id}": {
       "get": {
         "description": "",
         "parameters": [
@@ -380,7 +380,7 @@
         }
       }
     },
-    "/signin": {
+    "/api/v1/student/signin": {
       "post": {
         "description": "",
         "parameters": [],
@@ -391,7 +391,7 @@
         }
       }
     },
-    "/dashboard/content": {
+    "/api/v1/student/dashboard/content": {
       "get": {
         "description": "",
         "parameters": [
@@ -442,7 +442,7 @@
         }
       }
     },
-    "/sidebar/content": {
+    "/api/v1/student/sidebar/content": {
       "get": {
         "description": "",
         "parameters": [
