@@ -3,7 +3,7 @@ const router = express.Router();
 
 const controller = require("../../controller/teacherDetails");
 
-router.get("/teacherDetails",controller.GetbyidTeacherDetails);
+router.get("/teacherDetails",controller.GetTeacherDetails);
 router.post("/teacherDetails",controller.PostTeacherDetails);
 router.put("/teacherDetails/:id",controller.PutTeacherDetails);
 router.delete("/teacherDetails/:id",controller.DeleteTeacherDetails);

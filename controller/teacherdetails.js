@@ -86,3 +86,12 @@ exports.PutTeacherDetails = async (req, res) => {
       console.log(err);
     }
   };
+  exports.GetTeacherDetails = async(req, res) => {
+    try{
+      const DetailsFound = await TeacherDetails.find();
+      res.status(200).json(DetailsFound);
+    }
+    catch(err) {
+      console.log(err);
+    }
+  }
