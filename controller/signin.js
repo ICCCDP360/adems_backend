@@ -1,4 +1,5 @@
 const StudentAccount = require("../modals/Student/AccountHolder");
+const Details = require("../modals/Student/Details");
 const StudentDetials = require("../modals/Student/Details");
 var date = new Date();
 
@@ -62,6 +63,46 @@ exports.VerifyAccount = async (req, res) => {
       }
       return res.status(200).json(data);
     }
+  } catch (error) {
+    return res.status(400).json({ message: error.message });
+  }
+};
+
+// select user account
+exports.SelectAccount = async (req, res) => {
+  try {
+    const stu_id = req.body.stu_id;
+    const DetailsFound = await StudentDetials.findById(stu_id).select(
+      "_id stu_name std"
+    );
+    if (!DetailsFound)
+      return res.status(400).json({ message: "Record not Found" });
+    return res.status(200).json(DetailsFound);
+  } catch (error) {
+    return res.status(400).json({ message: error.message });
+  }
+};
+
+// set-passcode
+exports.SetPasscode = async (req, res) => {
+  try {
+    const passcode = req.body.passcode;
+    const confirm_passcode = req.body.confirm_passcode;
+    const student_id = req.body.student_id;
+    if (passcode != confirm_passcode)
+      return res
+        .status(400)
+        .json({ message: "Passcode & Confirm Passweord not Match" });
+    const DetailsFound = await StudentDetials.findById(student_id);
+    if (!DetailsFound)
+      return res.status(400).json({ message: "Details not Found" });
+
+    DetailsFound.pwd = passcode;
+    DetailsFound.verify = true;
+    const setPassword = await DetailsFound.save();
+    return res
+      .status(200)
+      .json({ message: `password set to ${DetailsFound.stu_name}` });
   } catch (error) {
     return res.status(400).json({ message: error.message });
   }
