@@ -9,10 +9,13 @@ exports.CheckAccount = async (req, res) => {
   try {
     const AccountFound = await StudentAccount.findOne({
       ph_num: reqData.ph_num,
-    }).select("_id holder ph_num stu_id");
+    }).select("stu_id verify");
     if (!AccountFound) {
       return res.status(400).json({ message: "account not found" });
     } else {
+      console.log(AccountFound, "fghjkl;");
+      if (AccountFound?.verify == false)
+        return res.status(400).json({ message: "not verify" });
       var data = [];
       for (let index = 0; index < AccountFound.stu_id.length; index++) {
         const element = AccountFound.stu_id[index];

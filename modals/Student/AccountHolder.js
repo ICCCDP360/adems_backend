@@ -22,6 +22,7 @@ const AccountHolderSchema = new Schema(
       require: ["Account Holder Name  is required (parents or guardian)"],
     },
     stu_id: { type: Array },
+    verify: { type: Boolean },
   },
   { timestamps: { createdAt: "dt", updatedAt: "u_dt" } }
 );

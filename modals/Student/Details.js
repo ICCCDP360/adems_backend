@@ -18,6 +18,7 @@ const StudentSchema = new Schema(
     p_g_contact: { type: Array },
     pwd: { type: String },
     assign_teacher: { type: String },
+    verify: { type: Boolean },
   },
   { timestamps: { createdAt: "dt", updatedAt: "u_dt" } }
 );

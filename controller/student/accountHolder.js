@@ -11,6 +11,7 @@ exports.PostAccountHolder = async (req, res) => {
       ph_num: reqData.ph_num,
       holder: reqData.holder,
       student_id: reqData.stu_id,
+      verify: false,
     });
     const savePostAccountHolder = await PostAccountHolder.save();
     res.status(200).json(savePostAccountHolder);
