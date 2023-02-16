@@ -5,6 +5,7 @@ const StudentSchema = new Schema(
   {
     stu_name: { type: String, min: 4, max: 20 },
     email: { type: String, min: 5, max: 50 },
+    std: { type: String, min: 1, max: 4 },
     acc_holder: { type: String },
     dob: { type: Date },
     gender: { type: String },

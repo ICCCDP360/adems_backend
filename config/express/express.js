@@ -23,6 +23,13 @@ module.exports = (app) => {
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
   app.use(cookieParser());
   // All Router
+  //sample router
+  app.get("/", (req, res) => {
+    res
+      .status(200)
+      .json({ title: "admes & cdp360 backend", version: "v1.0.0" });
+  });
+
   app.use("/api/v1", mainRouter);
   app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   // app.use(auth);

@@ -10,7 +10,7 @@ const AccountHolderSchema = new Schema(
       require: ["phone country code is required"],
     },
     ph_num: {
-      type: Array,
+      type: String,
       min: 8,
       max: 16,
       require: ["phone Number is required"],
@@ -21,7 +21,7 @@ const AccountHolderSchema = new Schema(
       max: 20,
       require: ["Account Holder Name  is required (parents or guardian)"],
     },
-    stu_id: {type:Array},
+    stu_id: { type: Array },
   },
   { timestamps: { createdAt: "dt", updatedAt: "u_dt" } }
 );
