@@ -1,6 +1,7 @@
 const StudentAccount = require("../modals/Student/AccountHolder");
 const Details = require("../modals/Student/Details");
 const StudentDetials = require("../modals/Student/Details");
+const jwt = require("jsonwebtoken");
 var date = new Date();
 
 // CheckAccount
@@ -32,11 +33,21 @@ exports.CheckAccount = async (req, res) => {
   }
 };
 
-// Post Signin
-exports.PostSignin = async (req, res) => {
+// Studen Login
+exports.StudentLogin = async (req, res) => {
   const reqData = req.body;
   console.log("req body", reqData);
-  res.status(200).json({ message: "login coming soon" });
+  try {
+    const studentFound = await StudentDetials.findById(reqData.student_id);
+    if (studentFound.pwd != reqData.passcode)
+      return res.status(404).json({ message: "Invaild Passcode" });
+    studentFound.pwd = "" 
+    return res.status(200).json(studentFound);
+  } catch (error) {
+    if (error.message.split(" failed for value")[0]=="Cast to ObjectId")
+      return res.status(404).json({ message: "Invaild User" });
+    return res.status(200).json({ message: error.message });
+  }
 };
 
 // Verify Account

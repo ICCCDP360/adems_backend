@@ -2,6 +2,7 @@ const express =require("express");
 const router = express.Router();
 
 const controller = require("../../controller/student/details");
+const verifyToken = require("../../middleware/jwt_token")
 
 router.get("/details",controller.GetDetails);
 router.post("/details",controller.PostDetails);
