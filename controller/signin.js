@@ -1,6 +1,5 @@
 const StudentAccount = require("../modals/Student/AccountHolder");
-const Details = require("../modals/Student/Details");
-const StudentDetials = require("../modals/Student/Details");
+const StudentDetials = require("../modals/Student/Details")
 const jwt = require("jsonwebtoken");
 var date = new Date();
 
