@@ -516,7 +516,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "student_id": {
+                "stu_id": {
                   "example": "any"
                 },
                 "passcode": {
@@ -530,8 +530,8 @@
           "200": {
             "description": "OK"
           },
-          "404": {
-            "description": "Not Found"
+          "400": {
+            "description": "Bad Request"
           }
         }
       }

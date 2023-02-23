@@ -9,6 +9,7 @@ const AuthRouter = require("./auth_router/student/signin");
 const TranslateRouter = require("../translate/routers/main_translate_router");
 const RegisterRouter = require("../routers/Register/register")
 
+
 mainRouter.use("/student", AccountHolderRouter);
 mainRouter.use("/student", DetailsRouter); //for student
 mainRouter.use("/teacher", TeacherRouter);

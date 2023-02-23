@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema =mongoose.Schema;
-
+const bcrypt = require("bcrypt")
 const RegisterauthSchema = new Schema (
     {
         stu_name: { type: String, min: 4, max: 20 },
@@ -23,4 +23,10 @@ const RegisterauthSchema = new Schema (
     },
      { timestamps: { createdAt:"dt", updatedAt:"u_dt"}}
 );
+RegisterauthSchema.pre('save', async function (next) {
+  let salt = await bcrypt.genSalt(10);
+  let hash = await bcrypt.hash(this.pwd, salt);
+  this.pwd = hash;
+  next();
+}),
 module.exports =mongoose.model("registerauth",RegisterauthSchema);

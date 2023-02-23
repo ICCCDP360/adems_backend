@@ -2,7 +2,7 @@ const StudentAccount = require("../modals/Student/AccountHolder");
 const StudentDetials = require("../modals/Student/Details")
 const jwt = require("jsonwebtoken");
 var date = new Date();
-
+const secretkey = "adem001"
 // CheckAccount
 exports.CheckAccount = async (req, res) => {
   const reqData = req.body;
@@ -32,22 +32,38 @@ exports.CheckAccount = async (req, res) => {
   }
 };
 
-// Studen Login
+// Student Login
 exports.StudentLogin = async (req, res) => {
   const reqData = req.body;
-  console.log("req body", reqData);
+  console.log("req body", reqData.stu_id);
   try {
-    const studentFound = await StudentDetials.findById(reqData.student_id);
-    if (studentFound.pwd != reqData.passcode)
-      return res.status(404).json({ message: "Invaild Passcode" });
-    studentFound.pwd = "" 
-    return res.status(200).json(studentFound);
-  } catch (error) {
-    if (error.message.split(" failed for value")[0]=="Cast to ObjectId")
-      return res.status(404).json({ message: "Invaild User" });
-    return res.status(200).json({ message: error.message });
-  }
-};
+    const StudentFound = await StudentDetials.findOne({_id:reqData.stu_id})
+        if (!StudentFound) return res.status(400).send("Invaild UserName Or Password")
+        if(StudentFound.pwd != reqData.passcode) return res.status(400).send("Invaild UserName Or Password 1")
+        console.log(StudentFound, StudentFound.pwd ,"=", reqData.passcode);
+
+            jwt.sign({StudentFound}, secretkey, { expiresIn: "1day" }, (err, token) => {
+              StudentFound.pwd = ""
+              res.json({
+                token, StudentFound
+              });
+            });
+        }
+        catch(err){
+            console.log(err)
+        }
+      }
+  //   const studentFound = await StudentDetials.findById(reqData.student_id);
+  //   if (studentFound.pwd != reqData.passcode)
+  //     return res.status(404).json({ message: "Invaild Passcode" });
+  //   studentFound.pwd = "" 
+  //   return res.status(200).json(studentFound);
+  // } catch (error) {
+  //   if (error.message.split(" failed for value")[0]=="Cast to ObjectId")
+  //     return res.status(404).json({ message: "Invaild User" });
+  //   return res.status(200).json({ message: error.message });
+  // }
+
 
 // Verify Account
 
