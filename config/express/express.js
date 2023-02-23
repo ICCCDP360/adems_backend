@@ -3,7 +3,6 @@ const cookieParser = require("cookie-parser");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("../swagger/swagger_output.json");
 const auth = require("../../middleware/auth");
-const jwt_token =require("../../middleware/jwt_token")
 const cors = require("cors");
 const corsOrgin = require("../../middleware/cors");
 const mainRouter = require("../../routers/main_router");
@@ -30,7 +29,7 @@ module.exports = (app) => {
       .status(200)
       .json({ title: "admes & cdp360 backend", version: "v1.0.0" });
   });
-
+  
   app.use("/api/v1", mainRouter);
   app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   // app.use(auth);

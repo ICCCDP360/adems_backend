@@ -1,4 +1,5 @@
 const express = require("express");
+const { token } = require("morgan");
 const { PORT } = require("./config/credentials/config.js");
 const app = express();
 require("./config/express/express")(app);
@@ -9,3 +10,6 @@ app.listen(PORT, () => {
     `swagger restfull api is running on port : http://localhost:${PORT}/doc`
   );
 });
+   
+
+

@@ -637,6 +637,72 @@
           }
         }
       }
+    },
+    "/api/v1/register/registerAuth": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "stu_id": {
+                  "example": "any"
+                },
+                "stu_name": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "contact": {
+                  "example": "any"
+                },
+                "dob": {
+                  "example": "any"
+                },
+                "gender": {
+                  "example": "any"
+                },
+                "city": {
+                  "example": "any"
+                },
+                "acc_id": {
+                  "example": "any"
+                },
+                "sch_id": {
+                  "example": "any"
+                },
+                "p_g_name": {
+                  "example": "any"
+                },
+                "relation": {
+                  "example": "any"
+                },
+                "p_g_email": {
+                  "example": "any"
+                },
+                "p_g_contact": {
+                  "example": "any"
+                },
+                "pwd": {
+                  "example": "any"
+                },
+                "assign_teacher": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   }
 }

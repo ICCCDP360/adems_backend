@@ -16,5 +16,4 @@ const auth = () => {
     next();
   };
 };
-
 module.exports = auth;
