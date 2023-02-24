@@ -22,7 +22,7 @@ exports.CheckAccount = async (req, res) => {
       var data = [];
       for (let index = 0; index < AccountFound.stu_id.length; index++) {
         const element = AccountFound.stu_id[index];
-        const UserDetialsFound = await StudentDetails.findById(element).select(
+        const UserDetailsFound = await StudentDetails.findById(element).select(
           "_id stu_name"
         );
         data.push(UserDetailsFound);
@@ -41,7 +41,9 @@ exports.StudentLogin = async (req, res) => {
   try {
     const StudentFound = await StudentDetails.findOne({_id:reqData.stu_id})
         if (!StudentFound) return res.status(400).send("Invaild UserName Or Password")
-        if(StudentFound.pwd != reqData.passcode) return res.status(400).send("Invaild UserName Or Password 1")
+        let hasValidPass = await bcrypt.compare(reqData.passcode, StudentFound.pwd);
+        if (!hasValidPass) throw { message: "Invalid email or password" }
+    
         console.log(StudentFound, StudentFound.pwd ,"=", reqData.passcode);
 
             jwt.sign({StudentFound}, secretkey, { expiresIn: "1day" }, (err, token) => {
