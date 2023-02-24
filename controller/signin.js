@@ -41,7 +41,9 @@ exports.StudentLogin = async (req, res) => {
   try {
     const StudentFound = await StudentDetails.findOne({_id:reqData.stu_id})
         if (!StudentFound) return res.status(400).send("Invaild UserName Or Password")
-        if(StudentFound.pwd != reqData.passcode) return res.status(400).send("Invaild UserName Or Password 1")
+        let hasValidPass = await bcrypt.compare(reqData.passcode, StudentFound.pwd);
+        if (!hasValidPass) throw { message: "Invalid email or password" }
+    
         console.log(StudentFound, StudentFound.pwd ,"=", reqData.passcode);
 
             jwt.sign({StudentFound}, secretkey, { expiresIn: "1day" }, (err, token) => {
