@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const bcrypt = require("bcrypt")
 
 const SchoolSchema = new Schema(
     {
@@ -23,12 +24,24 @@ const SchoolSchema = new Schema(
         min:2,
         max:16
       },
+      logo:{type:String},
       teacher:{type:Array},
       student:{type:Array},
       user_name:{type:String},
-      pwd:{type:String},
+      pwd: {
+        type: String,
+        trim: true,
+        required: ['Password is required'],
+        minlength: [8, 'Password should be at least 8 characters long']
+    },
       goadem_admin:{type:String}
     },
     { timestamps: { createdAt:"dt", updatedAt:"u_dt"}},
 );
+SchoolSchema.pre('save', async function (next) {
+  let salt = await bcrypt.genSalt(10);
+  let hash = await bcrypt.hash(this.pwd, salt);
+  this.pwd = hash;
+  next();
+}),
 module.exports =mongoose.model("Schooldetails",SchoolSchema);

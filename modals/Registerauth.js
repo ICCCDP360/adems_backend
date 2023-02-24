@@ -16,7 +16,12 @@ const RegisterauthSchema = new Schema (
         relation: { type: String },
         p_g_email: { type: String },
         p_g_contact: { type: Array },
-        pwd: { type: String},
+        pwd: {
+          type: String,
+          trim: true,
+          required: ['Password is required'],
+          minlength: [8, 'Password should be at least 8 characters long']
+      },
         assign_teacher: { type: String },
         verify: { type: Boolean },
        

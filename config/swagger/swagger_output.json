@@ -198,7 +198,7 @@
         }
       }
     },
-    "/api/v1/teacher/teacherDetails": {
+    "/api/v1/teacher/teacherDetail": {
       "get": {
         "description": "",
         "parameters": [
@@ -216,7 +216,9 @@
             "description": "Bad Request"
           }
         }
-      },
+      }
+    },
+    "/api/v1/teacher/teacherDetails": {
       "post": {
         "description": "",
         "parameters": [
@@ -308,67 +310,13 @@
     "/api/v1/school/school": {
       "get": {
         "description": "",
-        "parameters": [
-          {
-            "name": "name",
-            "in": "query",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
+        "parameters": [],
+        "responses": {}
       },
       "post": {
         "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "sch_id": {
-                  "example": "any"
-                },
-                "sch_name": {
-                  "example": "any"
-                },
-                "address": {
-                  "example": "any"
-                },
-                "city": {
-                  "example": "any"
-                },
-                "teacher": {
-                  "example": "any"
-                },
-                "student": {
-                  "example": "any"
-                },
-                "user_name": {
-                  "example": "any"
-                },
-                "pwd": {
-                  "example": "any"
-                },
-                "goadem_admin": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
+        "parameters": [],
+        "responses": {}
       }
     },
     "/api/v1/school/school/{id}": {
@@ -382,11 +330,14 @@
             "type": "string"
           }
         ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
+        "responses": {}
+      }
+    },
+    "/api/v1/school/signin": {
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
       }
     },
     "/api/v1/student/check-account": {

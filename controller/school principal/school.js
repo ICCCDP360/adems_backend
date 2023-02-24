@@ -1,4 +1,4 @@
-const SchoolDetails = require("../modals/School");
+const SchoolDetails = require("../../modals/school principal/School");
 var date = new Date();
 
 //Get Sch_principal
@@ -28,6 +28,7 @@ exports.PostSchool = async (req, res) => {
       sch_name: reqData.sch_name,
       address: reqData.address,
       city: reqData.city,
+      logo:reqData.logo,
       teacher: reqData.teacher,
       student: reqData.student,
       user_name: reqData.user_name,
@@ -40,6 +41,28 @@ exports.PostSchool = async (req, res) => {
     console.log(err);
   }
 };
+
+// School Login
+exports.SchoolLogin = async (req, res) => {
+  const reqData = req.body;
+  console.log("req body", reqData.sch_id);
+  try {
+    const SchoolFound = await SchoolDetails.findOne({_id:reqData.sch_id})
+        if (!SchoolFound) return res.status(400).send("Invaild UserName Or Password")
+        if(SchoolFound.pwd != reqData.passcode) return res.status(400).send("Invaild UserName Or Password 1")
+        console.log(SchoolFound, SchoolFound.pwd ,"=", reqData.passcode);
+
+            jwt.sign({SchoolFound}, secretkey, { expiresIn: "1day" }, (err, token) => {
+              SchoolFound.pwd = ""
+              res.json({
+                token, SchoolFound
+              });
+            });
+        }
+        catch(err){
+            console.log(err)
+        }
+      }
 
 //Getbyid Sch_principal
 exports.GetbyidSchool = async (req, res) => {

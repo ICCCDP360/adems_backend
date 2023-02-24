@@ -30,5 +30,6 @@ const TeacherSchema = new Schema(
     },
   },
   { timestamps: { createdAt:"dt", updatedAt:"u_dt"}}, 
+  
 );
 module.exports = mongoose.model("TeacherDetails", TeacherSchema);
