@@ -1,6 +1,8 @@
 const StudentAccount = require("../modals/Student/AccountHolder");
-const StudentDetials = require("../modals/Student/Details")
+const StudentDetails = require("../modals/Student/Details")
 const jwt = require("jsonwebtoken");
+const { SECRET } = require('../config/credentials/config');
+const bcrypt = require('bcrypt');
 var date = new Date();
 const secretkey = "adem001"
 // CheckAccount
@@ -20,10 +22,10 @@ exports.CheckAccount = async (req, res) => {
       var data = [];
       for (let index = 0; index < AccountFound.stu_id.length; index++) {
         const element = AccountFound.stu_id[index];
-        const UserDetialsFound = await StudentDetials.findById(element).select(
+        const UserDetialsFound = await StudentDetails.findById(element).select(
           "_id stu_name"
         );
-        data.push(UserDetialsFound);
+        data.push(UserDetailsFound);
       }
       return res.status(200).json(data);
     }
@@ -37,7 +39,7 @@ exports.StudentLogin = async (req, res) => {
   const reqData = req.body;
   console.log("req body", reqData.stu_id);
   try {
-    const StudentFound = await StudentDetials.findOne({_id:reqData.stu_id})
+    const StudentFound = await StudentDetails.findOne({_id:reqData.stu_id})
         if (!StudentFound) return res.status(400).send("Invaild UserName Or Password")
         if(StudentFound.pwd != reqData.passcode) return res.status(400).send("Invaild UserName Or Password 1")
         console.log(StudentFound, StudentFound.pwd ,"=", reqData.passcode);
@@ -53,17 +55,7 @@ exports.StudentLogin = async (req, res) => {
             console.log(err)
         }
       }
-  //   const studentFound = await StudentDetials.findById(reqData.student_id);
-  //   if (studentFound.pwd != reqData.passcode)
-  //     return res.status(404).json({ message: "Invaild Passcode" });
-  //   studentFound.pwd = "" 
-  //   return res.status(200).json(studentFound);
-  // } catch (error) {
-  //   if (error.message.split(" failed for value")[0]=="Cast to ObjectId")
-  //     return res.status(404).json({ message: "Invaild User" });
-  //   return res.status(200).json({ message: error.message });
-  // }
-
+  
 
 // Verify Account
 
@@ -82,10 +74,10 @@ exports.VerifyAccount = async (req, res) => {
       var data = [];
       for (let index = 0; index < AccountFound.stu_id.length; index++) {
         const element = AccountFound.stu_id[index];
-        const UserDetialsFound = await StudentDetials.findById(element).select(
+        const UserDetailsFound = await StudentDetails.findById(element).select(
           "_id stu_name"
         );
-        data.push(UserDetialsFound);
+        data.push(UserDetailsFound);
       }
       return res.status(200).json(data);
     }
@@ -98,7 +90,7 @@ exports.VerifyAccount = async (req, res) => {
 exports.SelectAccount = async (req, res) => {
   try {
     const stu_id = req.body.stu_id;
-    const DetailsFound = await StudentDetials.findById(stu_id).select(
+    const DetailsFound = await StudentDetails.findById(stu_id).select(
       "_id stu_name std"
     );
     if (!DetailsFound)
@@ -118,8 +110,8 @@ exports.SetPasscode = async (req, res) => {
     if (passcode != confirm_passcode)
       return res
         .status(400)
-        .json({ message: "Passcode & Confirm Passweord not Match" });
-    const DetailsFound = await StudentDetials.findById(student_id);
+        .json({ message: "Passcode & Confirm Passcode not Match" });
+    const DetailsFound = await StudentDetails.findById(student_id);
     if (!DetailsFound)
       return res.status(400).json({ message: "Details not Found" });
 
@@ -128,8 +120,10 @@ exports.SetPasscode = async (req, res) => {
     const setPassword = await DetailsFound.save();
     return res
       .status(200)
-      .json({ message: `password set to ${DetailsFound.stu_name}` });
+      .json({ message: `Passcode set to ${DetailsFound.stu_name}` });
   } catch (error) {
     return res.status(400).json({ message: error.message });
   }
 };
+
+
