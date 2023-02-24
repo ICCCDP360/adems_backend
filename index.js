@@ -10,6 +10,3 @@ app.listen(PORT, () => {
     `swagger restfull api is running on port : http://localhost:${PORT}/doc`
   );
 });
-   
-
-

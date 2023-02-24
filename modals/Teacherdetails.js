@@ -3,33 +3,32 @@ const Schema = mongoose.Schema;
 
 const TeacherSchema = new Schema(
   {
-    teacher_id:{ 
+    teacher_id: {
       type: String,
-      min:5,
-      max:10
+      min: 5,
+      max: 10,
     },
-    teacher_name:{ 
-      type:String,
-      min:4,
-      max:25
+    teacher_name: {
+      type: String,
+      min: 4,
+      max: 25,
     },
-    phn_num:{ 
-      type:Array,
-      min:5,
-      max:15
-    },
-    classes:{ 
+    phn_num: {
       type: Array,
-      min:2,
-      max:16
+      min: 5,
+      max: 15,
     },
-    subjects:{ 
+    classes: {
       type: Array,
-      min:2,
-      max:50
+      min: 2,
+      max: 16,
+    },
+    subjects: {
+      type: Array,
+      min: 2,
+      max: 50,
     },
   },
-  { timestamps: { createdAt:"dt", updatedAt:"u_dt"}}, 
-  
+  { timestamps: { createdAt: "dt", updatedAt: "u_dt" } }
 );
 module.exports = mongoose.model("TeacherDetails", TeacherSchema);

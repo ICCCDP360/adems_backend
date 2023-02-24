@@ -1,4 +1,4 @@
-const TeacherDetails = require("../modals/TeacherDetails");
+const TeacherDetails = require("../modals/Teacherdetails");
 var date = new Date();
 
 //Get Teacherdetails

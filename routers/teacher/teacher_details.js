@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const controller = require("../../controller/teacherDetails");
+const controller = require("../../controller/teacherdetails");
 
 router.get("/teacherDetail", controller.GetTeacherDetails);
 router.post("/teacherDetails", controller.PostTeacherDetails);
