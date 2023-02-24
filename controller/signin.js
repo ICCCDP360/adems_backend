@@ -22,7 +22,7 @@ exports.CheckAccount = async (req, res) => {
       var data = [];
       for (let index = 0; index < AccountFound.stu_id.length; index++) {
         const element = AccountFound.stu_id[index];
-        const UserDetialsFound = await StudentDetails.findById(element).select(
+        const UserDetailsFound = await StudentDetails.findById(element).select(
           "_id stu_name"
         );
         data.push(UserDetailsFound);
