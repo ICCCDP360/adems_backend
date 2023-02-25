@@ -7,7 +7,6 @@ const DetailsRouter = require("./student/details");
 const SchoolRouter = require("./schoolPrincipal/school");
 const AuthRouter = require("./auth_router/student/signin");
 const TranslateRouter = require("../translate/routers/main_translate_router");
-const RegisterRouter = require("../routers/Register/register");
 
 mainRouter.use("/student", AccountHolderRouter);
 mainRouter.use("/student", DetailsRouter); //for student
@@ -15,6 +14,5 @@ mainRouter.use("/student", DetailsRouter); //for student
 mainRouter.use("/school", SchoolRouter);
 mainRouter.use("/student", AuthRouter);
 mainRouter.use("/student", TranslateRouter);
-mainRouter.use("/register", RegisterRouter);
 
 module.exports = mainRouter;

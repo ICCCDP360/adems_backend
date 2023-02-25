@@ -1,11 +1,11 @@
-const express =require("express");
+const express = require("express");
 const router = express.Router();
 
 const controller = require("../../controller/student/details");
 
-router.get("/details",controller.GetDetails);
-router.post("/details",controller.PostDetails);
-router.put("/details/:id",controller.PutDetails);
-router.get("/details/:id",controller.GetbyidDetails);
+router.get("/details", controller.getStudentDetails);
+router.post("/register", controller.addStudentDetails);
+router.put("/details/:id", controller.updateStudentDetail);
+router.get("/details/:id", controller.getByIdStudentDetails);
 
 module.exports = router;

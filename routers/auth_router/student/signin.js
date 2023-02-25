@@ -8,6 +8,8 @@ router.post("/check-account", controller.CheckAccount);
 router.post("/verify-account", controller.VerifyAccount);
 router.post("/select-account", controller.SelectAccount);
 router.post("/set-passcode", controller.SetPasscode);
-router.post("/signin",controller.StudentLogin);
+router.post("/signin", controller.StudentLogin);
+// refertoken router
+router.post("/refreshtoken", controller.refreshToken);
 
 module.exports = router;

@@ -95,7 +95,9 @@
             "description": "Bad Request"
           }
         }
-      },
+      }
+    },
+    "/api/v1/student/register": {
       "post": {
         "description": "",
         "parameters": [
@@ -198,128 +200,21 @@
         }
       }
     },
-    "/api/v1/teacher/teacherDetail": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "name",
-            "in": "query",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/api/v1/teacher/teacherDetails": {
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "teacher_id": {
-                  "example": "any"
-                },
-                "teacher_name": {
-                  "example": "any"
-                },
-                "phn_num": {
-                  "example": "any"
-                },
-                "classes": {
-                  "example": "any"
-                },
-                "subjects": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/v1/teacher/teacherDetails/{id}": {
-      "put": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      },
-      "delete": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/v1/school/school": {
+    "/api/v1/school/details": {
       "get": {
         "description": "",
         "parameters": [],
         "responses": {}
-      },
+      }
+    },
+    "/api/v1/school/add-school": {
       "post": {
         "description": "",
         "parameters": [],
         "responses": {}
       }
     },
-    "/api/v1/school/school/{id}": {
+    "/api/v1/school/{id}": {
       "get": {
         "description": "",
         "parameters": [
@@ -487,6 +382,33 @@
         }
       }
     },
+    "/api/v1/student/refreshtoken": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "refreshToken": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
     "/api/v1/student/dashboard/content": {
       "get": {
         "description": "",
@@ -585,72 +507,6 @@
           },
           "400": {
             "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/api/v1/register/registerAuth": {
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "stu_id": {
-                  "example": "any"
-                },
-                "stu_name": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                },
-                "contact": {
-                  "example": "any"
-                },
-                "dob": {
-                  "example": "any"
-                },
-                "gender": {
-                  "example": "any"
-                },
-                "city": {
-                  "example": "any"
-                },
-                "acc_id": {
-                  "example": "any"
-                },
-                "sch_id": {
-                  "example": "any"
-                },
-                "p_g_name": {
-                  "example": "any"
-                },
-                "relation": {
-                  "example": "any"
-                },
-                "p_g_email": {
-                  "example": "any"
-                },
-                "p_g_contact": {
-                  "example": "any"
-                },
-                "pwd": {
-                  "example": "any"
-                },
-                "assign_teacher": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
           }
         }
       }

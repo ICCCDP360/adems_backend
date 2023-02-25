@@ -1,10 +1,11 @@
 const StudentAccount = require("../modals/Student/AccountHolder");
-const StudentDetails = require("../modals/Student/Details")
+const StudentDetails = require("../modals/Student/Details");
+const RefreshToken = require("../modals/Token/RefreshTokens");
 const jwt = require("jsonwebtoken");
-const { SECRET } = require('../config/credentials/config');
-const bcrypt = require('bcrypt');
+const { SECRET } = require("../config/credentials/config");
+const bcrypt = require("bcrypt");
 var date = new Date();
-const secretkey = "adem001"
+const secretkey = "adem001";
 // CheckAccount
 exports.CheckAccount = async (req, res) => {
   const reqData = req.body;
@@ -39,25 +40,74 @@ exports.StudentLogin = async (req, res) => {
   const reqData = req.body;
   console.log("req body", reqData.stu_id);
   try {
-    const StudentFound = await StudentDetails.findOne({_id:reqData.stu_id})
-        if (!StudentFound) return res.status(400).send("Invaild UserName Or Password")
-        let hasValidPass = await bcrypt.compare(reqData.passcode, StudentFound.pwd);
-        if (!hasValidPass) throw { message: "Invalid email or password" }
-    
-        console.log(StudentFound, StudentFound.pwd ,"=", reqData.passcode);
+    const StudentFound = await StudentDetails.findOne({ _id: reqData.stu_id });
+    console.log(StudentFound);
+    if (!StudentFound)
+      return res.status(400).send("Invaild UserName Or Password");
+    let hasValidPass = await bcrypt.compare(reqData.passcode, StudentFound.pwd);
+    if (!hasValidPass) throw { message: "Invalid email or password" };
 
-            jwt.sign({StudentFound}, secretkey, { expiresIn: "1day" }, (err, token) => {
-              StudentFound.pwd = ""
-              res.json({
-                token, StudentFound
-              });
-            });
-        }
-        catch(err){
-            console.log(err)
-        }
+    console.log(StudentFound, StudentFound.pwd, "=", reqData.passcode);
+    StudentFound.pwd = "";
+    let refreshToken = await RefreshToken.createToken(StudentFound);
+    jwt.sign(
+      { StudentFound },
+      secretkey,
+      { expiresIn: "1day" },
+      (err, token) => {
+        res.json({
+          token,
+          type: "Bareer",
+          refreshToken,
+          StudentFound,
+        });
       }
-  
+    );
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// refertoken generator
+exports.refreshToken = async (req, res) => {
+  const { refreshToken: requestToken } = req.body;
+
+  if (requestToken == null) {
+    return res.status(403).json({ message: "Refresh Token is required!" });
+  }
+
+  try {
+    let refreshToken = await RefreshToken.findOne({ token: requestToken });
+
+    if (!refreshToken) {
+      res.status(403).json({ message: "Refresh token is not in database!" });
+      return;
+    }
+    console.log(RefreshToken.verifyExpiration(refreshToken));
+    if (RefreshToken.verifyExpiration(refreshToken)) {
+      RefreshToken.findByIdAndRemove(refreshToken._id, {
+        useFindAndModify: false,
+      }).exec();
+
+      res.status(403).json({
+        message: "Refresh token was expired. Please make a new signin request",
+      });
+      return;
+    }
+
+    let newAccessToken = jwt.sign({ id: refreshToken.user._id }, secretkey, {
+      expiresIn: process.env.jwtExpiration,
+    });
+
+    return res.status(200).json({
+      accessToken: newAccessToken,
+      refreshToken: refreshToken.token,
+    });
+  } catch (err) {
+    console.log(err);
+    // return res.status(500).send({ message: err });
+  }
+};
 
 // Verify Account
 
@@ -128,4 +178,31 @@ exports.SetPasscode = async (req, res) => {
   }
 };
 
-
+// //post Registerauth
+// exports.PostRegisterauth = async (req, res) => {
+//   const reqData = req.body;
+//   console.log("req body", reqData);
+//   try {
+//     const PostRegisterauth = new registerAuth({
+//       stu_id: reqData.stu_id,
+//       stu_name: reqData.stu_name,
+//       email: reqData.email,
+//       contact: reqData.contact,
+//       dob: reqData.dob,
+//       gender: reqData.gender,
+//       city: reqData.city,
+//       acc_id: reqData.acc_id,
+//       sch_id: reqData.sch_id,
+//       p_g_name: reqData.p_g_name,
+//       relation: reqData.relation,
+//       p_g_email: reqData.p_g_email,
+//       p_g_contact: reqData.p_g_contact,
+//       pwd: reqData.pwd,
+//       assign_teacher: reqData.assign_teacher,
+//     });
+//     const savePostRegisterauth = await PostRegisterauth.save();
+//     res.status(200).json(savePostRegisterauth);
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };

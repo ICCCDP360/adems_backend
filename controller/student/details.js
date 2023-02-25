@@ -2,7 +2,7 @@ const StudentDetails = require("../../modals/Student/Details");
 var date = new Date();
 
 //Get Studentdetails
-exports.GetDetails = async (req, res) => {
+exports.getStudentDetails = async (req, res) => {
   console.log(req.query.name);
   try {
     // get all data
@@ -18,12 +18,12 @@ exports.GetDetails = async (req, res) => {
   }
 };
 
-// Post Studentdetails
-exports.PostDetails = async (req, res) => {
+//post Registerauth
+exports.addStudentDetails = async (req, res) => {
   const reqData = req.body;
   console.log("req body", reqData);
   try {
-    const PostDetails = new StudentDetails({
+    const StudentRegister = new StudentDetails({
       stu_id: reqData.stu_id,
       stu_name: reqData.stu_name,
       email: reqData.email,
@@ -40,15 +40,15 @@ exports.PostDetails = async (req, res) => {
       pwd: reqData.pwd,
       assign_teacher: reqData.assign_teacher,
     });
-    const savePostDetails = await PostDetails.save();
-    res.status(200).json(savePostDetails);
+    const Respone = await StudentRegister.save();
+    res.status(200).json(Respone);
   } catch (err) {
     console.log(err);
   }
 };
 
 //Put or Update Studentdetails
-exports.PutDetails = async (req, res) => {
+exports.updateStudentDetail = async (req, res) => {
   const reqData = req.body;
   const id = req.params.id;
   console.log("req body", id);
@@ -75,7 +75,7 @@ exports.PutDetails = async (req, res) => {
 };
 
 //Getbyid Studentdetails
-exports.GetbyidDetails = async (req, res) => {
+exports.getByIdStudentDetails = async (req, res) => {
   try {
     const detailsFound = await StudentDetails.findById(req.params.id);
     res.status(200).json(detailsFound);
