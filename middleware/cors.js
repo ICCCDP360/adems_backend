@@ -2,7 +2,11 @@ function cors(req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", [
     "http://localhost:3000",
     "http://localhost:3001",
-    "https://student.cdp360.in",
+    "https://student.cdp360.com",
+    "https://student.goadem.com",
+    "https://students.cdp360.com",
+    "https://students.goadem.com",
+
   ]);
   res.setHeader(
     "Access-Control-Allow-Methods",
