@@ -18,7 +18,7 @@ module.exports = (app) => {
       "http://localhost:3000", 
       "https://student.cdp360.in",
       "https://student.goadem.com",
-      "https://students.cdp360.com",
+      "https://students.cdp360.in",
       "https://students.goadem.com"
     ],
       credentials: true,
