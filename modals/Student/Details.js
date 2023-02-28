@@ -6,6 +6,7 @@ const StudentSchema = new Schema(
     stu_name: { type: String, min: 4, max: 20 },
     email: { type: String, min: 5, max: 50 },
     std: { type: String, min: 1, max: 4 },
+    roll_no: { type: String },
     acc_holder: { type: String },
     dob: { type: Date },
     gender: { type: String },
@@ -16,6 +17,7 @@ const StudentSchema = new Schema(
     relation: { type: String },
     p_g_email: { type: String },
     p_g_contact: { type: Array },
+    points: { type: String, default: "100" },
     pwd: {
       type: String,
       trim: true,

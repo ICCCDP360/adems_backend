@@ -4,6 +4,8 @@ const RefreshToken = require("../modals/Token/RefreshTokens");
 const jwt = require("jsonwebtoken");
 const { SECRET } = require("../config/credentials/config");
 const bcrypt = require("bcrypt");
+const AccountHolder = require("../modals/Student/AccountHolder");
+const School = require("../modals/school principal/School");
 var date = new Date();
 const secretkey = "adem001";
 // CheckAccount
@@ -41,15 +43,29 @@ exports.StudentLogin = async (req, res) => {
   console.log("req body", reqData.stu_id);
   try {
     const StudentFound = await StudentDetails.findOne({ _id: reqData.stu_id });
-    console.log(StudentFound);
     if (!StudentFound)
       return res.status(400).send("Invaild UserName Or Password");
     let hasValidPass = await bcrypt.compare(reqData.passcode, StudentFound.pwd);
     if (!hasValidPass) throw { message: "Invalid email or password" };
-
-    console.log(StudentFound, StudentFound.pwd, "=", reqData.passcode);
     StudentFound.pwd = "";
     let refreshToken = await RefreshToken.createToken(StudentFound);
+    var otherACC = [];
+    const FindOtherAccount = await AccountHolder.findById(StudentFound.acc_id);
+    for (let index = 0; index < FindOtherAccount.stu_id.length; index++) {
+      const element = FindOtherAccount.stu_id[index];
+      console.log(element != StudentFound._id);
+      if (element != StudentFound._id) {
+        console.log(element, "tfyguhijok");
+        const accD = await StudentDetails.findById(element).select(
+          "email stu_name dp"
+        );
+        otherACC.push(accD);
+      }
+    }
+    console.log(StudentFound.sch_id.slice(-1)[0]);
+    let schoolFound = await School.findById(StudentFound.sch_id.slice(-1)[0]);
+    schoolFound.pwd = "";
+
     jwt.sign(
       { StudentFound },
       secretkey,
@@ -57,9 +73,11 @@ exports.StudentLogin = async (req, res) => {
       (err, token) => {
         res.json({
           token,
+          otherACC,
           type: "Bareer",
           refreshToken,
           StudentFound,
+          schoolFound,
         });
       }
     );
