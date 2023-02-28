@@ -14,7 +14,13 @@ module.exports = (app) => {
   app.use(logger("dev"));
   app.use(
     cors({
-      origin: ["http://localhost:3000", "https://student.cdp360.in"],
+      origin: [
+      "http://localhost:3000", 
+      "https://student.cdp360.in",
+      "https://student.goadem.com",
+      "https://students.cdp360.com",
+      "https://students.goadem.com"
+    ],
       credentials: true,
     })
   );
