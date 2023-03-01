@@ -48,6 +48,18 @@ exports.StudentLogin = async (req, res) => {
     let hasValidPass = await bcrypt.compare(reqData.passcode, StudentFound.pwd);
     if (!hasValidPass) throw { message: "Invalid email or password" };
     StudentFound.pwd = "";
+    var schoolFound;
+    try {
+      schoolFound = await School.findOne({
+        _id: StudentFound.sch_id.slice(-1)[0],
+      });
+      if (!schoolFound) {
+        schoolFound = { message: "school not found" };
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+
     let refreshToken = await RefreshToken.createToken(StudentFound);
     var otherACC = [];
     const FindOtherAccount = await AccountHolder.findById(StudentFound.acc_id);
@@ -56,15 +68,13 @@ exports.StudentLogin = async (req, res) => {
       console.log(element != StudentFound._id);
       if (element != StudentFound._id) {
         console.log(element, "tfyguhijok");
+
         const accD = await StudentDetails.findById(element).select(
           "email stu_name dp"
         );
-        otherACC.push(accD);
+        if (accD) otherACC.push(accD);
       }
     }
-    console.log(StudentFound.sch_id.slice(-1)[0]);
-    let schoolFound = await School.findById(StudentFound.sch_id.slice(-1)[0]);
-    schoolFound.pwd = "";
 
     jwt.sign(
       { StudentFound },
