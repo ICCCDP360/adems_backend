@@ -42,13 +42,13 @@ exports.StudentLogin = async (req, res) => {
   const reqData = req.body;
   console.log("req body", reqData.stu_id);
   try {
+    var schoolFound = [];
     const StudentFound = await StudentDetails.findOne({ _id: reqData.stu_id });
     if (!StudentFound)
       return res.status(400).send("Invaild UserName Or Password");
     let hasValidPass = await bcrypt.compare(reqData.passcode, StudentFound.pwd);
     if (!hasValidPass) throw { message: "Invalid email or password" };
     StudentFound.pwd = "";
-    var schoolFound;
     try {
       schoolFound = await School.findOne({
         _id: StudentFound.sch_id.slice(-1)[0],
