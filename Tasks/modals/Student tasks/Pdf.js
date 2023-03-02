@@ -3,6 +3,11 @@ const Schema = mongoose.Schema;
 
 const PdfSchema = new Schema(
 {
+    type: { type: String, require: ["type require"], unique: true },
+    lang: {
+      english: {type:String},
+      tamil: {type:String},
+    },
     title:{
         type:String,
         require:["type Required"],

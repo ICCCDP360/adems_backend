@@ -24,7 +24,7 @@ const SchoolSchema = new Schema(
       min: 2,
       max: 16,
     },
-    logo: { type: String },
+    logo: { type: String, default:"https://www.shutterstock.com/image-vector/school-building-logo-260nw-769246243.jpg" },
     teacher: { type: Array },
     student: { type: Array },
     user_name: { type: String },

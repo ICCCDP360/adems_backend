@@ -3,30 +3,29 @@ const Schema = mongoose.Schema;
 
 const AssessmentSchema = new Schema(
 {
-    que_id:{
-        type:String,
-        require:["type Required"],
-        min:5,
-        max:10
-    },
-    que_title:{
+    type: { type: String, require: ["type require"], unique: true },
+    lang: {
+      english: {type:String},
+      tamil: {type:String},
+    },  
+    title:{
         type:String,
         require:["type Required"],
         min:4,max:20
     },
-    thumnail_url:{
+    thumnail:{
         type:String,
         require:["type Required"],
         min:5,
         max:50
     },
-    que_cat:{
+    catageory:{
         type:Array,
         require:["type Required"],
         min:6,
         max:16
     },
-    questions:{type:Date},
+    questions:{type:Array},
     assign_to:{type:Array},
     duration:{type:String},
     size:{type:String},
