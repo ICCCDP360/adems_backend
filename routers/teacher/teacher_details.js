@@ -3,10 +3,10 @@ const router = express.Router();
 
 const controller = require("../../controller/teacherdetails");
 
-router.get("/teacherDetail", controller.GetTeacherDetails);
-router.post("/teacherDetails", controller.PostTeacherDetails);
-router.put("/teacherDetails/:id", controller.PutTeacherDetails);
-router.delete("/teacherDetails/:id", controller.DeleteTeacherDetails);
-router.get("/teacherDetails/:id", controller.GetbyidTeacherDetails);
+router.get("/details", controller.getDetails);
+router.post("/details", controller.createDetails);
+router.put("/details/:id", controller.updateDetails);
+router.delete("/details/:id", controller.deleteDetails);
+router.get("/details/:id", controller.getByIdDetails);
 
 module.exports = router;
