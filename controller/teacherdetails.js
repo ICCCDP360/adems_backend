@@ -2,7 +2,7 @@ const TeacherDetails = require("../modals/Teacherdetails");
 var date = new Date();
 
 //Get Teacherdetails
-exports.GetTeacherDetails = async (req, res) => {
+exports.getDetails = async (req, res) => {
   console.log(req.query.name);
   try {
     // get all data
@@ -19,7 +19,7 @@ exports.GetTeacherDetails = async (req, res) => {
 };
 
 // Post teacherdetails
-exports.PostTeacherDetails = async (req, res) => {
+exports.createDetails = async (req, res) => {
   const reqData = req.body;
   console.log("print data fron frontend", reqData);
   try {
@@ -38,7 +38,7 @@ exports.PostTeacherDetails = async (req, res) => {
 };
 
 //Put or Update teacherdetails
-exports.PutTeacherDetails = async (req, res) => {
+exports.updateDetails = async (req, res) => {
   const reqData = req.body;
   const id = req.params.id;
   console.log("print data", id);
@@ -64,17 +64,17 @@ exports.PutTeacherDetails = async (req, res) => {
   }
 };
 //Delete Teacherdetails
-exports.DeleteTeacherDetails = async (req, res) => {
+exports.deleteDetails = async (req, res) => {
   try {
     const deleteFound = await TeacherDetails.findOneAndDelete(req.params.id);
-    return res.status(200).json("database deleted success");
+    return res.status(200).json("database deleted success" + deleteFound);
   } catch (err) {
     console.log(err);
   }
 };
 
 // Getbyid teacherdetails
-exports.GetbyidTeacherDetails = async (req, res) => {
+exports.getByIdDetails = async (req, res) => {
   try {
     const teacherDetailsFound = await TeacherDetails.findById(req.params.id);
     res.status(200).json(teacherDetailsFound);
