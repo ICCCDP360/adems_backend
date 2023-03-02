@@ -49,7 +49,7 @@ exports.addSchoolDetails = async (req, res) => {
 exports.schoolAdminLogin = async (req, res) => {
   const reqData = req.body;
 
-  console.log("req body", reqData.user_name);
+  console.log("req body", reqData.sch_id);
   try {
     const SchoolFound = await SchoolDetails.findOne({
       sch_id: reqData.sch_id,
