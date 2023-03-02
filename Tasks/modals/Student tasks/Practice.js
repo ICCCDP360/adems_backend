@@ -3,24 +3,23 @@ const Schema = mongoose.Schema;
 
 const PracticeSchema = new Schema(
 {
-    que_id:{
-        type:String,
-        require:["type Required"],
-        min:5,
-        max:10
+    type: { type: String, require: ["type require"], unique: true },
+    lang: {
+      english: {type:String},
+      tamil: {type:String},
     },
-    que_title:{
+    title:{
         type:String,
         require:["type Required"],
         min:4,max:20
     },
-    thumnail_url:{
+    thumnail:{
         type:String,
         require:["type Required"],
         min:5,
         max:50
     },
-    que_cat:{
+    catageory:{
         type:Array,
         require:["type Required"],
         min:6,

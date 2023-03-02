@@ -44,11 +44,10 @@ exports.PostPractice = async (req, res) => {
           english: reqData.english,
           tamil: reqData.tamil,
         },
-        que_id:reqData.vid_id,
-        que_title:reqData.vid_title,
-        thumnail_url:reqData.thumnail_url,
-        que_cat:reqData.vide_cat,
-        questions:reqData.video_url,
+        title:reqData.title,
+        thumnail:reqData.thumnail,
+        catageory:reqData.catageory,
+        questions:reqData.questions,
         assign_to:reqData.assign_to,
         duration:reqData.duration,
         size:reqData.size,
@@ -56,7 +55,7 @@ exports.PostPractice = async (req, res) => {
         reviewed_by:reqData.reviewed_by,
         approved_by:reqData.approved_by
       });
-      const savePostPractice = await practice.save();
+      const savePostPractice = await Practice.save();
       res.status(200).json(savePostPractice);
     } catch (err) {
       if (err.message.split(" ")[0] == "A1000") {
@@ -69,11 +68,11 @@ exports.PostPractice = async (req, res) => {
 
   // Getbyid practices
 
-  exports.GetbyidPractice = async (req, res) => {
-  try {
-    const practiceFound = await practiceFound.findById(req.query.id);
-    res.status(200).json(practiceFound);
-  } catch (err) {
-    console.log(err);
+  exports.GetbyidPractice = async(req,res)=> {
+    try{
+      const practiceFound = await practice.findById(req.query.id)
+      res.status(200).json(practiceFound)
+    }catch(err){
+      console.log(err);
+    }
   }
-};

@@ -44,11 +44,10 @@ exports.PostAssessment= async (req, res) => {
           english: reqData.english,
           tamil: reqData.tamil,
         },
-        que_id:reqData.vid_id,
-        que_title:reqData.vid_title,
-        thumnail_url:reqData.thumnail_url,
-        que_cat:reqData.vide_cat,
-        questions:reqData.video_url,
+        title:reqData.title,
+        thumnail:reqData.thumnail,
+        catageroy:reqData.catageroy,
+        questions:reqData.questions,
         assign_to:reqData.assign_to,
         duration:reqData.duration,
         size:reqData.size,
@@ -56,7 +55,7 @@ exports.PostAssessment= async (req, res) => {
         reviewed_by:reqData.reviewed_by,
         approved_by:reqData.approved_by
       });
-      const savePostAssessment = await assessment.save();
+      const savePostAssessment = await Assessment.save();
       res.status(200).json(savePostAssessment);
     } catch (err) {
       if (err.message.split(" ")[0] == "A1000") {

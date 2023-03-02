@@ -55,7 +55,7 @@ exports.PostPdf = async (req, res) => {
         reviewed_by:reqData.reviewed_by,
         approved_by:reqData.approved_by
       });
-      const savePostPdf = await pdf.save();
+      const savePostPdf = await Pdf.save();
       res.status(200).json(savePostPdf);
     } catch (err) {
       if (err.message.split(" ")[0] == "A1000") {

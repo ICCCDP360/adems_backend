@@ -206,31 +206,3 @@ exports.SetPasscode = async (req, res) => {
   }
 };
 
-// //post Registerauth
-// exports.PostRegisterauth = async (req, res) => {
-//   const reqData = req.body;
-//   console.log("req body", reqData);
-//   try {
-//     const PostRegisterauth = new registerAuth({
-//       stu_id: reqData.stu_id,
-//       stu_name: reqData.stu_name,
-//       email: reqData.email,
-//       contact: reqData.contact,
-//       dob: reqData.dob,
-//       gender: reqData.gender,
-//       city: reqData.city,
-//       acc_id: reqData.acc_id,
-//       sch_id: reqData.sch_id,
-//       p_g_name: reqData.p_g_name,
-//       relation: reqData.relation,
-//       p_g_email: reqData.p_g_email,
-//       p_g_contact: reqData.p_g_contact,
-//       pwd: reqData.pwd,
-//       assign_teacher: reqData.assign_teacher,
-//     });
-//     const savePostRegisterauth = await PostRegisterauth.save();
-//     res.status(200).json(savePostRegisterauth);
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
