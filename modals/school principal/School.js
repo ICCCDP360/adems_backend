@@ -28,7 +28,7 @@ const SchoolSchema = new Schema(
     teacher: { type: Array },
     student: { type: Array },
     user_name: { type: String },
-    pwd: {
+    passcode: {
       type: String,
       trim: true,
       required: ["Password is required"],
@@ -40,8 +40,8 @@ const SchoolSchema = new Schema(
 );
 SchoolSchema.pre("save", async function (next) {
   let salt = await bcrypt.genSalt(10);
-  let hash = await bcrypt.hash(this.pwd, salt);
-  this.pwd = hash;
+  let hash = await bcrypt.hash(this.passcode, salt);
+  this.passcode = hash;
   next();
 });
 module.exports = mongoose.model("Schooldetails", SchoolSchema);

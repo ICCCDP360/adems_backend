@@ -18,7 +18,7 @@ const StudentSchema = new Schema(
     p_g_email: { type: String },
     p_g_contact: { type: Array },
     points: { type: String, default: "100" },
-    pwd: {
+    passcode: {
       type: String,
       trim: true,
       required: ["Password is required"],
@@ -31,8 +31,8 @@ const StudentSchema = new Schema(
 );
 StudentSchema.pre("save", async function (next) {
   let salt = await bcrypt.genSalt(10);
-  let hash = await bcrypt.hash(this.pwd, salt);
-  this.pwd = hash;
+  let hash = await bcrypt.hash(this.passcode, salt);
+  this.passcode = hash;
   next();
 });
 module.exports = mongoose.model("StudentDetails", StudentSchema);

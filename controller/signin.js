@@ -46,9 +46,9 @@ exports.StudentLogin = async (req, res) => {
     const StudentFound = await StudentDetails.findOne({ _id: reqData.stu_id });
     if (!StudentFound)
       return res.status(400).send("Invaild UserName Or Password");
-    let hasValidPass = await bcrypt.compare(reqData.passcode, StudentFound.pwd);
+    let hasValidPass = await bcrypt.compare(reqData.passcode, StudentFound.passcode);
     if (!hasValidPass) throw { message: "Invalid email or password" };
-    StudentFound.pwd = "";
+    StudentFound.passcode = "";
     try {
       schoolFound = await School.findOne({
         _id: StudentFound.sch_id.slice(-1)[0],
@@ -195,7 +195,7 @@ exports.SetPasscode = async (req, res) => {
     if (!DetailsFound)
       return res.status(400).json({ message: "Details not Found" });
 
-    DetailsFound.pwd = passcode;
+    DetailsFound.passcode = passcode;
     DetailsFound.verify = true;
     const setPassword = await DetailsFound.save();
     return res

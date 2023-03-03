@@ -35,7 +35,7 @@ exports.addSchoolDetails = async (req, res) => {
       teacher: reqData.teacher,
       student: reqData.student,
       user_name: reqData.user_name,
-      pwd: reqData.pwd,
+      passcode: reqData.passcode,
       goadem_admin: reqData.goadem_admin,
     });
     const savePostSchool = await PostSchool.save();
@@ -56,17 +56,17 @@ exports.schoolAdminLogin = async (req, res) => {
     });
     if (!SchoolFound)
       return res.status(400).send("Invaild UserName Or Password");
-    console.log(reqData.passcode, SchoolFound.pwd);
-    let hasValidPass = await bcrypt.compare(reqData.passcode, SchoolFound.pwd);
+    console.log(reqData.passcode, SchoolFound.passcode);
+    let hasValidPass = await bcrypt.compare(reqData.passcode, SchoolFound.passcode);
     if (!hasValidPass) throw { message: "Invalid email or password" };
-    console.log(hasValidPass, SchoolFound.pwd, "=", reqData.passcode);
+    console.log(hasValidPass, SchoolFound.passcode, "=", reqData.passcode);
 
     jwt.sign(
       { SchoolFound },
       secretkey,
       { expiresIn: "1day" },
       (err, token) => {
-        SchoolFound.pwd = "";
+        SchoolFound.passcode = "";
         res.json({
           token,
           SchoolFound,

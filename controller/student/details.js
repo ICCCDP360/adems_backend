@@ -37,7 +37,7 @@ exports.addStudentDetails = async (req, res) => {
       relation: reqData.relation,
       p_g_email: reqData.p_g_email,
       p_g_contact: reqData.p_g_contact,
-      pwd: reqData.pwd,
+      passcode: reqData.passcode,
       assign_teacher: reqData.assign_teacher,
     });
     const Respone = await StudentRegister.save();
