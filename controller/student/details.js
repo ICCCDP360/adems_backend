@@ -83,3 +83,27 @@ exports.getByIdStudentDetails = async (req, res) => {
     console.log(err);
   }
 };
+
+//Post onBoard 
+exports.postOnBoard = async (req, res) => {
+  try {
+    const reqData = req.body;
+    var fs = require('fs'); 
+    var csvjson = require('csvjson');
+    console.log('REQUEST DATA',reqData);
+    console.log(req.body.files);
+    //var data = fs.readFileSync((__dirname, 'school.csv'), { encoding : 'utf8'});
+    var data = fs.readFileSync((__dirname, req.body.files), { encoding : 'utf8'});
+    var options = {
+      delimiter : ',', // optional
+      quote     : '"' // optional
+    };
+    //console.log(csvjson.toArray(data, options));
+    console.log(csvjson.toColumnArray(data,options));
+    // console.log(req.files.fileName.data.toString());
+    // res.status(200).json({"message":"Upload Successfully"});
+  } catch (err) {
+    console.log(err);
+    res.status(400).json(err);
+  }
+};
