@@ -57,7 +57,10 @@ exports.schoolAdminLogin = async (req, res) => {
     if (!SchoolFound)
       return res.status(400).send("Invaild UserName Or Password");
     console.log(reqData.passcode, SchoolFound.passcode);
-    let hasValidPass = await bcrypt.compare(reqData.passcode, SchoolFound.passcode);
+    let hasValidPass = await bcrypt.compare(
+      reqData.passcode,
+      SchoolFound.passcode
+    );
     if (!hasValidPass) throw { message: "Invalid email or password" };
     console.log(hasValidPass, SchoolFound.passcode, "=", reqData.passcode);
 

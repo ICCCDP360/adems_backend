@@ -15,12 +15,14 @@ module.exports = (app) => {
   app.use(
     cors({
       origin: [
-      "http://localhost:3000", 
-      "https://student.cdp360.in",
-      "https://student.goadem.com",
-      "https://students.cdp360.in",
-      "https://students.goadem.com"
-    ],
+        "http://localhost:3000",
+        "https://student.cdp360.in",
+        "https://student.goadem.com",
+        "https://students.cdp360.in",
+        "https://students.goadem.com",
+        "https://school.goadem.com",
+        "https://school.cdp360.in",
+      ],
       credentials: true,
     })
   );
@@ -35,7 +37,7 @@ module.exports = (app) => {
       .status(200)
       .json({ title: "admes & cdp360 backend", version: "v1.0.0" });
   });
-  
+
   app.use("/api/v1", mainRouter);
   app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   // app.use(auth);

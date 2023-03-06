@@ -46,7 +46,10 @@ exports.StudentLogin = async (req, res) => {
     const StudentFound = await StudentDetails.findOne({ _id: reqData.stu_id });
     if (!StudentFound)
       return res.status(400).send("Invaild UserName Or Password");
-    let hasValidPass = await bcrypt.compare(reqData.passcode, StudentFound.passcode);
+    let hasValidPass = await bcrypt.compare(
+      reqData.passcode,
+      StudentFound.passcode
+    );
     if (!hasValidPass) throw { message: "Invalid email or password" };
     StudentFound.passcode = "";
     try {
@@ -205,4 +208,3 @@ exports.SetPasscode = async (req, res) => {
     return res.status(400).json({ message: error.message });
   }
 };
-
