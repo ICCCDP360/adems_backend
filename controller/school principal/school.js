@@ -27,15 +27,22 @@ exports.addSchoolDetails = async (req, res) => {
     const reqData = req.body;
     console.log("req body", reqData);
     const PostSchool = new SchoolDetails({
+      principal_name:reqData.principal_name,
       sch_id: reqData.sch_id,
       sch_name: reqData.sch_name,
+      doj:reqData.doj,
+      spoc_name:reqData.spoc_name,
+      ph_num:reqData.ph_num,
       address: reqData.address,
       city: reqData.city,
+      pincode:reqData.pincode,
+      state:reqData.state,
       logo: reqData.logo,
       teacher: reqData.teacher,
       student: reqData.student,
       user_name: reqData.user_name,
       passcode: reqData.passcode,
+      proof:reqData.proof,
       goadem_admin: reqData.goadem_admin,
     });
     const savePostSchool = await PostSchool.save();
