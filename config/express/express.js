@@ -30,8 +30,8 @@ module.exports = (app) => {
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
   app.use(cookieParser());
-  const fileUpload = require('express-fileupload');
-  app.use(fileUpload);
+  // const fileUpload = require('express-fileupload');
+  // app.use(fileUpload);
   // All Router
   //sample router
   app.get("/", (req, res) => {
