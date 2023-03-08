@@ -54,7 +54,7 @@ exports.StudentLogin = async (req, res) => {
     StudentFound.passcode = "";
     try {
       schoolFound = await School.findOne({
-        _id: StudentFound.sch_id.slice(-1)[0],
+        sch_id: StudentFound.sch_id[0],
       });
       if (!schoolFound) {
         schoolFound = { message: "school not found" };
