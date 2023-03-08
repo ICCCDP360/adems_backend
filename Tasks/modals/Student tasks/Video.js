@@ -26,7 +26,7 @@ const VideoSchema = new Schema(
         min:6,
         max:16
     },
-    url:{type:Date}, 
+    url:{type:String}, 
     token:{type:String}, 
     key:{type:String},
     assign_to:{type:Array},
