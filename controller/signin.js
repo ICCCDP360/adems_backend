@@ -65,7 +65,7 @@ exports.StudentLogin = async (req, res) => {
 
     let refreshToken = await RefreshToken.createToken(StudentFound);
     var otherACC = [];
-    const FindOtherAccount = await AccountHolder.findById(StudentFound.acc_id);
+    const FindOtherAccount = await AccountHolder.findOne({ sch_id:StudentFound.acc_id});
     for (let index = 0; index < FindOtherAccount.stu_id.length; index++) {
       const element = FindOtherAccount.stu_id[index];
       console.log(element != StudentFound._id);
