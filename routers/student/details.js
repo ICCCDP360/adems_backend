@@ -7,5 +7,6 @@ router.get("/details", controller.getStudentDetails);
 router.post("/register", controller.addStudentDetails);
 router.put("/details/:id", controller.updateStudentDetail);
 router.get("/details/:id", controller.getByIdStudentDetails);
+router.post("/profiledetails", controller.getProfileDetails);
 
 module.exports = router;
