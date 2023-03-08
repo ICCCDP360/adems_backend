@@ -8,15 +8,16 @@ const SchoolRouter = require("./schoolPrincipal/school");
 const AuthRouter = require("./auth_router/student/signin");
 const TranslateRouter = require("../translate/routers/main_translate_router");
 const TasksRouter = require("../Tasks/router/main_Tasks_router");
-//const OnBoardRouter = require("./student/onboard");
+const ContactusRouter = require("../Landingpage/main_landingpage_router")
+
 
 mainRouter.use("/student", AccountHolderRouter);
 mainRouter.use("/student", DetailsRouter); //for student
-//mainRouter.use("/student", OnBoardRouter);
 mainRouter.use("/teacher", TeacherRouter);
 mainRouter.use("/school", SchoolRouter);
 mainRouter.use("/student", AuthRouter);
 mainRouter.use("/student", TranslateRouter);
 mainRouter.use("/tasks", TasksRouter);
+mainRouter.use("/contactus",ContactusRouter)
 
 module.exports = mainRouter;

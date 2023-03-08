@@ -617,6 +617,69 @@
           }
         }
       }
+    },
+    "/api/v1/contactus/contactus/contactUs": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      },
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "Name": {
+                  "example": "any"
+                },
+                "Your_email": {
+                  "example": "any"
+                },
+                "School_Name": {
+                  "example": "any"
+                },
+                "Contact_Number": {
+                  "example": "any"
+                },
+                "City": {
+                  "example": "any"
+                },
+                "Education_board": {
+                  "example": "any"
+                },
+                "NoOfStudent_in_6to12": {
+                  "example": "any"
+                },
+                "Your_message": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   }
 }
