@@ -200,7 +200,7 @@
         }
       }
     },
-    "/api/v1/student/profiledetails/{id}": {
+    "/api/v1/student/profile/{id}": {
       "get": {
         "description": "",
         "parameters": [
