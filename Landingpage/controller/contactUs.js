@@ -1,4 +1,4 @@
-const Contactus = require("../../Landingpage/modals/Contactus");
+const Contactus = require("../modals/Contactus");
 var date = new Date();
 
 //Get Contactus
@@ -24,14 +24,14 @@ exports.PostContactus = async (req, res) => {
   console.log("req body", reqData);
   try {
     const PostContactus = new Contactus({
-        Name:reqData.Name,
-        Your_email:reqData.Your_email,
-        School_Name:reqData.School_Name,
-        Contact_Number:reqData.Contact_Number,
-        City:reqData.City,
-        Education_board:reqData.Education_board,
-        NoOfStudent_in_6to12:reqData.NoOfStudent_in_6to12,
-        Your_message:reqData.Your_message
+      Name: reqData.Name,
+      Your_email: reqData.Your_email,
+      School_Name: reqData.School_Name,
+      Contact_Number: reqData.Contact_Number,
+      City: reqData.City,
+      Education_board: reqData.Education_board,
+      NoOfStudent_in_6to12: reqData.NoOfStudent_in_6to12,
+      Your_message: reqData.Your_message,
     });
     const savePostContactus = await PostContactus.save();
     res.status(200).json(savePostContactus);

@@ -8,6 +8,11 @@ const TeacherSchema = new Schema(
       min: 5,
       max: 10,
     },
+    sch_id: {
+      type: String,
+      min: 4,
+      max: 25,
+    },
     teacher_name: {
       type: String,
       min: 4,
