@@ -25,21 +25,21 @@ exports.addStudentDetails = async (req, res) => {
   console.log("req body", reqData);
   try {
     const StudentRegister = new StudentDetails({
-      stu_id: reqData.stu_id,
-      stu_name: reqData.stu_name,
+      name: reqData.name,
       email: reqData.email,
-      contact: reqData.contact,
+      phone: reqData.phone,
+      std:reqData.std,
+      sec:reqData.sec,
+      roll_no:reqData.roll_no,
       dob: reqData.dob,
       gender: reqData.gender,
       city: reqData.city,
       acc_id: reqData.acc_id,
-      sch_id: reqData.sch_id,
-      p_g_name: reqData.p_g_name,
-      relation: reqData.relation,
-      p_g_email: reqData.p_g_email,
-      p_g_contact: reqData.p_g_contact,
+      sch_id: reqData.sch_id, 
       passcode: reqData.passcode,
+      points:reqData.points,
       assign_teacher: reqData.assign_teacher,
+      verify:reqData.verify
     });
     const Respone = await StudentRegister.save();
     res.status(200).json(Respone);

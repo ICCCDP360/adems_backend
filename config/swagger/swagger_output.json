@@ -57,10 +57,16 @@
                 "ph_code": {
                   "example": "any"
                 },
-                "ph_num": {
+                "phone": {
                   "example": "any"
                 },
-                "holder": {
+                "name": {
+                  "example": "any"
+                },
+                "relation": {
+                  "example": "any"
+                },
+                "email": {
                   "example": "any"
                 },
                 "stu_id": {
@@ -107,16 +113,22 @@
             "schema": {
               "type": "object",
               "properties": {
-                "stu_id": {
-                  "example": "any"
-                },
-                "stu_name": {
+                "name": {
                   "example": "any"
                 },
                 "email": {
                   "example": "any"
                 },
-                "contact": {
+                "phone": {
+                  "example": "any"
+                },
+                "std": {
+                  "example": "any"
+                },
+                "sec": {
+                  "example": "any"
+                },
+                "roll_no": {
                   "example": "any"
                 },
                 "dob": {
@@ -134,22 +146,16 @@
                 "sch_id": {
                   "example": "any"
                 },
-                "p_g_name": {
-                  "example": "any"
-                },
-                "relation": {
-                  "example": "any"
-                },
-                "p_g_email": {
-                  "example": "any"
-                },
-                "p_g_contact": {
-                  "example": "any"
-                },
                 "passcode": {
                   "example": "any"
                 },
+                "points": {
+                  "example": "any"
+                },
                 "assign_teacher": {
+                  "example": "any"
+                },
+                "verify": {
                   "example": "any"
                 }
               }

@@ -9,18 +9,20 @@ const AccountHolderSchema = new Schema(
       max: 6,
       require: ["phone country code is required"],
     },
-    ph_num: {
+    phone: {
       type: String,
       min: 8,
       max: 16,
       require: ["phone Number is required"],
     },
-    holder: {
+    name: {
       type: String,
       min: 0,
       max: 20,
       require: ["Account Holder Name  is required (parents or guardian)"],
     },
+    relation: { type: String },
+    email: { type: String },
     stu_id: { type: Array },
     verify: { type: Boolean },
   },

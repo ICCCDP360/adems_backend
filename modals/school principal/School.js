@@ -10,7 +10,7 @@ const SchoolSchema = new Schema(
       min: 5,
       max: 10,
     },
-    sch_name: {
+    school_name: {
       type: String,
       min: 4,
       max: 20,

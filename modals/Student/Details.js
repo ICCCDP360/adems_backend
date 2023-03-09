@@ -3,20 +3,17 @@ const Schema = mongoose.Schema;
 const bcrypt = require("bcrypt");
 const StudentSchema = new Schema(
   {
-    stu_name: { type: String, min: 4, max: 20 },
+    name: { type: String, min: 4, max: 20 },
     email: { type: String, min: 5, max: 50 },
     std: { type: String, min: 1, max: 4 },
-    roll_no: { type: String },
-    acc_holder: { type: String },
+    sec: { type: String },
+    roll_no: { type: String }, 
     dob: { type: Date },
     gender: { type: String },
     city: { type: String },
-    sch_id: { type: Array },
+    sch_id: { type: String },
     acc_id: { type: String },
-    p_g_name: { type: String },
-    relation: { type: String },
-    p_g_email: { type: String },
-    p_g_contact: { type: Array },
+    phone: { type: String },
     points: { type: String, default: "100" },
     passcode: {
       type: String,

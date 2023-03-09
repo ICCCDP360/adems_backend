@@ -8,9 +8,11 @@ exports.PostAccountHolder = async (req, res) => {
   try {
     const PostAccountHolder = new accountHolder({
       ph_code: reqData.ph_code,
-      ph_num: reqData.ph_num,
-      holder: reqData.holder,
-      student_id: reqData.stu_id,
+      phone: reqData.phone,
+      name: reqData.name,
+      relation: reqData.relation,
+      email: reqData.email,
+      stu_id: reqData.stu_id,
       verify: false,
     });
     const savePostAccountHolder = await PostAccountHolder.save();
