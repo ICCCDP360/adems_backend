@@ -67,8 +67,7 @@ exports.updateDetails = async (req, res) => {
 exports.deleteDetails = async (req, res) => {
   try {
     const deleteFound = await TeacherDetails.findOneAndDelete(req.params.id);
-    console.log(deleteFound);
-    return res.status(200).json("database deleted success");
+    return res.status(200).json("database deleted success" + deleteFound);
   } catch (err) {
     console.log(err);
   }
