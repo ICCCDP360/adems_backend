@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const AssessmentSchema = new Schema(
 {
-    type: { type: String, require: ["type require"] },
+    type: { type: String, require: ["type require"], unique: true },
     lang: {
       english: {type:String},
       tamil: {type:String},
