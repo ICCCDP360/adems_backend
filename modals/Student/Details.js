@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 const bcrypt = require("bcrypt");
 const StudentSchema = new Schema(
   {
+    stu_id:{type:String},
     name: { type: String, min: 4, max: 20 },
     email: { type: String, min: 5, max: 50 },
     std: { type: String, min: 1, max: 4 },

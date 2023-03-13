@@ -1,7 +1,7 @@
 const express = require("express");
 const mainLandingpageRouter = express.Router();
-const RouterContactus = require("./router/contactus");
+const ContactusRouter = require("./router/contactus");
 
-mainLandingpageRouter.use("/contactus", RouterContactus);
+mainLandingpageRouter.use("/contactus", ContactusRouter);
 
 module.exports = mainLandingpageRouter;

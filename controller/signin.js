@@ -14,7 +14,7 @@ exports.CheckAccount = async (req, res) => {
   console.log("req body", reqData);
   try {
     const AccountFound = await StudentAccount.findOne({
-      ph_num: reqData.ph_num,
+      phone: reqData.phone,
     }).select("stu_id verify");
     if (!AccountFound) {
       return res.status(400).json({ message: "account not found" });
@@ -46,7 +46,7 @@ exports.StudentLogin = async (req, res) => {
     const StudentFound = await StudentDetails.findOne({ _id: reqData.stu_id });
     if (!StudentFound)
       return res.status(400).send("Invaild UserName Or Password");
-    let hasValidPass = await bcrypt.compare(
+    let hasValidPass =await bcrypt.compare(
       reqData.passcode,
       StudentFound.passcode
     );
@@ -174,7 +174,7 @@ exports.SelectAccount = async (req, res) => {
   try {
     const stu_id = req.body.stu_id;
     const DetailsFound = await StudentDetails.findById(stu_id).select(
-      "_id stu_name std"
+      "_id name std"
     );
     if (!DetailsFound)
       return res.status(400).json({ message: "Record not Found" });

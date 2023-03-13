@@ -25,6 +25,7 @@ exports.addStudentDetails = async (req, res) => {
   console.log("req body", reqData);
   try {
     const StudentRegister = new StudentDetails({
+      stu_id:reqData.stu_id,
       name: reqData.name,
       email: reqData.email,
       phone: reqData.phone,
