@@ -1,3 +1,4 @@
+const SchoolDetails = require("../../modals/school principal/School");
 const StudentDetails = require("../../modals/Student/Details");
 var date = new Date();
 
@@ -33,6 +34,7 @@ exports.addStudentDetails = async (req, res) => {
       dob: reqData.dob,
       gender: reqData.gender,
       city: reqData.city,
+      state: reqDate.state,
       acc_id: reqData.acc_id,
       sch_id: reqData.sch_id, 
       passcode: reqData.passcode,
@@ -81,5 +83,18 @@ exports.getByIdStudentDetails = async (req, res) => {
     res.status(200).json(detailsFound);
   } catch (err) {
     console.log(err);
+    res.status(404).json(err);
   }
 };
+
+
+exports.getByIdProfileDetails = async (req, res) => {
+  try{
+    const profileDetailsFound = await StudentDetails.findById(req.params.id);
+    const SchoolDetailsFound = await SchoolDetails.findOne({sch_id:profileDetailsFound.sch_id});
+    res.status(200).json({"studentDetails":profileDetailsFound,"schoolDetails":SchoolDetailsFound});
+  }catch(err){
+    console.log(err);
+    res.status(404).json(err);
+  }
+}

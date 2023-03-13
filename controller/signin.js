@@ -87,7 +87,7 @@ exports.StudentLogin = async (req, res) => {
         res.json({
           token,
           otherACC,
-          type: "Bareer",
+          type: "Bearer",
           refreshToken,
           StudentFound,
           schoolFound,

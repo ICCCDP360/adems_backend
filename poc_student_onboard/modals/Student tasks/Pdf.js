@@ -25,7 +25,7 @@ const PdfSchema = new Schema(
         min:6,
         max:16
     },
-    url:{type:Date},
+    url:{type:String},
     assign_to:{type:Array},
     duration:{type:String},
     size:{type:String},

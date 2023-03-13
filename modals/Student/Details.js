@@ -11,6 +11,7 @@ const StudentSchema = new Schema(
     dob: { type: Date },
     gender: { type: String },
     city: { type: String },
+    state: { type: String },
     sch_id: { type: String },
     acc_id: { type: String },
     phone: { type: String },

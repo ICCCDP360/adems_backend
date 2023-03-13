@@ -24,6 +24,9 @@ const AccountHolderSchema = new Schema(
     relation: { type: String },
     email: { type: String },
     stu_id: { type: Array },
+    city: { type: String },
+    state: { type: String },
+    address: { type: String },
     verify: { type: Boolean },
   },
   { timestamps: { createdAt: "dt", updatedAt: "u_dt" } }

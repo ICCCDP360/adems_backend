@@ -13,12 +13,12 @@ const TeacherSchema = new Schema(
       min: 4,
       max: 25,
     },
-    teacher_name: {
+    name: {
       type: String,
       min: 4,
       max: 25,
     },
-    phn_num: {
+    phone: {
       type: Array,
       min: 5,
       max: 15,

@@ -7,7 +7,7 @@ const TeacherRouter = require("./teacher/teacher_details");
 const SchoolRouter = require("./schoolPrincipal/school");
 const AuthRouter = require("./auth_router/student/signin");
 const TranslateRouter = require("../translate/routers/main_translate_router");
-const TasksRouter = require("../Tasks/router/main_Tasks_router");
+const TasksRouter = require("../poc_student_onboard/router/main_Tasks_router");
 
 mainRouter.use("/student", AccountHolderRouter);
 mainRouter.use("/student", DetailsRouter); //for student
