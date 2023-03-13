@@ -146,10 +146,10 @@ exports.VerifyAccount = async (req, res) => {
   try {
     const otp = req.body.otp;
     const phone = req.body.phone;
-    const AccountFound = await StudentAccount.findOne({ ph_num: phone });
+    const AccountFound = await StudentAccount.findOne({ phone: phone });
     if (AccountFound?.verify == true)
       return res.status(400).json({ message: "already verified" });
-    if (AccountFound.ph_num.slice(-4) != otp) {
+    if (AccountFound.phone.slice(-4) != otp) {
       return res.status(200).json({ message: "otp not match" });
     } else {
       AccountFound.verify = true;

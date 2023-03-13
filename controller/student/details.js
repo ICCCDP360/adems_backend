@@ -34,7 +34,7 @@ exports.addStudentDetails = async (req, res) => {
       dob: reqData.dob,
       gender: reqData.gender,
       city: reqData.city,
-      state: reqDate.state,
+      state: reqData.state,
       acc_id: reqData.acc_id,
       sch_id: reqData.sch_id, 
       passcode: reqData.passcode,

@@ -149,6 +149,9 @@
                 "city": {
                   "example": "any"
                 },
+                "state": {
+                  "example": "any"
+                },
                 "acc_id": {
                   "example": "any"
                 },
