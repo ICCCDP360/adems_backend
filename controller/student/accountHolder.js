@@ -12,6 +12,9 @@ exports.PostAccountHolder = async (req, res) => {
       name: reqData.name,
       relation: reqData.relation,
       email: reqData.email,
+      address:reqData.address,
+      city:reqData.city,
+      state:reqData.state,
       stu_id: reqData.stu_id,
       verify: false,
     });

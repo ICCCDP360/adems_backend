@@ -10,6 +10,7 @@ exports.PostRegisterauth= async(req,res) => {
             {
                 stu_id: reqData.stu_id,
                 stu_name: reqData.stu_name,
+                std:reqData.std,
                 email: reqData.email,
                 contact: reqData.contact,
                 dob: reqData.dob,
@@ -21,8 +22,9 @@ exports.PostRegisterauth= async(req,res) => {
                 relation: reqData.relation,
                 p_g_email: reqData.p_g_email,
                 p_g_contact: reqData.p_g_contact,
-                pwd: reqData.pwd,
+                passcode: reqData.passcode,
                 assign_teacher: reqData.assign_teacher,
+                verify:reqData.verify
                 
             }
         )

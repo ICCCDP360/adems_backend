@@ -69,6 +69,15 @@
                 "email": {
                   "example": "any"
                 },
+                "address": {
+                  "example": "any"
+                },
+                "city": {
+                  "example": "any"
+                },
+                "state": {
+                  "example": "any"
+                },
                 "stu_id": {
                   "example": "any"
                 }
@@ -261,10 +270,13 @@
                 "teacher_id": {
                   "example": "any"
                 },
-                "teacher_name": {
+                "sch_id": {
                   "example": "any"
                 },
-                "phn_num": {
+                "name": {
+                  "example": "any"
+                },
+                "phone": {
                   "example": "any"
                 },
                 "classes": {

@@ -3,6 +3,7 @@ const Schema =mongoose.Schema;
 const bcrypt = require("bcrypt")
 const RegisterauthSchema = new Schema (
     {
+        stu_id:{type:String},
         stu_name: { type: String, min: 4, max: 20 },
         email: { type: String, min: 5, max: 50 },
         std: { type: String, min: 1, max: 4 },
@@ -16,7 +17,7 @@ const RegisterauthSchema = new Schema (
         relation: { type: String },
         p_g_email: { type: String },
         p_g_contact: { type: Array },
-        pwd: {
+        passcode: {
           type: String,
           trim: true,
           required: ['Password is required'],

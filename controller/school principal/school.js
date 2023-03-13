@@ -31,6 +31,7 @@ exports.addSchoolDetails = async (req, res) => {
       sch_name: reqData.sch_name,
       address: reqData.address,
       city: reqData.city,
+      state:reqData.state,
       logo: reqData.logo,
       teacher: reqData.teacher,
       student: reqData.student,

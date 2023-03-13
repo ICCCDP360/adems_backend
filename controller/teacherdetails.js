@@ -25,8 +25,9 @@ exports.createDetails = async (req, res) => {
   try {
     const PostTeacherDetails = new TeacherDetails({
       teacher_id: reqData.teacher_id,
-      teacher_name: reqData.teacher_name,
-      phn_num: reqData.phn_num,
+      sch_id:reqData.sch_id,
+      name: reqData.name,
+      phone: reqData.phone,
       classes: reqData.classes,
       subjects: reqData.subjects,
     });
