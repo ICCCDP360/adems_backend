@@ -39,6 +39,11 @@ const PracticeSchema = new Schema(
         hint:{type:String,default:null},
         image:{type:String,default:null}
     }],
+    noOfchapters:{type:Number,default:1},
+    status:{type:Number,default:0},
+    status_percentage:{type:Number,default:0},
+    task_id:{type:Number,unique:true},
+    assign_to:{type:Array},
     duration:{type:String},
     size:{type:String},
     created_by:{type:String},
