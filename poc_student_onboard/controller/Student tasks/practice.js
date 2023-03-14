@@ -49,7 +49,7 @@ exports.PostPractice = async (req, res) => {
         catageory:reqData.catageory,
         std:reqData.std,
         questions:reqData.questions,
-        no_of_chapters:reqData.no-of_chapters,
+        no_of_chapters:reqData.no_of_chapters,
         status:reqData.status,
         status_percentage:reqData.status_percentage,
         duration:reqData.duration,
