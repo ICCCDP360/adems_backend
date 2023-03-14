@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const AssessmentSchema = new Schema(
 {
-    type: { type: String, require: ["type require"], unique: true },
+    type: { type: String },
     lang: {
       english: {type:String},
       tamil: {type:String},
@@ -19,7 +19,7 @@ const AssessmentSchema = new Schema(
         min:5,
         max:50
     },
-    catageory:{
+    category:{
         type:Array,
         require:["type Required"],
         min:6,
@@ -39,11 +39,9 @@ const AssessmentSchema = new Schema(
         hint:{type:String,default:null},
         image:{type:String,default:null}
     }],
-    noOfchapters:{type:Number,default:1},
+    no_of_chapters:{type:Number,default:1},
     status:{type:Number,default:0},
-    status_percentage:{type:Number,default:0},
-    task_id:{type:Number,unique:true},
-    assign_to:{type:Array},
+    status_percentage:{type:Number,default:0},  
     duration:{type:String},
     size:{type:String},
     created_by:{type:String},

@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const PracticeSchema = new Schema(
 {
-    type: { type: String, require: ["type require"], unique: true },
+    type: { type: String },
     lang: {
       english: {type:String},
       tamil: {type:String},
@@ -19,14 +19,26 @@ const PracticeSchema = new Schema(
         min:5,
         max:50
     },
-    catageory:{
+    category:{
         type:Array,
         require:["type Required"],
         min:6,
         max:16
     },
-    questions:{type:Array},
-    assign_to:{type:Array},
+    std:{
+        type:String,
+        enum:["VI","VII","VIII","XI","X","XI","XII"],
+        default:"VI"
+    },
+    questions:[{
+        question_id:{type:String},
+        question:{type:String},
+        options:[{label:{type:String},id:{type:Number}}],
+        explanation:{type:String,default:null},
+        answer:{type:Number},
+        hint:{type:String,default:null},
+        image:{type:String,default:null}
+    }],
     duration:{type:String},
     size:{type:String},
     created_by:{type:String},

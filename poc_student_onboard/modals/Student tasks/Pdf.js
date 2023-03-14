@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const PdfSchema = new Schema(
 {
-    type: { type: String, require: ["type require"], unique: true },
+    type: { type: String },
     lang: {
       english: {type:String},
       tamil: {type:String},
@@ -19,14 +19,13 @@ const PdfSchema = new Schema(
         min:5,
         max:50
     },
-    catageroy:{
+    category:{
         type:Array,
         require:["type Required"],
         min:6,
         max:16
     },
     url:{type:String},
-    assign_to:{type:Array},
     duration:{type:String},
     size:{type:String},
     created_by:{type:String},
