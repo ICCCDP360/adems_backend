@@ -47,6 +47,7 @@ exports.PostVideo = async (req, res) => {
         title:reqData.title,
         thumnail:reqData.thumnail,
         catageroy:reqData.catageroy,
+        faqs:reqData.faqs,
         url:reqData.url,
         token:reqData.token,
         key:reqData.key,

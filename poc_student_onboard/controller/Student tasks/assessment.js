@@ -47,7 +47,12 @@ exports.PostAssessment= async (req, res) => {
         title:reqData.title,
         thumnail:reqData.thumnail,
         catageroy:reqData.catageroy,
+        std:reqData.std,
         questions:reqData.questions,
+        noOfchapters:reqData.noOfchapter,
+        status:reqData.status,
+        status_percentage:reqData.status_percentage,
+        task_id:reqData.task_id,
         assign_to:reqData.assign_to,
         duration:reqData.duration,
         size:reqData.size,
@@ -70,7 +75,7 @@ exports.PostAssessment= async (req, res) => {
 
   exports.GetbyidAssessment = async (req, res) => {
   try {
-    const assessmentFound = await assessmentFound.findById(req.query.id);
+    const assessmentFound = await assessment.findById(req.query.id);
     res.status(200).json(assessmentFound);
   } catch (err) {
     console.log(err);
