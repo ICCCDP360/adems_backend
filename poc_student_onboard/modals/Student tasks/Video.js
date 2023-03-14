@@ -20,11 +20,11 @@ const VideoSchema = new Schema(
       min: 5,
       max: 50,
     },
-    category: {
-      type: Array,
-      require: ["type Required"],
-      min: 6,
-      max: 16,
+    category:{
+      type:String,
+      require:["type Required"],
+      enum:["Science","Mathematics"],
+      default:"Science"
     },
     faqs: [
       {

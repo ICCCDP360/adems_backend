@@ -20,10 +20,10 @@ const PracticeSchema = new Schema(
         max:50
     },
     category:{
-        type:Array,
+        type:String,
         require:["type Required"],
-        min:6,
-        max:16
+        enum:["Science","Mathematics"],
+        default:"Science"
     },
     std:{
         type:String,

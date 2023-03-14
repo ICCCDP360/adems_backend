@@ -1,7 +1,7 @@
 const assessment = require("../../modals/Student tasks/Assessment")
 var date = new Date()
 
-//Get Videos
+//Get Assessment
 exports.GetAssessment = async (req, res) => {
     console.log(req.query.lang);
     let lang = req.query.lang;
@@ -33,7 +33,7 @@ exports.GetAssessment = async (req, res) => {
     }
   };
 
-// Post Videos
+// Post Assessment
 exports.PostAssessment= async (req, res) => {
     console.log("req body");
     const reqData = req.body;
@@ -46,14 +46,12 @@ exports.PostAssessment= async (req, res) => {
         },
         title:reqData.title,
         thumnail:reqData.thumnail,
-        catageroy:reqData.catageroy,
+        category:reqData.category,
         std:reqData.std,
         questions:reqData.questions,
-        noOfchapters:reqData.noOfchapter,
+        no_of_chapters:reqData.no_of_chapters,
         status:reqData.status,
         status_percentage:reqData.status_percentage,
-        task_id:reqData.task_id,
-        assign_to:reqData.assign_to,
         duration:reqData.duration,
         size:reqData.size,
         created_by:reqData.created_by,
@@ -71,7 +69,7 @@ exports.PostAssessment= async (req, res) => {
     }
   };
 
-  // Getbyid practices
+  // Getbyid Assessment
 
   exports.GetbyidAssessment = async (req, res) => {
   try {
@@ -79,5 +77,6 @@ exports.PostAssessment= async (req, res) => {
     res.status(200).json(assessmentFound);
   } catch (err) {
     console.log(err);
+    res.status(400).json(err)
   }
 };
