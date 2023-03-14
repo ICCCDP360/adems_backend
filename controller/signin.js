@@ -26,7 +26,7 @@ exports.CheckAccount = async (req, res) => {
       for (let index = 0; index < AccountFound.stu_id.length; index++) {
         const element = AccountFound.stu_id[index];
         const UserDetailsFound = await StudentDetails.findById(element).select(
-          "_id stu_name"
+          "_id name"
         );
         data.push(UserDetailsFound);
       }
@@ -73,7 +73,7 @@ exports.StudentLogin = async (req, res) => {
         console.log(element, "tfyguhijok");
 
         const accD = await StudentDetails.findById(element).select(
-          "email stu_name dp"
+          "email name dp"
         );
         if (accD) otherACC.push(accD);
       }
@@ -159,7 +159,7 @@ exports.VerifyAccount = async (req, res) => {
       for (let index = 0; index < AccountFound.stu_id.length; index++) {
         const element = AccountFound.stu_id[index];
         const UserDetailsFound = await StudentDetails.findById(element).select(
-          "_id stu_name"
+          "_id name"
         );
         data.push(UserDetailsFound);
       }
