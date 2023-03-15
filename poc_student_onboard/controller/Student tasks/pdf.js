@@ -47,6 +47,7 @@ exports.PostPdf = async (req, res) => {
         title:reqData.title,
         thumnail:reqData.thumnail,
         catageroy:reqData.catageroy,
+        lang_type: reqData.lang_type,
         url:reqData.url,
         assign_to:reqData.assign_to,
         duration:reqData.duration,

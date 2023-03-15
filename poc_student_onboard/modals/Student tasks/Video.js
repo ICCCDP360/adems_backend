@@ -26,6 +26,12 @@ const VideoSchema = new Schema(
       enum:["Science","Mathematics"],
       default:"Science"
     },
+    lang_type:{
+      type:String,
+      require:["type Required"],
+      enum:["English","Tamil"],
+      default:"English"
+  },
     faqs: [
       {
         contentId: { type: Number },

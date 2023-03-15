@@ -47,6 +47,7 @@ exports.PostAssessment= async (req, res) => {
         title:reqData.title,
         thumnail:reqData.thumnail,
         category:reqData.category,
+        lang_type: reqData.lang_type,
         std:reqData.std,
         questions:reqData.questions,
         no_of_chapters:reqData.no_of_chapters,
