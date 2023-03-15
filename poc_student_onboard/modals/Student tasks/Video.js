@@ -29,9 +29,10 @@ const VideoSchema = new Schema(
     lang_type:{
       type:String,
       require:["type Required"],
-      enum:["English","Tamil"],
-      default:"English"
+      enum:["english","tamil"],
+      default:"english"
   },
+  task_id:{type:Number,default:0,unique:false },
     faqs: [
       {
         contentId: { type: Number },

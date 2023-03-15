@@ -28,9 +28,10 @@ const PdfSchema = new Schema(
     lang_type:{
         type:String,
         require:["type Required"],
-        enum:["English","Tamil"],
-        default:"English"
+        enum:["english","tamil"],
+        default:"english"
     },
+    task_id:{type:Number,default:0,unique:false },
     url:{type:String},
     duration:{type:String},
     size:{type:String},

@@ -28,8 +28,8 @@ const AssessmentSchema = new Schema(
     lang_type:{
         type:String,
         require:["type Required"],
-        enum:["English","Tamil"],
-        default:"English"
+        enum:["english","tamil"],
+        default:"english"
     },
     std:{
         type:String,
