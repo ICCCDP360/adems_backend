@@ -25,6 +25,12 @@ const AssessmentSchema = new Schema(
         enum:["Science","Mathematics"],
         default:"Science"
     },
+    lang_type:{
+        type:String,
+        require:["type Required"],
+        enum:["English","Tamil"],
+        default:"English"
+    },
     std:{
         type:String,
         enum:["VI","VII","VIII","XI","X","XI","XII"],
@@ -41,6 +47,7 @@ const AssessmentSchema = new Schema(
     }],
     no_of_chapters:{type:Number,default:1},
     status:{type:Number,default:0},
+    task_id:{type:Number,default:0,unique:false },
     status_percentage:{type:Number,default:0},  
     task_id:{type:Number,default:0,unique:false},
     duration:{type:String},

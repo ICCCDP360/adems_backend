@@ -25,6 +25,12 @@ const PracticeSchema = new Schema(
         enum:["Science","Mathematics"],
         default:"Science"
     },
+    lang_type:{
+        type:String,
+        require:["type Required"],
+        enum:["English","Tamil"],
+        default:"English"
+    },
     std:{
         type:String,
         enum:["VI","VII","VIII","XI","X","XI","XII"],

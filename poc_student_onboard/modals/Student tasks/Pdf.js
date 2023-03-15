@@ -25,6 +25,12 @@ const PdfSchema = new Schema(
         enum:["Science","Mathematics"],
         default:"Science"
     },
+    lang_type:{
+        type:String,
+        require:["type Required"],
+        enum:["English","Tamil"],
+        default:"English"
+    },
     url:{type:String},
     duration:{type:String},
     size:{type:String},
