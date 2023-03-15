@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const AssessmentSchema = new Schema(
 {
-    type: { type: String },
+    type: { type: String,unique:false},
     lang: {
       english: {type:String},
       tamil: {type:String},
@@ -42,6 +42,7 @@ const AssessmentSchema = new Schema(
     no_of_chapters:{type:Number,default:1},
     status:{type:Number,default:0},
     status_percentage:{type:Number,default:0},  
+    task_id:{type:Number,default:0,unique:false},
     duration:{type:String},
     size:{type:String},
     created_by:{type:String},

@@ -52,6 +52,7 @@ exports.PostPractice = async (req, res) => {
         no_of_chapters:reqData.no_of_chapters,
         status:reqData.status,
         status_percentage:reqData.status_percentage,
+        task_id:reqData.task_id,
         duration:reqData.duration,
         size:reqData.size,
         created_by:reqData.created_by,
