@@ -23,7 +23,7 @@ exports.GetPractice = async (req, res) => {
             dataSet.push(data);
           }
   
-          return res.status(200).json(dataSet);
+          return res.status(200).json(users);
         } else if (err) {
           return res.status(400).send("no data found : ", err);
         }

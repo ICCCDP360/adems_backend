@@ -1,5 +1,6 @@
 const SchoolDetails = require("../../modals/school principal/School");
 const StudentDetails = require("../../modals/Student/Details");
+const accountHolder = require("../../modals/Student/AccountHolder");
 var date = new Date();
 
 //Get Studentdetails
@@ -25,23 +26,23 @@ exports.addStudentDetails = async (req, res) => {
   console.log("req body", reqData);
   try {
     const StudentRegister = new StudentDetails({
-      stu_id:reqData.stu_id,
+      stu_id: reqData.stu_id,
       name: reqData.name,
       email: reqData.email,
       phone: reqData.phone,
-      std:reqData.std,
-      sec:reqData.sec,
-      roll_no:reqData.roll_no,
+      std: reqData.std,
+      sec: reqData.sec,
+      roll_no: reqData.roll_no,
       dob: reqData.dob,
       gender: reqData.gender,
       city: reqData.city,
       state: reqData.state,
       acc_id: reqData.acc_id,
-      sch_id: reqData.sch_id, 
+      sch_id: reqData.sch_id,
       passcode: reqData.passcode,
-      points:reqData.points,
+      points: reqData.points,
       assign_teacher: reqData.assign_teacher,
-      verify:reqData.verify
+      verify: reqData.verify,
     });
     const Respone = await StudentRegister.save();
     res.status(200).json(Respone);
@@ -88,14 +89,24 @@ exports.getByIdStudentDetails = async (req, res) => {
   }
 };
 
-
 exports.getByIdProfileDetails = async (req, res) => {
-  try{
+  try {
     const profileDetailsFound = await StudentDetails.findById(req.params.id);
-    const SchoolDetailsFound = await SchoolDetails.findOne({sch_id:profileDetailsFound.sch_id});
-    res.status(200).json({"studentDetails":profileDetailsFound,"schoolDetails":SchoolDetailsFound});
-  }catch(err){
+    const SchoolDetailsFound = await SchoolDetails.findOne({
+      sch_id: profileDetailsFound.sch_id,
+    });
+    const parentDetailsFound = await accountHolder.findOne({
+      _id: profileDetailsFound.acc_id,
+    });
+    res
+      .status(200)
+      .json({
+        studentDetails: profileDetailsFound,
+        schoolDetails: SchoolDetailsFound,
+        parentDetails: parentDetailsFound,
+      });
+  } catch (err) {
     console.log(err);
     res.status(404).json(err);
   }
-}
+};

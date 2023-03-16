@@ -33,7 +33,7 @@ exports.CheckAccount = async (req, res) => {
       return res.status(200).json(data);
     }
   } catch (error) {
-    res.status(200).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 };
 
@@ -96,7 +96,7 @@ exports.StudentLogin = async (req, res) => {
     );
   } catch (err) {
     console.log(err);
-    res.status(200).json(err);
+    res.status(400).json(err);
   }
 };
 
@@ -137,7 +137,7 @@ exports.refreshToken = async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    // return res.status(500).send({ message: err });
+    return res.status(400).send({ message: err });
   }
 };
 
