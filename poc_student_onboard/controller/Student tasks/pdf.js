@@ -72,7 +72,7 @@ exports.PostPdf = async (req, res) => {
 
   exports.GetbyidPdf = async (req, res) => {
   try {
-    const pdfFound = await pdfFound.findById(req.query.id);
+    const pdfFound = await pdf.find({_id:req.query.id});
     res.status(200).json(pdfFound);
   } catch (err) {
     console.log(err);
