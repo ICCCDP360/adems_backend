@@ -28,7 +28,7 @@ exports.addSchoolDetails = async (req, res) => {
     console.log("req body", reqData);
     const PostSchool = new SchoolDetails({
       sch_id: reqData.sch_id,
-      sch_name: reqData.sch_name,
+      school_name: reqData.school_name,
       address: reqData.address,
       city: reqData.city,
       state:reqData.state,

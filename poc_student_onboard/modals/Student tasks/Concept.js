@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const conceptSchema = new Schema(
+const ConceptSchema = new Schema(
   {
     name: { type: String },
     assessment: { type: String },
@@ -15,4 +15,4 @@ const conceptSchema = new Schema(
   { timestamps: { createdAt: "dt", updatedAt: "u_dt" } }
 );
 
-module.exports = mongoose.model("concept", conceptSchema);
+module.exports = mongoose.model("concept", ConceptSchema);
