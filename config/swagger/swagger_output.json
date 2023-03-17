@@ -577,6 +577,15 @@
             "schema": {
               "type": "object",
               "properties": {
+                "old_passcode": {
+                  "example": "any"
+                },
+                "new_passcode": {
+                  "example": "any"
+                },
+                "confirm_passcode": {
+                  "example": "any"
+                },
                 "stu_id": {
                   "example": "any"
                 }

@@ -217,7 +217,7 @@ exports.SetPasscode = async (req, res) => {
     const setPassword = await DetailsFound.save();
     return res
       .status(200)
-      .json({ message: `Passcode set to ${DetailsFound.stu_name}` });
+      .json({ message: `Passcode set to ${DetailsFound.name}` });
   } catch (error) {
     return res.status(400).json({ message: error.message });
   }
@@ -225,18 +225,33 @@ exports.SetPasscode = async (req, res) => {
 
 // change-passcode
 exports.ChangePasscode = async (req, res) => {
-  console.log('body',req.body);
-  return res.status(200).json({"message":"Test"});
+  // console.log('body',req.body);
+  // return res.status(200).json({"message":"Test"});
   try {
-    const StudentFound = await StudentDetails.find({ _id: req.body.stu_id });
+    const old_passcode = req.body.old_passcode;
+    const new_passcode = req.body.new_passcode;
+    const confirm_passcode = req.body.confirm_passcode;
+    const student_id = req.body.stu_id;
+    const StudentFound = await StudentDetails.findOne({ _id: student_id });
     if (!StudentFound)
       return res.status(400).send("Invaild Password");
     let hasValidPass = await bcrypt.compare(
-      re.body.passcode,
+      old_passcode,
       StudentFound.passcode
     );
-    if (!hasValidPass) throw { message: "Invalid password" };
-    return res.status(200).json(StudentFound,hasValidPass);
+
+    if (!hasValidPass)
+      return res.status(400).json({ message: "Invalid password given" });
+
+    if(new_passcode != confirm_passcode) 
+      return res.status(400).json({ message: "New password and Confirm password are not same"});
+
+    if(hasValidPass)
+    {
+      StudentFound.passcode = new_passcode;
+      const setPassword = await StudentFound.save();
+      return res.status(200).json({ message: `Passcode set to ${StudentFound.name}` });
+    }  
   } catch (error) {
     return res.status(400).json(error);
   }
