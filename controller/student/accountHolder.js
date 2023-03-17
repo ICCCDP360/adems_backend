@@ -1,7 +1,7 @@
 const accountHolder = require("../../modals/Student/AccountHolder");
 var date = new Date();
 
-// Post Stu_ac_holder
+// Post  A/c holder
 exports.PostAccountHolder = async (req, res) => {
   const reqData = req.body;
   console.log("req body", reqData);
@@ -25,7 +25,7 @@ exports.PostAccountHolder = async (req, res) => {
   }
 };
 
-//Getbyid Stu_ac_holder
+//Getbyid A/c holder
 exports.GetbyidAccountHolder = async (req, res) => {
   try {
     const accountHolderFound = await accountHolder.findById(req.params.id);

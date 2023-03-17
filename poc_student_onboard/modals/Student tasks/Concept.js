@@ -14,6 +14,7 @@ const ConceptSchema = new Schema(
     video_count:{typer:Number,default:0},
     status: { type: Boolean, default: false },
     assign_to: { type: Array },
+    myconcept_id:{type:String,default:10}
   },
   { timestamps: { createdAt: "dt", updatedAt: "u_dt" } }
 );
