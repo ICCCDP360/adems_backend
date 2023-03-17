@@ -55,7 +55,7 @@ exports.StudentLogin = async (req, res) => {
     StudentFound.passcode = "";
     try {
       schoolFound = await School.findOne({
-        sch_id: StudentFound.sch_id,//.slice(-1)[0],
+        sch_id: StudentFound.sch_id, //.slice(-1)[0],
       });
       if (!schoolFound) {
         schoolFound = { message: "school not found" };
@@ -66,7 +66,7 @@ exports.StudentLogin = async (req, res) => {
 
     try {
       parentFound = await StudentAccount.findOne({
-        _id: StudentFound.acc_id,//.slice(-1)[0],
+        _id: StudentFound.acc_id, //.slice(-1)[0],
       });
       if (!parentFound) {
         parentFound = { message: "school not found" };
@@ -103,7 +103,7 @@ exports.StudentLogin = async (req, res) => {
           refreshToken,
           StudentFound,
           schoolFound,
-          parentFound
+          parentFound,
         });
       }
     );
@@ -233,8 +233,7 @@ exports.ChangePasscode = async (req, res) => {
     const confirm_passcode = req.body.confirm_passcode;
     const student_id = req.body.stu_id;
     const StudentFound = await StudentDetails.findOne({ _id: student_id });
-    if (!StudentFound)
-      return res.status(400).send("Invaild Password");
+    if (!StudentFound) return res.status(400).send("Invaild Password");
     let hasValidPass = await bcrypt.compare(
       old_passcode,
       StudentFound.passcode
@@ -243,15 +242,18 @@ exports.ChangePasscode = async (req, res) => {
     if (!hasValidPass)
       return res.status(400).json({ message: "Invalid password given" });
 
-    if(new_passcode != confirm_passcode) 
-      return res.status(400).json({ message: "New password and Confirm password are not same"});
+    if (new_passcode != confirm_passcode)
+      return res
+        .status(400)
+        .json({ message: "New password and Confirm password are not same" });
 
-    if(hasValidPass)
-    {
+    if (hasValidPass) {
       StudentFound.passcode = new_passcode;
       const setPassword = await StudentFound.save();
-      return res.status(200).json({ message: `Passcode set to ${StudentFound.name}` });
-    }  
+      return res
+        .status(200)
+        .json({ message: `Passcode set to ${StudentFound.name}` });
+    }
   } catch (error) {
     return res.status(400).json(error);
   }
