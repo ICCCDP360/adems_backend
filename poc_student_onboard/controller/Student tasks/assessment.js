@@ -1,9 +1,9 @@
-const assessment = require("../../modals/Student tasks/Assessment")
-var date = new Date()
+const assessment = require("../../modals/Student tasks/Assessment");
+var date = new Date();
 
 //Get Assessment
 exports.GetAssessment = async (req, res) => {
-    console.log(req.query.lang);
+    // console.log(req.query.lang);
     let lang = req.query.lang;
     try {
       // get all data
@@ -13,7 +13,7 @@ exports.GetAssessment = async (req, res) => {
           var dataSet = [];
           for (let index = 0; index < users.length; index++) {
             let element = users[index];
-            console.log(element.lang[lang]);
+            //console.log(element.lang[lang]);
             let data = {
               header: element.type,
               lang: element.lang[lang],
@@ -35,51 +35,64 @@ exports.GetAssessment = async (req, res) => {
   };
 
 // Post Assessment
-exports.PostAssessment= async (req, res) => {
-    console.log("req body");
-    const reqData = req.body;
-    try {
-      const Assessment = new assessment({
-        type: reqData.type,
-        lang: {
-          english: reqData.english,
-          tamil: reqData.tamil,
-        },
-        title:reqData.title,
-        thumnail:reqData.thumnail,
-        category:reqData.category,
-        lang_type: reqData.lang_type,
-        std:reqData.std,
-        questions:reqData.questions,
-        no_of_chapters:reqData.no_of_chapters,
-        status:reqData.status,
-        status_percentage:reqData.status_percentage,
-        task_id:reqData.task_id,
-        duration:reqData.duration,
-        size:reqData.size,
-        created_by:reqData.created_by,
-        reviewed_by:reqData.reviewed_by,
-        approved_by:reqData.approved_by
-      });
-      const savePostAssessment = await Assessment.save();
-      res.status(200).json(savePostAssessment);
-    } catch (err) {
-      if (err.message.split(" ")[0] == "A1000") {
-        return res.status(400).json({ message: "already exist" });
-      } else {
-        return res.status(400).json({ message: err.message });
-      }
+exports.PostAssessment = async (req, res) => {
+  console.log("req body");
+  const reqData = req.body;
+  try {
+    const Assessment = new assessment({
+      type: reqData.type,
+      lang: {
+        english: reqData.english,
+        tamil: reqData.tamil,
+      },
+      title: reqData.title,
+      thumnail: reqData.thumnail,
+      category: reqData.category,
+      lang_type: reqData.lang_type,
+      std: reqData.std,
+      questions: reqData.questions,
+      no_of_chapters: reqData.no_of_chapters,
+      status: reqData.status,
+      status_percentage: reqData.status_percentage,
+      task_id: reqData.task_id,
+      duration: reqData.duration,
+      size: reqData.size,
+      created_by: reqData.created_by,
+      reviewed_by: reqData.reviewed_by,
+      approved_by: reqData.approved_by,
+    });
+    const savePostAssessment = await Assessment.save();
+    res.status(200).json(savePostAssessment);
+  } catch (err) {
+    if (err.message.split(" ")[0] == "A1000") {
+      return res.status(400).json({ message: "already exist" });
+    } else {
+      return res.status(400).json({ message: err.message });
     }
-  };
+  }
+};
 
-  // Getbyid Assessment
+// Getbyid Assessment
 
-  exports.GetbyidAssessment = async (req, res) => {
+exports.GetbyidAssessment = async (req, res) => {
   try {
     const assessmentFound = await assessment.findById(req.query.id);
     res.status(200).json(assessmentFound);
   } catch (err) {
     console.log(err);
-    res.status(400).json(err)
+    res.status(400).json(err);
+  }
+};
+
+exports.getAssesmentQuestionsByLanguageType = async (req, res) => {
+  try {
+    const assessmentQuestions = await assessment.find({
+      lang_type : req.body.lang_type
+    },{"_id":0,"questions":1,"status":2});
+    //console.log(assessmentQuestions);
+    res.status(200).json(assessmentQuestions);
+  } catch (err) {
+    console.log(err);
+    res.status(400).json(err);
   }
 };
