@@ -11,5 +11,6 @@ router.post("/set-passcode", controller.SetPasscode);
 router.post("/signin", controller.StudentLogin);
 // refertoken router
 router.post("/refreshtoken", controller.refreshToken);
+router.post("/change-passcode", controller.ChangePasscode);
 
 module.exports = router;

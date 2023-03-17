@@ -82,3 +82,13 @@ exports.PostPractice = async (req, res) => {
       console.log(err);
     }
   }
+
+
+exports.GetPracticeQuestion = async(req,res)=> {
+  try{
+    const practiceFound = await practice.findById(req.query.id)
+    res.status(200).json(practiceFound)
+  }catch(err){
+    console.log(err);
+  }
+}

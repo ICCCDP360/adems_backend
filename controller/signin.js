@@ -43,10 +43,11 @@ exports.StudentLogin = async (req, res) => {
   console.log("req body", reqData.stu_id);
   try {
     var schoolFound = [];
+    var parentFound = [];
     const StudentFound = await StudentDetails.findOne({ _id: reqData.stu_id });
     if (!StudentFound)
       return res.status(400).send("Invaild UserName Or Password");
-    let hasValidPass =await bcrypt.compare(
+    let hasValidPass = await bcrypt.compare(
       reqData.passcode,
       StudentFound.passcode
     );
@@ -54,10 +55,21 @@ exports.StudentLogin = async (req, res) => {
     StudentFound.passcode = "";
     try {
       schoolFound = await School.findOne({
-        _id: StudentFound.sch_id.slice(-1)[0],
+        sch_id: StudentFound.sch_id,//.slice(-1)[0],
       });
       if (!schoolFound) {
         schoolFound = { message: "school not found" };
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+
+    try {
+      parentFound = await StudentAccount.findOne({
+        _id: StudentFound.acc_id,//.slice(-1)[0],
+      });
+      if (!parentFound) {
+        parentFound = { message: "school not found" };
       }
     } catch (error) {
       console.log(error.message);
@@ -91,6 +103,7 @@ exports.StudentLogin = async (req, res) => {
           refreshToken,
           StudentFound,
           schoolFound,
+          parentFound
         });
       }
     );
@@ -207,5 +220,24 @@ exports.SetPasscode = async (req, res) => {
       .json({ message: `Passcode set to ${DetailsFound.stu_name}` });
   } catch (error) {
     return res.status(400).json({ message: error.message });
+  }
+};
+
+// change-passcode
+exports.ChangePasscode = async (req, res) => {
+  console.log('body',req.body);
+  return res.status(200).json({"message":"Test"});
+  try {
+    const StudentFound = await StudentDetails.find({ _id: req.body.stu_id });
+    if (!StudentFound)
+      return res.status(400).send("Invaild Password");
+    let hasValidPass = await bcrypt.compare(
+      re.body.passcode,
+      StudentFound.passcode
+    );
+    if (!hasValidPass) throw { message: "Invalid password" };
+    return res.status(200).json(StudentFound,hasValidPass);
+  } catch (error) {
+    return res.status(400).json(error);
   }
 };
