@@ -45,7 +45,7 @@ const VideoSchema = new Schema(
             content: { type: String },
             likesCount: { type: Number, default: 0 },
             dislikesCount: { type: Number, default: 0 },
-            replies: { type: Array },
+            replies: { type: String },
           },
         ],
       },
