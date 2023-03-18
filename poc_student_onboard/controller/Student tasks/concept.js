@@ -1,4 +1,8 @@
+const Assessment = require("../../modals/Student tasks/Assessment");
 const concept = require("../../modals/Student tasks/Concept");
+const Pdf = require("../../modals/Student tasks/Pdf");
+const Practice = require("../../modals/Student tasks/Practice");
+const Video = require("../../modals/Student tasks/Video");
 var date = new Date();
 
 //Get Concept
@@ -47,12 +51,74 @@ exports.PostConcept = async (req, res) => {
   };
 
 // Getbyid Concept
-exports.GetbyidConcept = async(req,res)=>{
+exports.GetbyidConcept = async (req,res)=>{
     try {
         const conceptFound = await concept.find({_id:req.query.id});
         res.status(200).json(conceptFound);
       } catch (err) {
         console.log(err);
-        res.status(404).json(err)
+        return res.status(404).json(err)
       }
+};
+
+exports.GetbyidConceptPdf = async (req,res) =>{
+  try{
+    const conceptFound = await concept.findOne({_id: req.body.id});
+    if(conceptFound.pdf == "")
+      return res.status(404).json({'message':'Pdf Not found'});
+    if(conceptFound.pdf){
+      const pdfDetailsFound = await Pdf.findOne({_id:conceptFound.pdf},{_id:0,url:1})
+      return res.status(200).json({pdfUrl:pdfDetailsFound.url});
+    }
+  }catch(err){
+    console.log(err);
+    return res.status(404).json(err);
+  }
+};
+
+exports.GetbyidConceptAssessment = async (req,res) =>{
+  try{
+    const conceptFound = await concept.findOne({_id: req.body.id});
+    if(conceptFound.assessment == "")
+      return res.status(404).json({'message':'Concept Not found'});
+    if(conceptFound.assessment){
+      const assessmentDetailsFound = await Assessment.find({_id:conceptFound.assessment},{_id:0,questions:1});
+      if(!assessmentDetailsFound)
+        return res.status(404).json({'message':'Assessment Not Found'});
+      return res.status(200).json(assessmentDetailsFound);
+    }
+  }catch(err){
+    console.log(err);
+    return res.status(404).json(err);
+  }
+};
+
+exports.GetbyidConceptVideo = async (req,res) =>{
+  try{
+    const conceptFound = await concept.findOne({_id: req.body.id});
+    if(conceptFound.video=="")
+      return res.status(404).json({'message':'Video Not found'});
+    if(conceptFound.video){
+      const videoDetailsFound = await Video.find({_id:conceptFound.video},{_id:0,url:1})
+      return res.status(200).json({videoUrl:videoDetailsFound});
+    }
+  }catch(err){
+    console.log(err);
+    return res.status(404).json(err);
+  }
+};
+
+exports.GetbyidConceptPractice = async (req,res) =>{
+  try{
+    const conceptFound = await concept.findOne({_id: req.body.id});
+    if(conceptFound.practice =="") 
+      return res.status(404).json({'message':'Practice Not found'});
+    if(conceptFound.pdf){
+      const practiceDetailsFound = await Practice.find({_id:conceptFound.practice},{_id:0,questions:1})
+      return res.status(200).json(practiceDetailsFound);
+    }
+  }catch(err){
+    console.log(err);
+    return res.status(404).json(err);
+  }
 };
