@@ -110,7 +110,7 @@ exports.GetbyidConceptVideo = async (req,res) =>{
 
 exports.GetbyidConceptPractice = async (req,res) =>{
   try{
-    const conceptFound = await concept.findOne({_id: req.body.id});
+    const conceptFound = await concept.findOne({_id: req.query.id});
     if(conceptFound.practice =="") 
       return res.status(404).json({'message':'Practice Not found'});
     if(conceptFound.pdf){

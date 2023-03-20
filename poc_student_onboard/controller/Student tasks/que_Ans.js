@@ -1,12 +1,12 @@
-const question_answer = require("../../modals/Student tasks/Concept");
+const que_ans = require("../../modals/Student tasks/Que_ans");
 var date = new Date();
 
 //Get Q&A
-exports.GetQuestion_answer = async (req, res) => {
+exports.GetQue_ans = async (req, res) => {
   console.log(req.query.name);
   try {
     // get all data
-    question_answer.find().exec(function (err, users) {
+    que_ans.find().exec(function (err, users) {
       if (users) {
         return res.status(200).json(users);
       } else if (err) {
@@ -20,11 +20,11 @@ exports.GetQuestion_answer = async (req, res) => {
 };
 
 //Post Q&A
-exports.PostQuestion_answer = async (req, res) => {
+exports.PostQue_ans = async (req, res) => {
     const reqData = req.body;
     console.log("req body", reqData);
     try {
-      const Question_answer = new question_answer({
+      const Que_ans = new que_ans({
         question_id:reqData.question_id,
         question_ans:reqData.question_ans,
         user_id:reqData.user_id,
@@ -34,8 +34,8 @@ exports.PostQuestion_answer = async (req, res) => {
         content_id:reqData.content_id,
         content:reqData.content
       });
-      const savePostQuestion_answer = await Question_answer.save();
-      res.status(200).json(savePostQuestion_answer);
+      const savePostQue_ans = await Que_ans.save();
+      res.status(200).json(savePostQue_ans);
     } catch (err) {
       console.log(err);
       res.status(400).json(err);
