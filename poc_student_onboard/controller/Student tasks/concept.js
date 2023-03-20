@@ -10,7 +10,7 @@ exports.GetConcept = async (req, res) => {
   console.log(req.query.name);
   try {
     // get all data
-    concept.find().exec(function (err, users) {
+    concept.find({lang_type:req.query.lang || 'english'}).exec(function (err, users) {
       if (users) {
         return res.status(200).json(users);
       } else if (err) {
@@ -40,7 +40,8 @@ exports.PostConcept = async (req, res) => {
         video_count:reqData.video_count,
         status:reqData.status,
         assign_to:reqData.assign_to,
-        myconcept_id:reqData.myconcept_id
+        myconcept_id:reqData.myconcept_id,
+        lang_type:reqData.lang_type
       });
       const savePostConcept = await Concept.save();
       res.status(200).json(savePostConcept);
@@ -54,7 +55,7 @@ exports.PostConcept = async (req, res) => {
 exports.GetbyidConcept = async (req,res)=>{
     try {
         const conceptFound = await concept.find({_id:req.query.id});
-        res.status(200).json(conceptFound);
+        return res.status(200).json(conceptFound);
       } catch (err) {
         console.log(err);
         return res.status(404).json(err)

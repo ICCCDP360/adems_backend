@@ -15,6 +15,12 @@ const ConceptSchema = new Schema(
     status: { type: Boolean, default: false },
     assign_to: { type: Array },
     myconcept_id: { type: String, default: 10 },
+    lang_type:{
+      type:String,
+      require:["type Required"],
+      enum:["english","tamil"],
+      default:"english"
+  },
   },
   { timestamps: { createdAt: "dt", updatedAt: "u_dt" } }
 );
