@@ -68,8 +68,8 @@ exports.GetbyidConceptPdf = async (req,res) =>{
     if(conceptFound.pdf == "")
       return res.status(404).json({'message':'Pdf Not found'});
     if(conceptFound.pdf){
-      const pdfDetailsFound = await Pdf.findOne({_id:conceptFound.pdf},{_id:0,url:1})
-      return res.status(200).json({pdfUrl:pdfDetailsFound.url});
+      const pdfDetailsFound = await Pdf.findOne({_id:conceptFound.pdf},{_id:0,url:1,thumnail:2})
+      return res.status(200).json({pdfUrl:pdfDetailsFound.url,pdfThumnail:pdfDetailsFound.thumnail});
     }
   }catch(err){
     console.log(err);
@@ -100,8 +100,8 @@ exports.GetbyidConceptVideo = async (req,res) =>{
     if(conceptFound.video=="")
       return res.status(404).json({'message':'Video Not found'});
     if(conceptFound.video){
-      const videoDetailsFound = await Video.find({_id:conceptFound.video},{_id:0,url:1})
-      return res.status(200).json({videoUrl:videoDetailsFound});
+      const videoDetailsFound = await Video.findOne({_id:conceptFound.video},{_id:0,url:1,thumnail:2})
+      return res.status(200).json({videoUrl:videoDetailsFound.url,videoThumnail:videoDetailsFound.thumnail});
     }
   }catch(err){
     console.log(err);
