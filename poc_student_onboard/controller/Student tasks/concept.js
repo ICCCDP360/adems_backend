@@ -55,7 +55,7 @@ exports.PostConcept = async (req, res) => {
 // Getbyid Concept
 exports.GetbyidConcept = async (req,res)=>{
     try {
-        const conceptFound = await concept.find({_id:req.query.id});
+        const conceptFound = await concept.findById(req.query.id);
         return res.status(200).json(conceptFound);
       } catch (err) {
         console.log(err);
@@ -64,9 +64,10 @@ exports.GetbyidConcept = async (req,res)=>{
 };
 
 exports.GetbyidConceptPdf = async (req,res) =>{
+  console.log(req.params.id);
   try{
-    const conceptFound = await concept.findOne({_id: req.body.id});
-    if(conceptFound.pdf == "")
+    const conceptFound = await concept.findById(req.params.id);
+    if(!conceptFound)
       return res.status(404).json({'message':'Pdf Not found'});
     if(conceptFound.pdf){
       const pdfDetailsFound = await Pdf.findOne({_id:conceptFound.pdf},{_id:0,url:1,thumnail:2})
@@ -79,9 +80,11 @@ exports.GetbyidConceptPdf = async (req,res) =>{
 };
 
 exports.GetbyidConceptAssessment = async (req,res) =>{
+  console.log(req.params.id);
   try{
-    const conceptFound = await concept.findOne({_id: req.body.id});
-    if(conceptFound.assessment == "")
+    const conceptFound = await concept.findById(req.params.id);
+    console.log(conceptFound);
+    if(!conceptFound)
       return res.status(404).json({'message':'Concept Not found'});
     if(conceptFound.assessment){
       const assessmentDetailsFound = await Assessment.find({_id:conceptFound.assessment},{_id:0,questions:1});
@@ -96,9 +99,10 @@ exports.GetbyidConceptAssessment = async (req,res) =>{
 };
 
 exports.GetbyidConceptVideo = async (req,res) =>{
+  console.log(req.params.id);
   try{
-    const conceptFound = await concept.findOne({_id: req.body.id});
-    if(conceptFound.video=="")
+    const conceptFound = await concept.findById(req.params.id);
+    if(!conceptFound)
       return res.status(404).json({'message':'Video Not found'});
     if(conceptFound.video){
       const videoDetailsFound = await Video.findOne({_id:conceptFound.video},{_id:0,url:1,thumnail:2})
@@ -111,9 +115,10 @@ exports.GetbyidConceptVideo = async (req,res) =>{
 };
 
 exports.GetbyidConceptPractice = async (req,res) =>{
+  console.log(req.params.id);
   try{
-    const conceptFound = await concept.findOne({_id: req.query.id});
-    if(conceptFound.practice =="") 
+    const conceptFound = await concept.findById(req.params.id);
+    if(!conceptFound) 
       return res.status(404).json({'message':'Practice Not found'});
     if(conceptFound.pdf){
       const practiceDetailsFound = await Practice.find({_id:conceptFound.practice},{_id:0,questions:1})

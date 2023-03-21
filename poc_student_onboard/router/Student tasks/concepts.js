@@ -6,10 +6,10 @@ const controller = require("../../controller/Student tasks/concept");
 ConceptRouter.get("/concept", controller.GetConcept);
 ConceptRouter.post("/concept",controller.PostConcept);
 ConceptRouter.get("/concept/:id",controller.GetbyidConcept)
-ConceptRouter.post("/conceptPdf", controller.GetbyidConceptPdf);
-ConceptRouter.post("/conceptAssessment", controller.GetbyidConceptAssessment);
-ConceptRouter.post("/conceptVideo", controller.GetbyidConceptVideo);
-ConceptRouter.post("/conceptPractice", controller.GetbyidConceptPractice);
+ConceptRouter.get("/conceptPdf/:id", controller.GetbyidConceptPdf);
+ConceptRouter.get("/conceptAssessment/:id", controller.GetbyidConceptAssessment);
+ConceptRouter.get("/conceptVideo/:id", controller.GetbyidConceptVideo);
+ConceptRouter.get("/conceptPractice/:id", controller.GetbyidConceptPractice);
 
 
 module.exports = ConceptRouter;
