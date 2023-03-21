@@ -11,7 +11,6 @@ const secretkey = "adem001";
 // CheckAccount
 exports.CheckAccount = async (req, res) => {
   const reqData = req.body;
-  console.log("req body", reqData);
   try {
     const AccountFound = await StudentAccount.findOne({
       phone: reqData.phone,
@@ -225,8 +224,6 @@ exports.SetPasscode = async (req, res) => {
 
 // change-passcode
 exports.ChangePasscode = async (req, res) => {
-  // console.log('body',req.body);
-  // return res.status(200).json({"message":"Test"});
   try {
     const old_passcode = req.body.old_passcode;
     const new_passcode = req.body.new_passcode;

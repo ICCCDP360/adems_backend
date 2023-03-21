@@ -26,7 +26,6 @@ exports.GetConcept = async (req, res) => {
 //Post Concept
 exports.PostConcept = async (req, res) => {
     const reqData = req.body;
-    console.log("req body", reqData);
     try {
       const Concept = new concept({
         name:reqData.name,
@@ -64,7 +63,6 @@ exports.GetbyidConcept = async (req,res)=>{
 };
 
 exports.GetbyidConceptPdf = async (req,res) =>{
-  console.log(req.params.id);
   try{
     const conceptFound = await concept.findById(req.params.id);
     if(!conceptFound)
@@ -80,7 +78,6 @@ exports.GetbyidConceptPdf = async (req,res) =>{
 };
 
 exports.GetbyidConceptAssessment = async (req,res) =>{
-  console.log(req.params.id);
   try{
     const conceptFound = await concept.findById(req.params.id);
     console.log(conceptFound);
@@ -99,7 +96,6 @@ exports.GetbyidConceptAssessment = async (req,res) =>{
 };
 
 exports.GetbyidConceptVideo = async (req,res) =>{
-  console.log(req.params.id);
   try{
     const conceptFound = await concept.findById(req.params.id);
     if(!conceptFound)
@@ -115,7 +111,6 @@ exports.GetbyidConceptVideo = async (req,res) =>{
 };
 
 exports.GetbyidConceptPractice = async (req,res) =>{
-  console.log(req.params.id);
   try{
     const conceptFound = await concept.findById(req.params.id);
     if(!conceptFound) 

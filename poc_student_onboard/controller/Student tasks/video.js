@@ -3,7 +3,6 @@ var date = new Date();
 
 //Get Videos
 exports.GetVideo = async (req, res) => {
-  console.log(req.query.lang);
   let lang = req.query.lang;
   try {
     // get all data
@@ -13,7 +12,6 @@ exports.GetVideo = async (req, res) => {
         var dataSet = [];
         for (let index = 0; index < users.length; index++) {
           let element = users[index];
-          console.log(element.lang[lang]);
           let data = {
             header: element.type,
             lang: element.lang[lang],
@@ -35,7 +33,6 @@ exports.GetVideo = async (req, res) => {
 
 // Post Videos
 exports.PostVideo = async (req, res) => {
-    console.log("req body");
     const reqData = req.body;
     try {
       const Video = new video({
@@ -74,7 +71,6 @@ exports.PostVideo = async (req, res) => {
   // Getbyid Videos
 
   exports.GetbyidVideo = async (req, res) => {
-    console.log(req.params.id);
   try {
     const videoFound = await video.findById(req.params.id);
     res.status(200).json(videoFound);

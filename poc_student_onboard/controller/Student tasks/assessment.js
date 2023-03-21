@@ -3,17 +3,14 @@ var date = new Date();
 
 //Get Assessment
 exports.GetAssessment = async (req, res) => {
-    // console.log(req.query.lang);
     let lang = req.query.lang;
     try {
       // get all data
       assessment.find().exec(function (err, users) {
         if (users) {
-          // console.log(users);
           var dataSet = [];
           for (let index = 0; index < users.length; index++) {
             let element = users[index];
-            //console.log(element.lang[lang]);
             let data = {
               header: element.type,
               lang: element.lang[lang],
@@ -36,7 +33,6 @@ exports.GetAssessment = async (req, res) => {
 
 // Post Assessment
 exports.PostAssessment = async (req, res) => {
-  console.log("req body");
   const reqData = req.body;
   try {
     const Assessment = new assessment({
@@ -89,7 +85,6 @@ exports.getAssesmentQuestionsByLanguageType = async (req, res) => {
     const assessmentQuestions = await assessment.find({
       lang_type : req.body.lang_type
     },{"_id":0,"questions":1,"status":2});
-    //console.log(assessmentQuestions);
     res.status(200).json(assessmentQuestions);
   } catch (err) {
     console.log(err);

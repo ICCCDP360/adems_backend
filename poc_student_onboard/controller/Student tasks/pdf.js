@@ -3,7 +3,6 @@ var date = new Date();
 
 //Get Pdf
 exports.GetPdf = async (req, res) => {
-  console.log(req.query.lang);
   let lang = req.query.lang;
   try {
     // get all data
@@ -13,7 +12,6 @@ exports.GetPdf = async (req, res) => {
         var dataSet = [];
         for (let index = 0; index < users.length; index++) {
           let element = users[index];
-          console.log(element.lang[lang]);
           let data = {
             header: element.type,
             lang: element.lang[lang],
@@ -35,7 +33,6 @@ exports.GetPdf = async (req, res) => {
 
 // Post Pdf
 exports.PostPdf = async (req, res) => {
-    console.log("req body");
     const reqData = req.body;
     try {
       const Pdf = new pdf({
@@ -71,7 +68,6 @@ exports.PostPdf = async (req, res) => {
   // Getbyid Pdf
 
   exports.GetbyidPdf = async (req, res) => {
-    console.log(req.params.id);
   try {
     const pdfFound = await pdf.findById(req.params.id);
     res.status(200).json(pdfFound);

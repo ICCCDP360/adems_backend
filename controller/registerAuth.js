@@ -4,7 +4,6 @@ var date =new Date();
 //post Registerauth
 exports.PostRegisterauth= async(req,res) => {
     const reqData = req.body
-    console.log("req body",reqData);
     try{
         const PostRegisterauth = new registerAuth (
             {

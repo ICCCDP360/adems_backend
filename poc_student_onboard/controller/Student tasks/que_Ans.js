@@ -22,7 +22,6 @@ exports.GetQue_ans = async (req, res) => {
 //Post Q&A
 exports.PostQue_ans = async (req, res) => {
     const reqData = req.body;
-    console.log("req body", reqData);
     try {
       const Que_ans = new que_ans({
         question_id:reqData.question_id,

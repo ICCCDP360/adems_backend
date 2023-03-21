@@ -3,17 +3,14 @@ var date = new Date();
 
 //Get dashboard
 exports.GetDashboard = async (req, res) => {
-  console.log(req.query.lang);
   let lang = req.query.lang;
   try {
     // get all data
     Dashboard.find().exec(function (err, users) {
       if (users) {
-        // console.log(users);
         var dataSet = [];
         for (let index = 0; index < users.length; index++) {
           let element = users[index];
-          console.log(element.lang[lang]);
           let data = {
             header: element.type,
             lang: element.lang[lang],

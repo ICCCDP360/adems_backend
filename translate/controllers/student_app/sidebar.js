@@ -3,7 +3,6 @@ var date = new Date();
 
 //Get Sidebar
 exports.GetSidebar = async (req, res) => {
-  console.log(req.query.lang);
   let lang = req.query.lang;
   try {
     // get all data
@@ -35,7 +34,6 @@ exports.GetSidebar = async (req, res) => {
 
 // Post Sidebar
 exports.PostSidebar = async (req, res) => {
-  console.log("req body");
   const reqData = req.body;
   try {
     const TaskRemSidebar = new Sidebar({

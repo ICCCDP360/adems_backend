@@ -21,7 +21,6 @@ exports.getDetails = async (req, res) => {
 // Post teacherdetails
 exports.createDetails = async (req, res) => {
   const reqData = req.body;
-  console.log("print data fron frontend", reqData);
   try {
     const PostTeacherDetails = new TeacherDetails({
       teacher_id: reqData.teacher_id,
@@ -42,8 +41,6 @@ exports.createDetails = async (req, res) => {
 exports.updateDetails = async (req, res) => {
   const reqData = req.body;
   const id = req.params.id;
-  console.log("print data", id);
-  //console.log("print data from frontend", id)
 
   try {
     // get user by name

@@ -23,7 +23,6 @@ exports.getStudentDetails = async (req, res) => {
 //post Registerauth
 exports.addStudentDetails = async (req, res) => {
   const reqData = req.body;
-  console.log("req body", reqData);
   try {
     const StudentRegister = new StudentDetails({
       stu_id: reqData.stu_id,
@@ -56,7 +55,6 @@ exports.updateStudentDetail = async (req, res) => {
   const reqData = req.body;
   const id = req.params.id;
   console.log("req body", id);
-  //console.log("print data from frontend", id)
 
   try {
     // get user by name

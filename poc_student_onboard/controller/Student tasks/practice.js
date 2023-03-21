@@ -3,7 +3,6 @@ var date = new Date()
 
 //Get Videos
 exports.GetPractice = async (req, res) => {
-    console.log(req.query.lang);
     let lang = req.query.lang;
     try {
       // get all data
@@ -13,7 +12,6 @@ exports.GetPractice = async (req, res) => {
           var dataSet = [];
           for (let index = 0; index < users.length; index++) {
             let element = users[index];
-            console.log(element.lang[lang]);
             let data = {
               header: element.type,
               lang: element.lang[lang],
@@ -35,7 +33,6 @@ exports.GetPractice = async (req, res) => {
 
 // Post Videos
 exports.PostPractice = async (req, res) => {
-    console.log("req body");
     const reqData = req.body;
     try {
       const Practice = new practice({

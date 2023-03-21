@@ -4,7 +4,6 @@ var date = new Date();
 // Post  A/c holder
 exports.PostAccountHolder = async (req, res) => {
   const reqData = req.body;
-  console.log("req body", reqData);
   try {
     const PostAccountHolder = new accountHolder({
       ph_code: reqData.ph_code,
