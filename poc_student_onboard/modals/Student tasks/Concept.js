@@ -4,16 +4,21 @@ const Schema = mongoose.Schema;
 const ConceptSchema = new Schema(
   {
     name: { type: String, unique: true },
-    assessment: { type: String },
-    pdf: { type: String },
-    practice: { type: String },
-    video: { type: String },
+    std:{
+      type:String,
+      enum:["VI","VII","VIII","XI","X","XI","XII"],
+      default:"XI"
+    },
+    assessment: { type: Array },
+    pdf: { type: Array },
+    practice: { type: Array },
+    video: { type: Array },
     category: { type: String },
     assessment_count: { type: Number, default: 0 },
     practice_count: { type: Number, default: 0 },
     video_count: { type: Number, default: 0 },
     status: { type: Boolean, default: false },
-    assign_to: { type: Array },
+    assign_to: { type: Array },//school id call
     myconcept_id: { type: String, default: 10 },
     lang_type:{
       type:String,

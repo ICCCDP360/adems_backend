@@ -30,6 +30,7 @@ exports.PostConcept = async (req, res) => {
     try {
       const Concept = new concept({
         name:reqData.name,
+        std:reqData.std,
         assessment:reqData.assessment,
         pdf:reqData.pdf,
         practice:reqData.practice,

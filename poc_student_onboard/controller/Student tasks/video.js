@@ -74,10 +74,12 @@ exports.PostVideo = async (req, res) => {
   // Getbyid Videos
 
   exports.GetbyidVideo = async (req, res) => {
+    console.log(req.params.id);
   try {
-    const videoFound = await videoFound.find({_id:req.query.id});
+    const videoFound = await video.findById(req.params.id);
     res.status(200).json(videoFound);
   } catch (err) {
     console.log(err);
+    res.status(400).json(err)
   }
 };

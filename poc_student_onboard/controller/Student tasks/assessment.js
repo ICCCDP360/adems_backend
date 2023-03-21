@@ -76,7 +76,7 @@ exports.PostAssessment = async (req, res) => {
 
 exports.GetbyidAssessment = async (req, res) => {
   try {
-    const assessmentFound = await assessment.find({_id:req.query.id});
+    const assessmentFound = await assessment.findById(req.query.id);
     res.status(200).json(assessmentFound);
   } catch (err) {
     console.log(err);
