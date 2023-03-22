@@ -6,23 +6,6 @@ const Que_ansSchema = new Schema(
     question_id:{type:Array},
     question_ans:{type:Array},
     user_id:{type:Array},
-    faqs: [
-      {
-        contentId: { type: Number },
-        content: { type: String },
-        likesCount: { type: Number, default: 0 },
-        dislikesCount: { type: Number, default: 0 },
-        replies: [
-          {
-            contentId: { type: Number },
-            content: { type: String },
-            likesCount: { type: Number, default: 0 },
-            dislikesCount: { type: Number, default: 0 },
-            replies: { type: String },
-          },
-        ],
-      },
-    ],
     like:{type:Number,default:0},
     dislike:{type:Number,default:0},
     content_id:{type:Number},
