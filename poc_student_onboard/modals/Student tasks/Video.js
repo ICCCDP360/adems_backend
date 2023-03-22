@@ -56,6 +56,7 @@ const VideoSchema = new Schema(
     duration: { type: String },
     relation: { type: String },
     size: { type: String },
+    completed_percentage: { type:String, default:"0"},
     reviewed_by: { type: String },
     approved_by: { type: String },
   },

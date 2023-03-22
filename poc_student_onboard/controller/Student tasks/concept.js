@@ -67,16 +67,24 @@ exports.GetbyidConceptPdf = async (req, res) => {
     if (!conceptFound)
       return res.status(404).json({ message: "Pdf Not found" });
     if (conceptFound.pdf) {
-      const pdfDetailsFound = await Pdf.findOne(
-        { _id: conceptFound.pdf },
-        { _id: 0, url: 1, thumnail: 2 }
+      const pdfDetailsFound = await Pdf.find(
+        { _id: { $in: conceptFound.pdf } },
+        { _id: 1, url: 2, thumnail: 3, title: 4 }
       );
-      return res
-        .status(200)
-        .json({
-          pdfUrl: pdfDetailsFound.url,
-          pdfThumnail: pdfDetailsFound.thumnail,
-        });
+      if(!pdfDetailsFound){
+        return res.status(404).json({'message':'Pdf Not found'})
+      }
+      let pdfSet = [];
+      for(let k=0;k<pdfDetailsFound.length;k++){
+        let data = {
+          pdfUrl: pdfDetailsFound[k].url,
+          pdfThumnail: pdfDetailsFound[k].thumnail,
+          pdfTitle : pdfDetailsFound[k].title,
+          pdfId: pdfDetailsFound[k]._id
+        }
+        pdfSet.push(data);
+      }
+      return res.status(200).json(pdfSet);
     }
   } catch (err) {
     return res.status(404).json(err);
@@ -138,7 +146,7 @@ exports.GetbyidConceptVideo = async (req, res) => {
     if (conceptFound.video) {
       const videoDetailsFound = await Video.find(
         { _id: { $in: conceptFound.video } },
-        { _id: 1, url: 2, thumnail: 3, title: 4 }
+        { _id: 1, url: 2, thumnail: 3, title: 4, completed_percentage: 5 }
       );
       let videoSet = [];
       for(let k=0;k<videoDetailsFound.length;k++){
@@ -146,7 +154,8 @@ exports.GetbyidConceptVideo = async (req, res) => {
           videoUrl: videoDetailsFound[k].url,
           videoThumnail: videoDetailsFound[k].thumnail,
           videoTitle : videoDetailsFound[k].title,
-          videoId: videoDetailsFound[k]._id
+          videoId: videoDetailsFound[k]._id,
+          videoCompletedPercentage: videoDetailsFound[k]._completed_percentage
         }
         videoSet.push(data);
       }
