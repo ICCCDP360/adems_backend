@@ -20,6 +20,8 @@ const ConceptSchema = new Schema(
     status: { type: Boolean, default: false },
     assign_to: { type: Array },//school id call
     myconcept_id: { type: String, default: 10 },
+    completed_status:{type:Boolean},
+    completed_percentage:{type:String,min:10,max:100,default:0},
     lang_type:{
       type:String,
       require:["type Required"],

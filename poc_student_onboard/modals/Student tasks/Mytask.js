@@ -22,7 +22,7 @@ const MytaskSchema = new Schema(
     myconcept_id: { type: String, default: 10 },
     stu_id:{type:Array},
     completed_status:{type:Boolean},
-    completed_percentage:{type:Number,min:10,max:100},
+    completed_percentage:{type:String,min:10,max:100},
     additional:{type:Array},
     lang_type:{
       type:String,

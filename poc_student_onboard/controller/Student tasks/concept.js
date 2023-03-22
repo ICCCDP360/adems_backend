@@ -42,6 +42,8 @@ exports.PostConcept = async (req, res) => {
       status: reqData.status,
       assign_to: reqData.assign_to,
       myconcept_id: reqData.myconcept_id,
+      completed_status:reqData.completed_status,
+      completed_percentage:reqData.completed_percentage,
       lang_type: reqData.lang_type,
     });
     const savePostConcept = await Concept.save();
