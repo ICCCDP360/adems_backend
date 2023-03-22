@@ -7,7 +7,6 @@ var date = new Date();
 
 //Get Concept
 exports.GetConcept = async (req, res) => {
-  console.log(req.query.name);
   try {
     // get all data
     concept
@@ -21,14 +20,13 @@ exports.GetConcept = async (req, res) => {
       });
   } catch (err) {
     console.log(err);
-    res.status(404).json(err);
+    return res.status(404).json(err);
   }
 };
 
 //Post Concept
 exports.PostConcept = async (req, res) => {
   const reqData = req.body;
-  console.log("req body", reqData);
   try {
     const Concept = new concept({
       name: reqData.name,
@@ -49,8 +47,7 @@ exports.PostConcept = async (req, res) => {
     const savePostConcept = await Concept.save();
     res.status(200).json(savePostConcept);
   } catch (err) {
-    console.log(err);
-    res.status(400).json(err);
+    return res.status(400).json(err);
   }
 };
 
@@ -60,13 +57,11 @@ exports.GetbyidConcept = async (req, res) => {
     const conceptFound = await concept.findById(req.query.id);
     return res.status(200).json(conceptFound);
   } catch (err) {
-    console.log(err);
     return res.status(404).json(err);
   }
 };
 
 exports.GetbyidConceptPdf = async (req, res) => {
-  console.log(req.params.id);
   try {
     const conceptFound = await concept.findById(req.params.id);
     if (!conceptFound)
@@ -84,7 +79,6 @@ exports.GetbyidConceptPdf = async (req, res) => {
         });
     }
   } catch (err) {
-    console.log(err);
     return res.status(404).json(err);
   }
 };
@@ -132,37 +126,43 @@ exports.GetbyidConceptAssessment = async (req, res) => {
       return res.status(200).json(dataSet);
     }
   } catch (err) {
-    console.log(err);
     return res.status(404).json(err);
   }
 };
 
 exports.GetbyidConceptVideo = async (req, res) => {
-  console.log(req.params.id);
   try {
     const conceptFound = await concept.findById(req.params.id);
     if (!conceptFound)
       return res.status(404).json({ message: "Video Not found" });
     if (conceptFound.video) {
-      const videoDetailsFound = await Video.findOne(
+      const videoDetailsFound = await Video.find(
         { _id: { $in: conceptFound.video } },
-        { _id: 0, url: 1, thumnail: 2 }
+        { _id: 1, url: 2, thumnail: 3, title: 4 }
       );
+      let videoSet = [];
+      for(let k=0;k<videoDetailsFound.length;k++){
+        let data = {
+          videoUrl: videoDetailsFound[k].url,
+          videoThumnail: videoDetailsFound[k].thumnail,
+          videoTitle : videoDetailsFound[k].title,
+          videoId: videoDetailsFound[k]._id
+        }
+        videoSet.push(data);
+      }
+      if(!videoDetailsFound){
+        return res.status(404).json({'message':'Video Not found'})
+      }
       return res
         .status(200)
-        .json({
-          videoUrl: videoDetailsFound.url,
-          videoThumnail: videoDetailsFound.thumnail,
-        });
+        .json({'videos':videoSet});
     }
   } catch (err) {
-    console.log(err);
     return res.status(404).json(err);
   }
 };
 
 exports.GetbyidConceptPractice = async (req, res) => {
-  console.log(req.params.id);
   try {
     const conceptFound = await concept.findById(req.params.id);
     if (!conceptFound)
@@ -173,7 +173,6 @@ exports.GetbyidConceptPractice = async (req, res) => {
         { _id: 0, questions: 1 }
       );
       let dataSet = [];
-      // console.log(practiceDetailsFound);
       for (let index = 0; index < practiceDetailsFound.questions.length; index++) {
           let element = practiceDetailsFound.questions[index];
           let answeroptiondata = element.options;
@@ -203,7 +202,6 @@ exports.GetbyidConceptPractice = async (req, res) => {
 
     }
   } catch (err) {
-    console.log(err);
     return res.status(404).json(err);
   }
 };
