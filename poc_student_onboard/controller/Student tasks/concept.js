@@ -101,7 +101,7 @@ exports.GetbyidConceptAssessment = async (req, res) => {
     if (conceptFound.assessment) {
       const assessmentDetailsFound = await Assessment.findOne(
         { _id: { $in: conceptFound.assessment } },
-        { _id: 0, questions: 1 }
+        { _id: 0, questions: 1, title: 2, thumnail: 3 }
       );
       if (!assessmentDetailsFound)
         return res.status(404).json({ message: "Assessment Not Found" });
@@ -128,12 +128,13 @@ exports.GetbyidConceptAssessment = async (req, res) => {
           number: index + 1,
           question: element.question,
           answeroption: assessmentoptions,
-          image: element.image,
+          image: element.image
         };
         dataSet.push(data);
       }
 
-      return res.status(200).json(dataSet);
+      return res.status(200).json({"questions":dataSet,"title": practiceDetailsFound.title,
+      "thumnail": practiceDetailsFound.thumnail});
     }
   } catch (err) {
     return res.status(404).json(err);
@@ -181,7 +182,7 @@ exports.GetbyidConceptPractice = async (req, res) => {
     if (conceptFound.pdf) {
       const practiceDetailsFound = await Practice.findOne(
         { _id: { $in: conceptFound.practice } },
-        { _id: 0, questions: 1 }
+        { _id: 0, questions: 1, title: 2, thumnail: 3 }
       );
       let dataSet = [];
       for (let index = 0; index < practiceDetailsFound.questions.length; index++) {
@@ -209,7 +210,8 @@ exports.GetbyidConceptPractice = async (req, res) => {
           dataSet.push(data);
         }
 
-      return res.status(200).json(dataSet);
+      return res.status(200).json({"questions":dataSet,"title": practiceDetailsFound.title,
+        "thumnail": practiceDetailsFound.thumnail});
 
     }
   } catch (err) {
