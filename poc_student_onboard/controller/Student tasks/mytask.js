@@ -1,5 +1,6 @@
 const mytask = require("../../modals/Student tasks/Mytask");
 const StudentDetails = require("../../../modals/Student/Details");
+const Mytask = require("../../modals/Student tasks/Mytask");
 var date = new Date();
 
 //Get Mytask
@@ -133,3 +134,85 @@ exports.GetbyidCompleted = async (req, res) => {
     return res.status(404).json(err);
   }
 };
+
+//Get GetMytaskPagination
+ exports.GetMytaskPagination = async(req,res) =>{
+  
+    // destructure page and limit and set default values
+    const { page = 1, limit = 10 } = req.query;
+  
+    try {
+      // execute query with page and limit values
+      const mytaskpagination = await Mytask.find()
+        .limit(limit * 1)
+        .skip((page - 1) * limit)
+        .exec();
+  
+      // get total documents in the Posts collection 
+      const count = await Mytask.countDocuments();
+  
+      // return response with posts, total pages, and current page
+      res.json({
+        mytaskpagination,
+        totalPages: Math.ceil(count / limit),
+        currentPage: page
+      });
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  //Get GetStudentMytaskPagination
+ exports.GetbyidStudentMytaskPagination = async(req,res) =>{
+  
+  // destructure page and limit and set default values
+  const { page = 1, limit = 10 } = req.query;
+
+  try {
+    // execute query with page and limit values
+    const studentmytaskpagination = await Mytask.find()
+      .limit(limit * 1)
+      .skip((page - 1) * limit)
+      .exec();
+
+    // get total documents in the Posts collection 
+    const count = await Mytask.countDocuments();
+
+    // return response with posts, total pages, and current page
+    res.json({
+      studentmytaskpagination,
+      totalPages: Math.ceil(count / limit),
+      currentPage: page
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+ 
+//Get GetCompletedPagination
+exports.GetbyidCompletedPagination = async(req,res) =>{
+  
+  // destructure page and limit and set default values
+  const { page = 1, limit = 10 } = req.query;
+
+  try {
+    // execute query with page and limit values
+    const completedpagination = await Mytask.find()
+      .limit(limit * 1)
+      .skip((page - 1) * limit)
+      .exec();
+
+    // get total documents in the Posts collection 
+    const count = await Mytask.countDocuments();
+
+    // return response with posts, total pages, and current page
+    res.json({
+      completedpagination,
+      totalPages: Math.ceil(count / limit),
+      currentPage: page
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+ 
