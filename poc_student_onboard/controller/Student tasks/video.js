@@ -1,4 +1,3 @@
-const Video = require("../../modals/Student tasks/Video");
 const video = require("../../modals/Student tasks/Video");
 var date = new Date();
 
@@ -68,31 +67,30 @@ exports.PostVideo = async (req, res) => {
       }
     }
   };
-// //Update Videos
-//   exports.PutVideo = async (req, res) => {
-//     const reqData = req.body;
-//     const id = req.params.id;
-//     console.log("req body", id);
+//Update Videos
+  exports.PutVideo = async (req, res) => {
+    const reqData = req.body;
+    const id = req.params.id;
+    console.log("req body", id);
   
-//     try {
-//       // get user by name
-//       const videoFound = await Video.findOneAndUpdate(
-//         { _id: id },
-//         reqData,
-//         {
-//           new: true,
-//           upsert: true,
-//           rawResult: true,
-//         }
-//       );
-//       console.log(videoFound);
-//       if (!videoFound) return res.status(400).send("no data found");
-//       console.log("kl", videoFound);
-//       return res.status(200).json(videoFound);
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
+    try {
+      // get user by name
+      const videoFound = await Video.findOneAndUpdate(
+        { _id: id },
+        reqData,
+        {
+          new: true,
+          upsert: true,
+          rawResult: true,
+        }
+      );
+      console.log(videoFound);
+      if (!videoFound) return res.status(400).send("no data found");
+      return res.status(200).json(videoFound);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   // Getbyid Videos
 
