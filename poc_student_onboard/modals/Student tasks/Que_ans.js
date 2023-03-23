@@ -9,7 +9,13 @@ const Que_ansSchema = new Schema(
     like:{type:Number,default:0},
     dislike:{type:Number,default:0},
     content_id:{type:Number},
-    content:{type:String}
+    content:{type:String},
+    lang_type:{
+      type:String,
+      require:["type Required"],
+      enum:["english","tamil"],
+      default:"english"
+  },
   },
   { timestamps: { createdAt: "dt", updatedAt: "u_dt" } }
 );
