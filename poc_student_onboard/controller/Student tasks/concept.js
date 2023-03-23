@@ -70,7 +70,10 @@ exports.GetbyidConceptPdf = async (req, res) => {
       return res.status(404).json({ message: "Pdf Not found" });
     if (conceptFound.pdf) {
       const pdfDetailsFound = await Pdf.find(
-        { _id: { $in: conceptFound.pdf },lang_type: req.query.lang || 'english' },
+        {
+          _id: { $in: conceptFound.pdf },
+          lang_type: req.query.lang || "english",
+        },
         { _id: 1, url: 2, thumnail: 3, title: 4 }
       );
       if (!pdfDetailsFound) {
@@ -100,7 +103,10 @@ exports.GetbyidConceptAssessment = async (req, res) => {
       return res.status(404).json({ message: "Concept Not found" });
     if (conceptFound.assessment) {
       const assessmentDetailsFound = await Assessment.find(
-        { _id: { $in: conceptFound.assessment },lang_type: req.query.lang || 'english'},
+        {
+          _id: { $in: conceptFound.assessment },
+          lang_type: req.query.lang || "english",
+        },
         { _id: 0, questions: 1, title: 2, thumnail: 3 }
       );
       if (!assessmentDetailsFound)
@@ -159,7 +165,10 @@ exports.GetbyidConceptVideo = async (req, res) => {
       return res.status(404).json({ message: "Video Not found" });
     if (conceptFound.video) {
       const videoDetailsFound = await Video.find(
-        { _id: { $in: conceptFound.video },lang_type: req.query.lang || 'english' },
+        {
+          _id: { $in: conceptFound.video },
+          lang_type: req.query.lang || "english",
+        },
         { _id: 1, url: 2, thumnail: 3, title: 4, completed_percentage: 5 }
       );
       let videoSet = [];
@@ -188,14 +197,17 @@ exports.GetbyidConceptPractice = async (req, res) => {
     const conceptFound = await concept.findById(req.params.id);
     if (!conceptFound)
       return res.status(404).json({ message: "Practice Not found" });
-    if (conceptFound.practice!="") {
+    if (conceptFound.practice != "") {
       const practiceDetailsFound = await Practice.find(
-        { _id: { $in: conceptFound.practice }, lang_type: req.query.lang || 'english' },
+        {
+          _id: { $in: conceptFound.practice },
+          lang_type: req.query.lang || "english",
+        },
         { _id: 0, questions: 1, title: 2, thumnail: 3 }
       );
       let practiceSet = [];
       // return res.status(200).json(practiceDetailsFound);
-      for(let y=0;y<practiceDetailsFound.length;y++){
+      for (let y = 0; y < practiceDetailsFound.length; y++) {
         let dataSet = [];
         for (
           let index = 0;
@@ -221,14 +233,14 @@ exports.GetbyidConceptPractice = async (req, res) => {
             answeroption: assessmentoptions,
             image: element.image,
             Explanation: element.explanation,
-            hint: element.hint
+            hint: element.hint,
           };
           dataSet.push(data1);
         }
         let data = {
           practiceThumnail: practiceDetailsFound[y].thumnail,
           practiceTitle: practiceDetailsFound[y].title,
-          practiceQuestions: dataSet//assessmentDetailsFound[k].questions
+          practiceQuestions: dataSet, //assessmentDetailsFound[k].questions
         };
         practiceSet.push(data);
       }
@@ -279,5 +291,124 @@ exports.GetConceptBySchId = async (req, res) => {
   }
 };
 
-
 //Get ConceptPagination
+exports.GetConceptpagination = async (req, res) => {
+  // destructure page and limit and set default values
+  const { page = 1, limit = 10, lang = "english" } = req.query;
+
+  try {
+    // execute query with page and limit values
+    const conceptpagination = await concept
+      .find({ lang_type: lang })
+      .limit(limit * 1)
+      .skip((page - 1) * limit)
+      .exec();
+
+    // get total documents in the Posts collection
+    const count = await concept.countDocuments();
+
+    // return response with posts, total pages, and current page
+    return res.json({
+      conceptpagination,
+      totalPages: Math.ceil(count / limit),
+      currentPage: page,
+    });
+  } catch (err) {
+    return res.status(404).json(err);
+  }
+};
+
+//Get ConceptPaginationbySchoolid
+exports.GetConceptSchoolPagination = async (req, res) => {
+  // destructure page and limit and set default values
+  const { page = 1, limit = 10 } = req.query;
+
+  try {
+    let school_ids = [req.query.sch_id];
+    let student_std = req.query.std;
+    let standard_datas = [
+      { 6: "VI" },
+      { 7: "VII" },
+      { 8: "VIII" },
+      { 9: "XI" },
+      { 10: "X" },
+      { 11: "XI" },
+      { 12: "XII" },
+    ];
+    let filteredStd;
+    for (let j = 0; j < standard_datas.length; j++) {
+      if (standard_datas[j][student_std] != undefined) {
+        filteredStd = standard_datas[j][student_std];
+      }
+    }
+    const conceptpaginationbyschoolid = concept
+      .find({
+        lang_type: req.query.lang || "english",
+        assign_to: { $in: school_ids },
+        std: filteredStd || "XI",
+      })
+      .limit(limit * 1)
+      .skip((page - 1) * limit)
+      .exec();
+
+    // get total documents in the Posts collection
+    const count = await concept.countDocuments();
+
+    // return response with posts, total pages, and current page
+    return res.json({
+      conceptpagination,
+      totalPages: Math.ceil(count / limit),
+      currentPage: page,
+    });
+  } catch (err) {
+    return res.status(404).json(err);
+  }
+};
+
+//Get ConceptPaginationforVideo
+// exports.GetConceptVideoPagination = async (req, res) => {
+//   // destructure page and limit and set default values
+//   const { page = 1, limit = 10 } = req.query;
+
+//   try {
+//     return res.status(200).json({ message: "test" });
+//   } catch (err) {
+//     return res.status(404).json(err);
+//   }
+// };
+
+// //Get ConceptPaginationforPdf
+// exports.GetConceptPdfPagination = async (req, res) => {
+//   // destructure page and limit and set default values
+//   const { page = 1, limit = 10 } = req.query;
+
+//   try {
+//     return res.status(200).json({ message: "test" });
+//   } catch (err) {
+//     return res.status(404).json(err);
+//   }
+// };
+
+// //Get ConceptPaginationforAssessment
+// exports.GetConceptAssessmentPagination = async (req, res) => {
+//   // destructure page and limit and set default values
+//   const { page = 1, limit = 10 } = req.query;
+
+//   try {
+//     return res.status(200).json({ message: "test" });
+//   } catch (err) {
+//     return res.status(404).json(err);
+//   }
+// };
+
+// //Get ConceptPaginationforSchoolid
+// exports.GetConceptPracticePagination = async (req, res) => {
+//   // destructure page and limit and set default values
+//   const { page = 1, limit = 10 } = req.query;
+
+//   try {
+//     return res.status(200).json({ message: "test" });
+//   } catch (err) {
+//     return res.status(404).json(err);
+//   }
+// };
