@@ -6,7 +6,7 @@ exports.GetQue_ans = async (req, res) => {
   console.log(req.query.name);
   try {
     // get all data
-    que_ans.find().exec(function (err, users) {
+    que_ans.find({ lang_type: req.query.lang || "english" }).exec(function (err, users) {
       if (users) {
         return res.status(200).json(users);
       } else if (err) {

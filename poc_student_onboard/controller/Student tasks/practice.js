@@ -6,7 +6,7 @@ exports.GetPractice = async (req, res) => {
     let lang = req.query.lang;
     try {
       // get all data
-      practice.find().exec(function (err, users) {
+      practice.find({ lang_type: req.query.lang || "english" }).exec(function (err, users) {
         if (users) {
           // console.log(users);
           var dataSet = [];
