@@ -169,7 +169,7 @@ exports.GetbyidConceptVideo = async (req, res) => {
           videoThumnail: videoDetailsFound[k].thumnail,
           videoTitle: videoDetailsFound[k].title,
           videoId: videoDetailsFound[k]._id,
-          videoCompletedPercentage: videoDetailsFound[k]._completed_percentage,
+          videoCompletedPercentage: videoDetailsFound[k].completed_percentage,
         };
         videoSet.push(data);
       }
