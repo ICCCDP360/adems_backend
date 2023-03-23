@@ -10,6 +10,7 @@ ConceptRouter.get("/conceptPdf/:id", controller.GetbyidConceptPdf);
 ConceptRouter.get("/conceptAssessment/:id", controller.GetbyidConceptAssessment);
 ConceptRouter.get("/conceptVideo/:id", controller.GetbyidConceptVideo);
 ConceptRouter.get("/conceptPractice/:id", controller.GetbyidConceptPractice);
+ConceptRouter.get("/conceptBySchool", controller.GetConceptBySchId);
 
 
 module.exports = ConceptRouter;

@@ -216,3 +216,39 @@ exports.GetbyidConceptPractice = async (req, res) => {
     return res.status(404).json(err);
   }
 };
+
+
+//Get Concept by sch_id
+exports.GetConceptBySchId = async (req, res) => {
+  try {
+    let school_ids = [req.query.sch_id];
+    let student_std = req.query.std;
+    let standard_datas = [
+      { 6: "VI" },
+      { 7: "VII" },
+      { 8: "VIII" },
+      { 9: "XI" },
+      { 10: "X" },
+      { 11: "XI" },
+      { 12: "XII" },
+    ];
+    let filteredStd;
+    for (let j = 0; j < standard_datas.length; j++) {
+      if (standard_datas[j][student_std] != undefined) {
+        filteredStd = standard_datas[j][student_std];
+      }
+    }
+    concept
+      .find({ lang_type: req.query.lang || "english", assign_to : { $in: school_ids }, std: filteredStd || "XI" })
+      .exec(function (err, users) {
+        if (users) {
+          return res.status(200).json(users);
+        } else if (err) {
+          return res.status(400).send("no data found : ", err);
+        }
+      });
+  } catch (err) {
+    console.log(err);
+    return res.status(404).json(err);
+  }
+};
