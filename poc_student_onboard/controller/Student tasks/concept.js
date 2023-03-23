@@ -276,3 +276,6 @@ exports.GetConceptBySchId = async (req, res) => {
     return res.status(404).json(err);
   }
 };
+
+
+//Get ConceptPagination
