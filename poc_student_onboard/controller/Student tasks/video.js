@@ -6,7 +6,7 @@ exports.GetVideo = async (req, res) => {
   let lang = req.query.lang;
   try {
     // get all data
-    video.find().exec(function (err, users) {
+    video.find({ lang_type: req.query.lang || "english" }).exec(function (err, users) {
       if (users) {
         // console.log(users);
         var dataSet = [];

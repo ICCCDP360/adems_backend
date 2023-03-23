@@ -6,7 +6,7 @@ exports.GetAssessment = async (req, res) => {
     let lang = req.query.lang;
     try {
       // get all data
-      assessment.find().exec(function (err, users) {
+      assessment.find({ lang_type: req.query.lang || "english" }).exec(function (err, users) {
         if (users) {
           var dataSet = [];
           for (let index = 0; index < users.length; index++) {

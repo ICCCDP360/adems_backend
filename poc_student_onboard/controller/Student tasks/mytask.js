@@ -5,7 +5,6 @@ var date = new Date();
 
 //Get Mytask
 exports.GetMytask = async (req, res) => {
-  console.log(req.query.name);
   try {
     // get all data
     mytask
@@ -19,7 +18,7 @@ exports.GetMytask = async (req, res) => {
       });
   } catch (err) {
     console.log(err);
-    res.status(404).json(err);
+    return res.status(404).json(err);
   }
 };
 
@@ -88,7 +87,7 @@ exports.GetbyidStudentMytask = async (req, res) => {
         filteredStd = standard_datas[j][student_std];
       }
     }
-    const mytaskFound = await mytask.find({ stu_id: { $in: student_ids } });
+    const mytaskFound = await mytask.find({ stu_id: { $in: student_ids }, lang_type: req.query.lang || "english"  });
     return res.status(200).json(mytaskFound);
   } catch (err) {
     console.log(err);
@@ -126,7 +125,8 @@ exports.GetbyidCompleted = async (req, res) => {
     const completedFound = await mytask.find({
       stu_id: { $in: student_ids },
       completed_percentage: req.query.percentage || 100,
-      std: filteredStd
+      std: filteredStd,
+      lang_type: req.query.lang || "english" 
     });
     return res.status(200).json(completedFound);
   } catch (err) {
