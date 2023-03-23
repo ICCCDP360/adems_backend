@@ -71,11 +71,10 @@ exports.PostVideo = async (req, res) => {
   exports.PutVideo = async (req, res) => {
     const reqData = req.body;
     const id = req.params.id;
-    console.log("req body", id);
   
     try {
       // get user by name
-      const videoFound = await Video.findOneAndUpdate(
+      const videoFound = await video.findOneAndUpdate(
         { _id: id },
         reqData,
         {
