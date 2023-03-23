@@ -31,7 +31,8 @@ exports.PostQue_ans = async (req, res) => {
         like:reqData.like,
         dislike:reqData.dislike,
         content_id:reqData.content_id,
-        content:reqData.content
+        content:reqData.content,
+        lang_type:reqData.lang_type
       });
       const savePostQue_ans = await Que_ans.save();
       res.status(200).json(savePostQue_ans);
