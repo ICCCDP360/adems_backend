@@ -133,8 +133,8 @@ exports.GetbyidConceptAssessment = async (req, res) => {
         dataSet.push(data);
       }
 
-      return res.status(200).json({"questions":dataSet,"title": practiceDetailsFound.title,
-      "thumnail": practiceDetailsFound.thumnail});
+      return res.status(200).json({"questions":dataSet,"title": assessmentDetailsFound.title,
+      "thumnail": assessmentDetailsFound.thumnail});
     }
   } catch (err) {
     return res.status(404).json(err);
