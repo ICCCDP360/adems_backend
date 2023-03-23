@@ -219,7 +219,9 @@ exports.GetbyidConceptPractice = async (req, res) => {
             number: index + 1,
             question: element.question,
             answeroption: assessmentoptions,
-            image: element.image
+            image: element.image,
+            Explanation: element.explanation,
+            hint: element.hint
           };
           dataSet.push(data1);
         }
