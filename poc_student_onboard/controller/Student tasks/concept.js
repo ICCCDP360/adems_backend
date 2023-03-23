@@ -42,8 +42,8 @@ exports.PostConcept = async (req, res) => {
       status: reqData.status,
       assign_to: reqData.assign_to,
       myconcept_id: reqData.myconcept_id,
-      completed_status:reqData.completed_status,
-      completed_percentage:reqData.completed_percentage,
+      completed_status: reqData.completed_status,
+      completed_percentage: reqData.completed_percentage,
       lang_type: reqData.lang_type,
     });
     const savePostConcept = await Concept.save();
@@ -70,20 +70,20 @@ exports.GetbyidConceptPdf = async (req, res) => {
       return res.status(404).json({ message: "Pdf Not found" });
     if (conceptFound.pdf) {
       const pdfDetailsFound = await Pdf.find(
-        { _id: { $in: conceptFound.pdf } },
+        { _id: { $in: conceptFound.pdf },lang_type: req.query.lang || 'english' },
         { _id: 1, url: 2, thumnail: 3, title: 4 }
       );
-      if(!pdfDetailsFound){
-        return res.status(404).json({'message':'Pdf Not found'})
+      if (!pdfDetailsFound) {
+        return res.status(404).json({ message: "Pdf Not found" });
       }
       let pdfSet = [];
-      for(let k=0;k<pdfDetailsFound.length;k++){
+      for (let k = 0; k < pdfDetailsFound.length; k++) {
         let data = {
           pdfUrl: pdfDetailsFound[k].url,
           pdfThumnail: pdfDetailsFound[k].thumnail,
-          pdfTitle : pdfDetailsFound[k].title,
-          pdfId: pdfDetailsFound[k]._id
-        }
+          pdfTitle: pdfDetailsFound[k].title,
+          pdfId: pdfDetailsFound[k]._id,
+        };
         pdfSet.push(data);
       }
       return res.status(200).json(pdfSet);
@@ -99,42 +99,53 @@ exports.GetbyidConceptAssessment = async (req, res) => {
     if (!conceptFound)
       return res.status(404).json({ message: "Concept Not found" });
     if (conceptFound.assessment) {
-      const assessmentDetailsFound = await Assessment.findOne(
-        { _id: { $in: conceptFound.assessment } },
+      const assessmentDetailsFound = await Assessment.find(
+        { _id: { $in: conceptFound.assessment },lang_type: req.query.lang || 'english'},
         { _id: 0, questions: 1, title: 2, thumnail: 3 }
       );
       if (!assessmentDetailsFound)
         return res.status(404).json({ message: "Assessment Not Found" });
+      let assessmentSet = [];
       let dataSet = [];
-      for (
-        let index = 0;
-        index < assessmentDetailsFound.questions.length;
-        index++
-      ) {
-        let element = assessmentDetailsFound.questions[index];
-        let answeroptiondata = element.options;
-        var assessmentoptions = [];
-        for (let l = 0; l < 4; l++) {
-          let datas = {
-            _id: answeroptiondata[l]._id,
-            id: answeroptiondata[l].id,
-            label: answeroptiondata[l].label,
-            answer: l == element.answer ? true : false,
+      for (let k = 0; k < assessmentDetailsFound.length; k++) {
+        let dataSet = [];
+        for (
+          let index = 0;
+          index < assessmentDetailsFound[k].questions.length;
+          index++
+        ) {
+          let element = assessmentDetailsFound[k].questions[index];
+          let answeroptiondata = element.options;
+          var assessmentoptions = [];
+          for (let l = 0; l < 4; l++) {
+            let datas = {
+              _id: answeroptiondata[l]._id,
+              id: answeroptiondata[l].id,
+              label: answeroptiondata[l].label,
+              answer: l == element.answer ? true : false,
+            };
+            assessmentoptions.push(datas);
+          }
+          let data1 = {
+            id: element.id,
+            number: index + 1,
+            question: element.question,
+            answeroption: assessmentoptions,
+            image: element.image,
           };
-          assessmentoptions.push(datas);
+          dataSet.push(data1);
         }
         let data = {
-          id: element.id,
-          number: index + 1,
-          question: element.question,
-          answeroption: assessmentoptions,
-          image: element.image
+          assessmentThumnail: assessmentDetailsFound[k].thumnail,
+          assessmentTitle: assessmentDetailsFound[k].title,
+          assessmentQuestions: dataSet, //assessmentDetailsFound[k].questions
         };
-        dataSet.push(data);
+        assessmentSet.push(data);
       }
+      return res.status(200).json(assessmentSet);
 
-      return res.status(200).json({"questions":dataSet,"title": assessmentDetailsFound.title,
-      "thumnail": assessmentDetailsFound.thumnail});
+      // return res.status(200).json({"questions":dataSet,"title": assessmentDetailsFound.title,
+      // "thumnail": assessmentDetailsFound.thumnail});
     }
   } catch (err) {
     return res.status(404).json(err);
@@ -148,26 +159,24 @@ exports.GetbyidConceptVideo = async (req, res) => {
       return res.status(404).json({ message: "Video Not found" });
     if (conceptFound.video) {
       const videoDetailsFound = await Video.find(
-        { _id: { $in: conceptFound.video } },
+        { _id: { $in: conceptFound.video },lang_type: req.query.lang || 'english' },
         { _id: 1, url: 2, thumnail: 3, title: 4, completed_percentage: 5 }
       );
       let videoSet = [];
-      for(let k=0;k<videoDetailsFound.length;k++){
+      for (let k = 0; k < videoDetailsFound.length; k++) {
         let data = {
           videoUrl: videoDetailsFound[k].url,
           videoThumnail: videoDetailsFound[k].thumnail,
-          videoTitle : videoDetailsFound[k].title,
+          videoTitle: videoDetailsFound[k].title,
           videoId: videoDetailsFound[k]._id,
-          videoCompletedPercentage: videoDetailsFound[k]._completed_percentage
-        }
+          videoCompletedPercentage: videoDetailsFound[k]._completed_percentage,
+        };
         videoSet.push(data);
       }
-      if(!videoDetailsFound){
-        return res.status(404).json({'message':'Video Not found'})
+      if (!videoDetailsFound) {
+        return res.status(404).json({ message: "Video Not found" });
       }
-      return res
-        .status(200)
-        .json({'videos':videoSet});
+      return res.status(200).json({ videos: videoSet });
     }
   } catch (err) {
     return res.status(404).json(err);
@@ -179,48 +188,57 @@ exports.GetbyidConceptPractice = async (req, res) => {
     const conceptFound = await concept.findById(req.params.id);
     if (!conceptFound)
       return res.status(404).json({ message: "Practice Not found" });
-    if (conceptFound.pdf) {
-      const practiceDetailsFound = await Practice.findOne(
-        { _id: { $in: conceptFound.practice } },
+    if (conceptFound.practice!="") {
+      const practiceDetailsFound = await Practice.find(
+        { _id: { $in: conceptFound.practice }, lang_type: req.query.lang || 'english' },
         { _id: 0, questions: 1, title: 2, thumnail: 3 }
       );
-      let dataSet = [];
-      for (let index = 0; index < practiceDetailsFound.questions.length; index++) {
-          let element = practiceDetailsFound.questions[index];
+      let practiceSet = [];
+      // return res.status(200).json(practiceDetailsFound);
+      for(let y=0;y<practiceDetailsFound.length;y++){
+        let dataSet = [];
+        for (
+          let index = 0;
+          index < practiceDetailsFound[y].questions.length;
+          index++
+        ) {
+          let element = practiceDetailsFound[y].questions[index];
           let answeroptiondata = element.options;
           var assessmentoptions = [];
-          for(let l=0;l<4;l++){
-            let datas ={
+          for (let l = 0; l < 4; l++) {
+            let datas = {
               _id: answeroptiondata[l]._id,
               id: answeroptiondata[l].id,
               label: answeroptiondata[l].label,
-              answer: l == element.answer ? true : false
-            }
+              answer: l == element.answer ? true : false,
+            };
             assessmentoptions.push(datas);
           }
-          let data = {
+          let data1 = {
             id: element.id,
             number: index + 1,
             question: element.question,
             answeroption: assessmentoptions,
-            image: element.image,
-            Explanation: element.explanation,
-            hint: element.hint
+            image: element.image
           };
-          dataSet.push(data);
+          dataSet.push(data1);
         }
+        let data = {
+          practiceThumnail: practiceDetailsFound[y].thumnail,
+          practiceTitle: practiceDetailsFound[y].title,
+          practiceQuestions: dataSet//assessmentDetailsFound[k].questions
+        };
+        practiceSet.push(data);
+      }
 
-      return res.status(200).json({"questions":dataSet,"title": practiceDetailsFound.title,
-        "thumnail": practiceDetailsFound.thumnail});
-
+      return res.status(200).json(practiceSet);
     }
   } catch (err) {
     return res.status(404).json(err);
   }
 };
-
-
 //Get Concept by sch_id
+
 exports.GetConceptBySchId = async (req, res) => {
   try {
     let school_ids = [req.query.sch_id];
@@ -241,7 +259,11 @@ exports.GetConceptBySchId = async (req, res) => {
       }
     }
     concept
-      .find({ lang_type: req.query.lang || "english", assign_to : { $in: school_ids }, std: filteredStd || "XI" })
+      .find({
+        lang_type: req.query.lang || "english",
+        assign_to: { $in: school_ids },
+        std: filteredStd || "XI",
+      })
       .exec(function (err, users) {
         if (users) {
           return res.status(200).json(users);
