@@ -41,3 +41,26 @@ exports.PostQue_ans = async (req, res) => {
       res.status(400).json(err);
     }
   };
+
+  // Get Que_ansPagination
+exports.GetQue_ansPagination = async(req,res) => {
+  const { page = 1, limit =10,lang="english"} =req.query;
+
+  try{
+    const que_anspagination = await que_ans
+    .find({lang_type:lang})
+    .limit(limit * 1)
+    .skip((page - 1) * limit)
+    .exec()
+
+    const count = await que_ans.find({lang_type:lang}).count()
+
+    res.json({
+      que_anspagination,
+      totalPages:Math.ceil(count/limit),
+      currentPage:page
+    });
+  }catch(err){
+    console.log(err.message);
+  }
+};

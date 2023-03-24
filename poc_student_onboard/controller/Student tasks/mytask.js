@@ -1,6 +1,5 @@
 const mytask = require("../../modals/Student tasks/Mytask");
 const StudentDetails = require("../../../modals/Student/Details");
-const Mytask = require("../../modals/Student tasks/Mytask");
 var date = new Date();
 
 //Get Mytask
@@ -135,15 +134,16 @@ exports.GetbyidCompleted = async (req, res) => {
   }
 };
 
-//Get GetMytaskPagination
+//GetMytaskPagination
  exports.GetMytaskPagination = async(req,res) =>{
   
     // destructure page and limit and set default values
-    const { page = 1, limit = 10 } = req.query;
+    const { page = 1, limit = 10,lang="english" } = req.query;
   
     try {
       // execute query with page and limit values
-      const mytaskpagination = await Mytask.find()
+      const mytaskpagination = await Mytask
+        .find(lang_type=lang)
         .limit(limit * 1)
         .skip((page - 1) * limit)
         .exec();
@@ -162,15 +162,16 @@ exports.GetbyidCompleted = async (req, res) => {
     }
   };
 
-  //Get GetStudentMytaskPagination
+  //GetStudentMytaskPagination
  exports.GetbyidStudentMytaskPagination = async(req,res) =>{
   
   // destructure page and limit and set default values
-  const { page = 1, limit = 10 } = req.query;
+  const { page = 1, limit = 10,lang="english" } = req.query;
 
   try {
     // execute query with page and limit values
-    const studentmytaskpagination = await Mytask.find()
+    const studentmytaskpagination = await Mytask
+      .find(lang_type=lang)
       .limit(limit * 1)
       .skip((page - 1) * limit)
       .exec();
@@ -189,15 +190,16 @@ exports.GetbyidCompleted = async (req, res) => {
   }
 };
  
-//Get GetCompletedPagination
+//GetCompletedPagination
 exports.GetbyidCompletedPagination = async(req,res) =>{
   
   // destructure page and limit and set default values
-  const { page = 1, limit = 10 } = req.query;
+  const { page = 1, limit = 10,lang="english" } = req.query;
 
   try {
     // execute query with page and limit values
-    const completedpagination = await Mytask.find()
+    const completedpagination = await Mytask
+      .find(lang_type=lang)
       .limit(limit * 1)
       .skip((page - 1) * limit)
       .exec();

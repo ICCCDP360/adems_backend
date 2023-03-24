@@ -88,4 +88,60 @@ exports.GetPracticeQuestion = async(req,res)=> {
   }catch(err){
     console.log(err);
   }
+};
+
+// Get PracticePagination
+exports.GetPracticePagination = async(req,res) =>{
+  
+  // destructure page and limit and set default values
+  const { page = 1, limit = 10,lang="english" } = req.query;
+
+  try {
+    // execute query with page and limit values
+    const practicepagination = await practice
+      .find({lang_type:lang})
+      .limit(limit * 1)
+      .skip((page - 1) * limit)
+      .exec();
+
+    // get total documents in the Posts collection 
+    const count = await practice.find({lang_type:lang}).count()
+
+    // return response with posts, total pages, and current page
+    res.json({
+      practicepagination,
+      totalPages: Math.ceil(count / limit),
+      currentPage: page
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+
+// Getbyid PracticePagination
+exports.GetbyidPracticePagination = async(req,res) =>{
+
+// destructure page and limit and set default values
+const { page = 1, limit = 10,lang="english" } = req.query;
+
+try {
+  // execute query with page and limit values
+  const practicepagination = await practice
+    .find({lang_type:lang})
+    .limit(limit * 1)
+    .skip((page - 1) * limit)
+    .exec();
+
+  // get total documents in the Posts collection 
+  const count = await practice.find({lang_type:lang}).count();
+
+  // return response with posts, total pages, and current page
+  res.json({
+    practicepagination,
+    totalPages: Math.ceil(count / limit),
+    currentPage: page
+  });
+} catch (err) {
+  console.error(err.message);
 }
+};

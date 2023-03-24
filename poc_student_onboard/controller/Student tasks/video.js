@@ -102,3 +102,49 @@ exports.PostVideo = async (req, res) => {
     res.status(400).json(err)
   }
 };
+
+// Get VideoPagination
+exports.GetVideoPagination = async(req,res) => {
+  const { page = 1, limit =10,lang="english"} =req.query;
+
+  try{
+    const videopagination = await video
+    .find({lang_type:lang})
+    .limit(limit * 1)
+    .skip((page - 1) * limit)
+    .exec()
+
+    const count = await video.find({lang_type:lang}).count()
+
+    res.json({
+      videopagination,
+      totalPages:Math.ceil(count/limit),
+      currentPage:page
+    });
+  }catch(err){
+    console.log(err.message);
+  }
+};
+
+// Getbyid VideoPagination
+exports.GetbyidVideoPagination = async(req,res) => {
+  const { page = 1, limit =10,lang="english"} =req.query;
+
+  try{
+    const videopagination = await video
+    .find({lang_type:lang})
+    .limit(limit * 1)
+    .skip((page - 1) * limit)
+    .exec()
+
+    const count = await video.find({lang_type:lang}).count()
+
+    res.json({
+      videopagination,
+      totalPages:Math.ceil(count/limit),
+      currentPage:page
+    });
+  }catch(err){
+    console.log(err.message);
+  }
+}

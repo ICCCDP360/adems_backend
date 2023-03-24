@@ -76,3 +76,59 @@ exports.PostPdf = async (req, res) => {
     res.status(400).json(err);
   }
 };
+
+// Get PdfPagination
+exports.GetPdfPagination = async(req,res) =>{
+  
+  // destructure page and limit and set default values
+  const { page = 1, limit = 10,lang="english" } = req.query;
+
+  try {
+    // execute query with page and limit values
+    const pdfpagination = await pdf
+      .find({lang_type:lang})
+      .limit(limit * 1)
+      .skip((page - 1) * limit)
+      .exec();
+
+    // get total documents in the Posts collection 
+    const count = await pdf.find({lang_type:lang}).count()
+
+    // return response with posts, total pages, and current page
+    res.json({
+      pdfpagination,
+      totalPages: Math.ceil(count / limit),
+      currentPage: page
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+
+// Getbyid PdfPagination
+exports.GetbyidPdfPagination = async(req,res) =>{
+
+// destructure page and limit and set default values
+const { page = 1, limit = 10,lang="english" } = req.query;
+
+try {
+  // execute query with page and limit values
+  const pdfpagination = await pdf
+    .find({lang_type:lang})
+    .limit(limit * 1)
+    .skip((page - 1) * limit)
+    .exec();
+
+  // get total documents in the Posts collection 
+  const count = await pdf.find({lang_type:lang}).count();
+
+  // return response with posts, total pages, and current page
+  res.json({
+    pdfpagination,
+    totalPages: Math.ceil(count / limit),
+    currentPage: page
+  });
+} catch (err) {
+  console.error(err.message);
+}
+};
