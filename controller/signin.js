@@ -187,8 +187,10 @@ exports.SelectAccount = async (req, res) => {
   try {
     const stu_id = req.body.stu_id;
     const DetailsFound = await StudentDetails.findById(stu_id).select(
-      "_id name std"
+      "_id name std acc_id"
     );
+    const AccountHolderPhone = await StudentAccount.findById(DetailsFound.acc_id).select("phone");
+    DetailsFound.phone = AccountHolderPhone.phone;
     if (!DetailsFound)
       return res.status(400).json({ message: "Record not Found" });
     return res.status(200).json(DetailsFound);
