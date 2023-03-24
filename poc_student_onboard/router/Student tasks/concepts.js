@@ -12,11 +12,7 @@ ConceptRouter.get("/conceptVideo/:id", controller.GetbyidConceptVideo);
 ConceptRouter.get("/conceptPractice/:id", controller.GetbyidConceptPractice);
 ConceptRouter.get("/conceptBySchool", controller.GetConceptBySchId);
 ConceptRouter.get("/conceptPage",controller.GetConceptpagination);
-// ConceptRouter.get("/conceptSchoolPage",controller.GetConceptSchoolPagination);
-// ConceptRouter.get("/conceptVideoPage",controller.GetConceptVideoPagination);
-// ConceptRouter.get("/conceptPdfPage",controller.GetConceptPdfPagination);
-// ConceptRouter.get("/conceptAssessmentPage",controller.GetConceptAssessmentPagination);
-// ConceptRouter.get("/conceptPracticePage",controller.GetConceptPracticePagination);
+ConceptRouter.get("/conceptSchoolPage",controller.GetConceptSchoolPagination);
 
 
 module.exports = ConceptRouter;
