@@ -86,7 +86,10 @@ exports.GetbyidStudentMytask = async (req, res) => {
         filteredStd = standard_datas[j][student_std];
       }
     }
-    const mytaskFound = await mytask.find({ stu_id: { $in: student_ids }, lang_type: req.query.lang || "english"  });
+    const mytaskFound = await mytask.find({
+      stu_id: { $in: student_ids },
+      lang_type: req.query.lang || "english",
+    });
     return res.status(200).json(mytaskFound);
   } catch (err) {
     console.log(err);
@@ -125,7 +128,7 @@ exports.GetbyidCompleted = async (req, res) => {
       stu_id: { $in: student_ids },
       completed_percentage: req.query.percentage || 100,
       std: filteredStd,
-      lang_type: req.query.lang || "english" 
+      lang_type: req.query.lang || "english",
     });
     return res.status(200).json(completedFound);
   } catch (err) {
@@ -134,16 +137,15 @@ exports.GetbyidCompleted = async (req, res) => {
   }
 };
 
-//GetMytaskPagination
+//Get GetMytaskPagination
  exports.GetMytaskPagination = async(req,res) =>{
   
     // destructure page and limit and set default values
-    const { page = 1, limit = 10,lang="english" } = req.query;
+    const { page = 1, limit = 10 } = req.query;
   
     try {
       // execute query with page and limit values
-      const mytaskpagination = await Mytask
-        .find(lang_type=lang)
+      const mytaskpagination = await Mytask.find()
         .limit(limit * 1)
         .skip((page - 1) * limit)
         .exec();
@@ -162,59 +164,85 @@ exports.GetbyidCompleted = async (req, res) => {
     }
   };
 
-  //GetStudentMytaskPagination
+  //Get GetStudentMytaskPagination
  exports.GetbyidStudentMytaskPagination = async(req,res) =>{
   
   // destructure page and limit and set default values
-  const { page = 1, limit = 10,lang="english" } = req.query;
+  const { page = 1, limit = 10 } = req.query;
 
   try {
     // execute query with page and limit values
-    const studentmytaskpagination = await Mytask
-      .find(lang_type=lang)
+    const studentmytaskpagination = await Mytask.find()
       .limit(limit * 1)
       .skip((page - 1) * limit)
       .exec();
 
-    // get total documents in the Posts collection 
-    const count = await Mytask.countDocuments();
+    // get total documents in the Posts collection
+    const count = await Mytask.find({
+      stu_id: { $in: student_ids },
+      lang_type: lang,
+    }).count(); //await Mytask.countDocuments();
 
     // return response with posts, total pages, and current page
     res.json({
       studentmytaskpagination,
       totalPages: Math.ceil(count / limit),
-      currentPage: page
+      currentPage: page,
     });
   } catch (err) {
     console.error(err.message);
   }
 };
  
-//GetCompletedPagination
+//Get GetCompletedPagination
 exports.GetbyidCompletedPagination = async(req,res) =>{
   
   // destructure page and limit and set default values
-  const { page = 1, limit = 10,lang="english" } = req.query;
+  const { page = 1, limit = 10 } = req.query;
 
   try {
+    let student_id = req.params.stu_id;
+    let student_ids = [student_id];
+    const StudentDetailsFound = await StudentDetails.findById(student_id);
+    let student_std = StudentDetailsFound.std;
+    let standard_datas = [
+      { 6: "VI" },
+      { 7: "VII" },
+      { 8: "VIII" },
+      { 9: "XI" },
+      { 10: "X" },
+      { 11: "XI" },
+      { 12: "XII" },
+    ];
+    let filteredStd;
+    for (let j = 0; j < standard_datas.length; j++) {
+      if (standard_datas[j][student_std] != undefined) {
+        filteredStd = standard_datas[j][student_std];
+      }
+    }
     // execute query with page and limit values
-    const completedpagination = await Mytask
-      .find(lang_type=lang)
+    const completedpagination = await Mytask.find()
       .limit(limit * 1)
       .skip((page - 1) * limit)
       .exec();
 
-    // get total documents in the Posts collection 
-    const count = await Mytask.countDocuments();
+    // get total documents in the Posts collection
+    const count = await mytask
+      .find({
+        stu_id: { $in: student_ids },
+        completed_percentage: req.query.percentage || 100,
+        std: filteredStd,
+        lang_type: req.query.lang || "english",
+      })
+      .count(); //await Mytask.countDocuments();
 
     // return response with posts, total pages, and current page
     res.json({
       completedpagination,
       totalPages: Math.ceil(count / limit),
-      currentPage: page
+      currentPage: page,
     });
   } catch (err) {
     console.error(err.message);
   }
 };
- 
