@@ -44,11 +44,11 @@ exports.PostQue_ans = async (req, res) => {
 
   // Get Que_ansPagination
 exports.GetQue_ansPagination = async(req,res) => {
-  const { page = 1, limit =10,lang="english"} =req.query;
+  const { page = 1, limit =10,lang='english' } =req.query;
 
   try{
     const que_anspagination = await que_ans
-    .find({lang_type:lang})
+    .find({lang_type: req.query.lang || "english",})
     .limit(limit * 1)
     .skip((page - 1) * limit)
     .exec()
