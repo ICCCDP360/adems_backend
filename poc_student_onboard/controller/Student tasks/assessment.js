@@ -26,8 +26,7 @@ exports.GetAssessment = async (req, res) => {
         }
       });
     } catch (err) {
-      console.log(err);
-      res.status(400).json(err);
+      return res.status(400).json(err);
     }
   };
 
@@ -58,7 +57,7 @@ exports.PostAssessment = async (req, res) => {
       approved_by: reqData.approved_by,
     });
     const savePostAssessment = await Assessment.save();
-    res.status(200).json(savePostAssessment);
+     res.status(200).json(savePostAssessment);
   } catch (err) {
     if (err.message.split(" ")[0] == "A1000") {
       return res.status(400).json({ message: "already exist" });
@@ -73,10 +72,10 @@ exports.PostAssessment = async (req, res) => {
 exports.GetbyidAssessment = async (req, res) => {
   try {
     const assessmentFound = await assessment.findById(req.query.id);
-    res.status(200).json(assessmentFound);
+    return res.status(200).json(assessmentFound);
   } catch (err) {
     console.log(err);
-    res.status(400).json(err);
+    return res.status(400).json(err);
   }
 };
 
@@ -85,10 +84,9 @@ exports.getAssesmentQuestionsByLanguageType = async (req, res) => {
     const assessmentQuestions = await assessment.find({
       lang_type : req.body.lang_type
     },{"_id":0,"questions":1,"status":2});
-    res.status(200).json(assessmentQuestions);
+    return res.status(200).json(assessmentQuestions);
   } catch (err) {
-    console.log(err);
-    res.status(400).json(err);
+    return res.status(400).json(err);
   }
 };
 
@@ -116,7 +114,7 @@ exports.getAssesmentQuestionsByLanguageType = async (req, res) => {
         currentPage: page
       });
     } catch (err) {
-      console.error(err.message);
+      return res.status(404).json(err);
     }
   };
 
@@ -144,6 +142,6 @@ exports.getAssesmentQuestionsByLanguageType = async (req, res) => {
       currentPage: page
     });
   } catch (err) {
-    console.error(err.message);
+    return res.status(404).json(err);
   }
 };

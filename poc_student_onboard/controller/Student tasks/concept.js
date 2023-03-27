@@ -19,7 +19,6 @@ exports.GetConcept = async (req, res) => {
         }
       });
   } catch (err) {
-    console.log(err);
     return res.status(404).json(err);
   }
 };
@@ -47,7 +46,7 @@ exports.PostConcept = async (req, res) => {
       lang_type: reqData.lang_type,
     });
     const savePostConcept = await Concept.save();
-    res.status(200).json(savePostConcept);
+     res.status(200).json(savePostConcept);
   } catch (err) {
     return res.status(400).json(err);
   }
@@ -286,7 +285,6 @@ exports.GetConceptBySchId = async (req, res) => {
         }
       });
   } catch (err) {
-    console.log(err);
     return res.status(404).json(err);
   }
 };

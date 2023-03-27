@@ -27,7 +27,7 @@ exports.GetVideo = async (req, res) => {
       }
     });
   } catch (err) {
-    console.log(err);
+    return res.status(404).json(err);
   }
 };
 
@@ -58,12 +58,12 @@ exports.PostVideo = async (req, res) => {
         approved_by:reqData.approved_by
       });
       const savePostVideo = await Video.save();
-      res.status(200).json(savePostVideo);
+       res.status(200).json(savePostVideo);
     } catch (err) {
       if (err.message.split(" ")[0] == "A1000") {
         return res.status(400).json({ message: "already exist" });
       } else {
-        return res.status(400).json({ message: err.message });
+        return res.status(404).json({ message: err.message });
       }
     }
   };
@@ -83,11 +83,10 @@ exports.PostVideo = async (req, res) => {
           rawResult: true,
         }
       );
-      console.log(videoFound);
       if (!videoFound) return res.status(400).send("no data found");
       return res.status(200).json(videoFound);
     } catch (err) {
-      console.log(err);
+      return res.status(400).json(err);
     }
   };
 
@@ -96,10 +95,9 @@ exports.PostVideo = async (req, res) => {
   exports.GetbyidVideo = async (req, res) => {
   try {
     const videoFound = await video.findById(req.params.id);
-    res.status(200).json(videoFound);
+    return res.status(200).json(videoFound);
   } catch (err) {
-    console.log(err);
-    res.status(400).json(err)
+    return res.status(400).json(err)
   }
 };
 
@@ -122,7 +120,7 @@ exports.GetVideoPagination = async(req,res) => {
       currentPage:page
     });
   }catch(err){
-    console.log(err.message);
+    return res.status(404).json(err);
   }
 };
 
@@ -145,6 +143,6 @@ exports.GetbyidVideoPagination = async(req,res) => {
       currentPage:page
     });
   }catch(err){
-    console.log(err.message);
+    return res.status(404).json(err);
   }
 }
