@@ -15,6 +15,7 @@ exports.getDetails = async (req, res) => {
     });
   } catch (err) {
     console.log(err);
+    return res.status(404).json(err);
   }
 };
 
@@ -31,9 +32,10 @@ exports.createDetails = async (req, res) => {
       subjects: reqData.subjects,
     });
     const savePostTeacherDetails = await PostTeacherDetails.save();
-    res.status(200).json(savePostTeacherDetails);
+    return res.status(200).json(savePostTeacherDetails);
   } catch (err) {
     console.log(err);
+    return res.status(404).json(err);
   }
 };
 

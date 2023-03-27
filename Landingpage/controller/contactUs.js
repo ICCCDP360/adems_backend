@@ -3,7 +3,6 @@ var date = new Date();
 
 //Get Contactus
 exports.GetContactus = async (req, res) => {
-  console.log(req.query.name);
   try {
     // get all data
     Contactus.find().exec(function (err, users) {
@@ -14,7 +13,7 @@ exports.GetContactus = async (req, res) => {
       }
     });
   } catch (err) {
-    console.log(err);
+    return res.status(404).json(err);
   }
 };
 
@@ -34,8 +33,8 @@ exports.PostContactus = async (req, res) => {
       Your_message: reqData.Your_message,
     });
     const savePostContactus = await PostContactus.save();
-    res.status(200).json(savePostContactus);
+    return res.status(200).json(savePostContactus);
   } catch (err) {
-    console.log(err);
+    return res.status(404).json(err);
   }
 };

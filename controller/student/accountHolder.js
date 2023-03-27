@@ -18,9 +18,9 @@ exports.PostAccountHolder = async (req, res) => {
       verify: false,
     });
     const savePostAccountHolder = await PostAccountHolder.save();
-    res.status(200).json(savePostAccountHolder);
+    return res.status(200).json(savePostAccountHolder);
   } catch (err) {
-    console.log(err);
+    return res.status(404).json(err);
   }
 };
 
@@ -28,8 +28,8 @@ exports.PostAccountHolder = async (req, res) => {
 exports.GetbyidAccountHolder = async (req, res) => {
   try {
     const accountHolderFound = await accountHolder.findById(req.params.id);
-    res.status(200).json(accountHolderFound);
+    return res.status(200).json(accountHolderFound);
   } catch (err) {
-    console.log(err);
+    return res.status(404).json(err);
   }
 };

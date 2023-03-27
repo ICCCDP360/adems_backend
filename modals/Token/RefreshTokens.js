@@ -33,7 +33,6 @@ RefreshTokenSchema.statics.createToken = async function (user) {
 };
 
 RefreshTokenSchema.statics.verifyExpiration = (token) => {
-  console.log("dcsaa", token);
   return token.expiryDate.getTime() < new Date().getTime();
 };
 

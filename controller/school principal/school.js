@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 const secretkey = "adem001";
 //Get Sch_principal
 exports.getSchoolDetails = async (req, res) => {
-  console.log(req.query.name);
   try {
     // get all data
     SchoolDetails.find()
@@ -17,7 +16,7 @@ exports.getSchoolDetails = async (req, res) => {
         }
       });
   } catch (err) {
-    console.log(err);
+    return res.status(404).json(err);
   }
 };
 
@@ -25,7 +24,6 @@ exports.getSchoolDetails = async (req, res) => {
 exports.addSchoolDetails = async (req, res) => {
   try {
     const reqData = req.body;
-    console.log("req body", reqData);
     const PostSchool = new SchoolDetails({
       sch_id: reqData.sch_id,
       school_name: reqData.school_name,
@@ -40,30 +38,27 @@ exports.addSchoolDetails = async (req, res) => {
       goadem_admin: reqData.goadem_admin,
     });
     const savePostSchool = await PostSchool.save();
-    res.status(200).json(savePostSchool);
+    return res.status(200).json(savePostSchool);
   } catch (err) {
-    console.log(err);
+    return res.status(404).json(err);
   }
 };
 
 // School Login
 exports.schoolAdminLogin = async (req, res) => {
   const reqData = req.body;
-
-  console.log("req body", reqData.sch_id);
   try {
     const SchoolFound = await SchoolDetails.findOne({
       sch_id: reqData.sch_id,
     });
     if (!SchoolFound)
       return res.status(400).send("Invaild UserName Or Password");
-    console.log(reqData.passcode, SchoolFound.passcode);
     let hasValidPass = await bcrypt.compare(
       reqData.passcode,
       SchoolFound.passcode
     );
     if (!hasValidPass) throw { message: "Invalid email or password" };
-    console.log(hasValidPass, SchoolFound.passcode, "=", reqData.passcode);
+      
 
     jwt.sign(
       { SchoolFound },
@@ -78,7 +73,7 @@ exports.schoolAdminLogin = async (req, res) => {
       }
     );
   } catch (err) {
-    console.log(err);
+    return res.status(404).json(err);
   }
 };
 
@@ -88,8 +83,8 @@ exports.getByIdSchoolDetails = async (req, res) => {
     const schoolFound = await SchoolDetails.findById(req.params.id).select(
       "_id sch_id sch_name address city user_name logo"
     );
-    res.status(200).json(schoolFound);
+    return res.status(200).json(schoolFound);
   } catch (err) {
-    console.log(err);
+    return res.status(404).json(err);
   }
 };

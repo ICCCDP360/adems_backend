@@ -80,10 +80,10 @@ exports.updateStudentDetail = async (req, res) => {
 exports.getByIdStudentDetails = async (req, res) => {
   try {
     const detailsFound = await StudentDetails.findById(req.params.id);
-    res.status(200).json(detailsFound);
+    return res.status(200).json(detailsFound);
   } catch (err) {
     console.log(err);
-    res.status(404).json(err);
+    return res.status(404).json(err);
   }
 };
 
@@ -96,7 +96,7 @@ exports.getByIdProfileDetails = async (req, res) => {
     const parentDetailsFound = await accountHolder.findOne({
       _id: profileDetailsFound.acc_id,
     });
-    res
+    return res
       .status(200)
       .json({
         studentDetails: profileDetailsFound,
@@ -104,7 +104,6 @@ exports.getByIdProfileDetails = async (req, res) => {
         parentDetails: parentDetailsFound,
       });
   } catch (err) {
-    console.log(err);
-    res.status(404).json(err);
+    return res.status(404).json(err);
   }
 };
