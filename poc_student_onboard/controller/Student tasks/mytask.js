@@ -16,7 +16,6 @@ exports.GetMytask = async (req, res) => {
         }
       });
   } catch (err) {
-    console.log(err);
     return res.status(404).json(err);
   }
 };
@@ -46,10 +45,9 @@ exports.PostMytask = async (req, res) => {
       lang_type: reqData.lang_type,
     });
     const savePostMytask = await Mytask.save();
-    res.status(200).json(savePostMytask);
+     res.status(200).json(savePostMytask);
   } catch (err) {
-    console.log(err);
-    res.status(400).json(err);
+    return res.status(400).json(err);
   }
 };
 
@@ -59,7 +57,6 @@ exports.GetbyidMytask = async (req, res) => {
     const mytaskFound = await mytask.findById(req.query.id);
     return res.status(200).json(mytaskFound);
   } catch (err) {
-    console.log(err);
     return res.status(404).json(err);
   }
 };
@@ -92,7 +89,6 @@ exports.GetbyidStudentMytask = async (req, res) => {
     });
     return res.status(200).json(mytaskFound);
   } catch (err) {
-    console.log(err);
     return res.status(404).json(err);
   }
 };
@@ -132,7 +128,6 @@ exports.GetbyidCompleted = async (req, res) => {
     });
     return res.status(200).json(completedFound);
   } catch (err) {
-    console.log(err);
     return res.status(404).json(err);
   }
 };
@@ -160,7 +155,7 @@ exports.GetbyidCompleted = async (req, res) => {
         currentPage: page
       });
     } catch (err) {
-      console.error(err.message);
+      return res.status(404).json(err);
     }
   };
 
@@ -190,7 +185,7 @@ exports.GetbyidCompleted = async (req, res) => {
       currentPage: page,
     });
   } catch (err) {
-    console.error(err.message);
+    return res.status(404).json(err);
   }
 };
  
@@ -243,6 +238,6 @@ exports.GetbyidCompletedPagination = async(req,res) =>{
       currentPage: page,
     });
   } catch (err) {
-    console.error(err.message);
+    return res.status(404).json(err);
   }
 };

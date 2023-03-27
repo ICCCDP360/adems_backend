@@ -27,7 +27,7 @@ exports.GetPractice = async (req, res) => {
         }
       });
     } catch (err) {
-      console.log(err);
+      return res.status(400).json(err);
     }
   };
 
@@ -74,9 +74,9 @@ exports.PostPractice = async (req, res) => {
   exports.GetbyidPractice = async(req,res)=> {
     try{
       const practiceFound = await practice.findById(req.query.id)
-      res.status(200).json(practiceFound)
+      return res.status(200).json(practiceFound)
     }catch(err){
-      console.log(err);
+      return res.status(400).json(err);
     }
   }
 
@@ -84,9 +84,9 @@ exports.PostPractice = async (req, res) => {
 exports.GetPracticeQuestion = async(req,res)=> {
   try{
     const practiceFound = await practice.find({_id:req.query.id})
-    res.status(200).json(practiceFound)
+    return res.status(200).json(practiceFound)
   }catch(err){
-    console.log(err);
+    return res.status(400).json(err);
   }
 };
 
@@ -114,7 +114,7 @@ exports.GetPracticePagination = async(req,res) =>{
       currentPage: page
     });
   } catch (err) {
-    console.error(err.message);
+    return res.status(400).json(err);
   }
 };
 
@@ -142,6 +142,6 @@ try {
     currentPage: page
   });
 } catch (err) {
-  console.error(err.message);
+  return res.status(400).json(err);
 }
 };

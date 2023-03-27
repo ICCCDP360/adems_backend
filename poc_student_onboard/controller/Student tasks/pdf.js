@@ -27,7 +27,7 @@ exports.GetPdf = async (req, res) => {
       }
     });
   } catch (err) {
-    console.log(err);
+    return res.status(404).json(err);
   }
 };
 
@@ -70,10 +70,9 @@ exports.PostPdf = async (req, res) => {
   exports.GetbyidPdf = async (req, res) => {
   try {
     const pdfFound = await pdf.findById(req.params.id);
-    res.status(200).json(pdfFound);
+    return res.status(200).json(pdfFound);
   } catch (err) {
-    console.log(err);
-    res.status(400).json(err);
+    return res.status(400).json(err);
   }
 };
 
@@ -101,7 +100,7 @@ exports.GetPdfPagination = async(req,res) =>{
       currentPage: page
     });
   } catch (err) {
-    console.error(err.message);
+    return res.status(400).json(err);
   }
 };
 
@@ -129,6 +128,6 @@ try {
     currentPage: page
   });
 } catch (err) {
-  console.error(err.message);
+  return res.status(400).json(err);
 }
 };
