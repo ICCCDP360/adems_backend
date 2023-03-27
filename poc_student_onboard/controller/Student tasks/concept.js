@@ -46,7 +46,7 @@ exports.PostConcept = async (req, res) => {
       lang_type: reqData.lang_type,
     });
     const savePostConcept = await Concept.save();
-     res.status(200).json(savePostConcept);
+    return res.status(200).json(savePostConcept);
   } catch (err) {
     return res.status(400).json(err);
   }

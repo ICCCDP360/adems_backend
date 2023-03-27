@@ -35,7 +35,7 @@ exports.PostQue_ans = async (req, res) => {
       lang_type: reqData.lang_type,
     });
     const savePostQue_ans = await Que_ans.save();
-     res.status(200).json(savePostQue_ans);
+    return res.status(200).json(savePostQue_ans);
   } catch (err) {
     return res.status(400).json(err);
   }

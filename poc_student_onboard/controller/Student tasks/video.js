@@ -58,7 +58,7 @@ exports.PostVideo = async (req, res) => {
         approved_by:reqData.approved_by
       });
       const savePostVideo = await Video.save();
-       res.status(200).json(savePostVideo);
+      return res.status(200).json(savePostVideo);
     } catch (err) {
       if (err.message.split(" ")[0] == "A1000") {
         return res.status(400).json({ message: "already exist" });
@@ -137,7 +137,7 @@ exports.GetbyidVideoPagination = async(req,res) => {
 
     const count = await video.find({lang_type:lang}).count()
 
-    res.json({
+    return res.json({
       videopagination,
       totalPages:Math.ceil(count/limit),
       currentPage:page

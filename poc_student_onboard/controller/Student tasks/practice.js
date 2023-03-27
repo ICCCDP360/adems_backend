@@ -108,7 +108,7 @@ exports.GetPracticePagination = async(req,res) =>{
     const count = await practice.find({lang_type:lang}).count()
 
     // return response with posts, total pages, and current page
-    res.json({
+    return res.json({
       practicepagination,
       totalPages: Math.ceil(count / limit),
       currentPage: page
@@ -136,7 +136,7 @@ try {
   const count = await practice.find({lang_type:lang}).count();
 
   // return response with posts, total pages, and current page
-  res.json({
+  return res.json({
     practicepagination,
     totalPages: Math.ceil(count / limit),
     currentPage: page

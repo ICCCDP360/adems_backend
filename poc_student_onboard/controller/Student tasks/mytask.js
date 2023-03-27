@@ -45,7 +45,7 @@ exports.PostMytask = async (req, res) => {
       lang_type: reqData.lang_type,
     });
     const savePostMytask = await Mytask.save();
-     res.status(200).json(savePostMytask);
+    return res.status(200).json(savePostMytask);
   } catch (err) {
     return res.status(400).json(err);
   }
@@ -149,7 +149,7 @@ exports.GetbyidCompleted = async (req, res) => {
       const count = await Mytask.countDocuments();
   
       // return response with posts, total pages, and current page
-      res.json({
+      return res.json({
         mytaskpagination,
         totalPages: Math.ceil(count / limit),
         currentPage: page
@@ -179,7 +179,7 @@ exports.GetbyidCompleted = async (req, res) => {
     }).count(); //await Mytask.countDocuments();
 
     // return response with posts, total pages, and current page
-    res.json({
+    return res.json({
       studentmytaskpagination,
       totalPages: Math.ceil(count / limit),
       currentPage: page,
@@ -232,7 +232,7 @@ exports.GetbyidCompletedPagination = async(req,res) =>{
       .count(); //await Mytask.countDocuments();
 
     // return response with posts, total pages, and current page
-    res.json({
+    return res.json({
       completedpagination,
       totalPages: Math.ceil(count / limit),
       currentPage: page,

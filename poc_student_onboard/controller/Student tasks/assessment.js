@@ -108,7 +108,7 @@ exports.getAssesmentQuestionsByLanguageType = async (req, res) => {
       const count = await assessment.find({lang_type:lang}).count()
   
       // return response with posts, total pages, and current page
-      res.json({
+      return res.json({
         assessmentpagination,
         totalPages: Math.ceil(count / limit),
         currentPage: page
@@ -136,7 +136,7 @@ exports.getAssesmentQuestionsByLanguageType = async (req, res) => {
     const count = await assessment.find({lang_type:lang}).count()
 
     // return response with posts, total pages, and current page
-    res.json({
+    return res.json({
       assessmentidpagination,
       totalPages: Math.ceil(count / limit),
       currentPage: page

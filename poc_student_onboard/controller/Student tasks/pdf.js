@@ -94,7 +94,7 @@ exports.GetPdfPagination = async(req,res) =>{
     const count = await pdf.find({lang_type:lang}).count()
 
     // return response with posts, total pages, and current page
-    res.json({
+    return res.json({
       pdfpagination,
       totalPages: Math.ceil(count / limit),
       currentPage: page
