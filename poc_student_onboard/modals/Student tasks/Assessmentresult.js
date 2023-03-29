@@ -24,4 +24,4 @@ const AssessmentResultSchema = new Schema({
 { timestamps: { createdAt: "dt", updatedAt: "u_dt" }
 });
 
-module.exports=mongoose.model("assessmentresult",AssessmentResultSchema)
+module.exports=mongoose.model("ASSESSMENTRESULT",AssessmentResultSchema)

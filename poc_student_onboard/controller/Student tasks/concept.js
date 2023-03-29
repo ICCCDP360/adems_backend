@@ -106,7 +106,7 @@ exports.GetbyidConceptAssessment = async (req, res) => {
           _id: { $in: conceptFound.assessment },
           lang_type: req.query.lang || "english",
         },
-        { _id: 0, questions: 1, title: 2, thumnail: 3 }
+        { _id: 1, questions: 2, title: 3, thumnail: 4 }
       );
       if (!assessmentDetailsFound)
         return res.status(404).json({ message: "Assessment Not Found" });
@@ -141,6 +141,7 @@ exports.GetbyidConceptAssessment = async (req, res) => {
           dataSet.push(data1);
         }
         let data = {
+          assessmentId: assessmentDetailsFound[k]._id,
           assessmentThumnail: assessmentDetailsFound[k].thumnail,
           assessmentTitle: assessmentDetailsFound[k].title,
           assessmentQuestions: dataSet, //assessmentDetailsFound[k].questions
