@@ -25,7 +25,7 @@ exports.PostAssessmentResult = async (req, res) => {
   try {
     const AssessmentResult = new assessmentresult({
       assessment_id: reqData.assessment_id,
-      user_id: reqData.student_id,
+      student_id: reqData.student_id,
       lang_type: reqData.lang_type,
       assessment_result: reqData.assessment_result,
     });
@@ -40,7 +40,7 @@ exports.PostAssessmentResult = async (req, res) => {
 
 exports.GetbystudentidAssessmentResult = async (req, res) => {
   try {
-    const assessmentResultsFound = await assessmentresult.find({user_id:req.query.student_id});
+    const assessmentResultsFound = await assessmentresult.find({student_id:req.query.student_id});
     return res.status(200).json(assessmentResultsFound);
   } catch (err) {
     console.log(err);
@@ -54,12 +54,12 @@ exports.GetbystudentidAssessmentResultPagination = async(req,res) => {
 
   try{
     const assessmentresultpagination = await assessmentresult
-    .find({lang_type:lang,user_id: student_id})
+    .find({lang_type:lang,student_id: student_id})
     .limit(limit * 1)
     .skip((page - 1) * limit)
     .exec()
 
-    const count = await assessmentresult.find({lang_type:lang,user_id:student_id}).count()
+    const count = await assessmentresult.find({lang_type:lang,student_id:student_id}).count()
 
     return res.json({
       assessmentresultpagination,

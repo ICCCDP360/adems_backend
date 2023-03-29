@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const AssessmentResultSchema = new Schema({
-  user_id: {
+  student_id: {
     type: String,
   },
   assessment_id: {
@@ -17,8 +17,8 @@ const AssessmentResultSchema = new Schema({
   assessment_result:[{
     assessment_id: { type: String},
     attended: { type: Array},
-    notattended: { type: Array},
-    totaltimespent: { type: String}
+    not_attended: { type: Array},
+    total_time_spent: { type: String}
   }]
 },
 { timestamps: { createdAt: "dt", updatedAt: "u_dt" }
