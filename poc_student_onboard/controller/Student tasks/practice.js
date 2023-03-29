@@ -47,7 +47,6 @@ exports.PostPractice = async (req, res) => {
         lang_type: reqData.lang_type,
         std:reqData.std,
         questions:reqData.questions,
-        task_id: reqData.task_id,
         no_of_chapters:reqData.no_of_chapters,
         status:reqData.status,
         status_percentage:reqData.status_percentage,

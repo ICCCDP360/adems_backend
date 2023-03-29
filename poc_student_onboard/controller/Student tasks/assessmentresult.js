@@ -7,7 +7,7 @@ exports.GetAssessmentResult = async (req, res) => {
   try {
     assessmentresult
       .find({ lang_type: lang || "english" })
-      .exec(function (err, assementresults) {
+      .exec(function (err, assessmentresults) {
         if (assessmentresults) {
           return res.status(200).json(assessmentresults);
         } else if (err) {
