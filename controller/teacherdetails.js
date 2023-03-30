@@ -127,7 +127,7 @@ exports.GetDetailsPagination = async(req,res) =>{
     const count = await TeacherDetails.find({lang_type: req.query.lang || "english"}).countDocuments();
   
     // return response with posts, total pages, and current page
-    res.json({
+    return res.json({
       detailspagination,
       totalPages: Math.ceil(count / limit),
       currentPage: page

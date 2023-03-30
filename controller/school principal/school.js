@@ -88,3 +88,58 @@ exports.getByIdSchoolDetails = async (req, res) => {
     return res.status(404).json(err);
   }
 };
+
+//Get SchoolDetailsPagination
+exports.GetSchoolDetailsPagination = async(req,res) =>{
+
+  // destructure page and limit and set default values
+  const { page = 1, limit = 10,lang="english"} = req.query;
+  
+  try {
+    // execute query with page and limit values
+    const schooldetailspagination = await SchoolDetails
+      .find({lang_type:lang})
+      .limit(limit * 1)
+      .skip((page - 1) * limit)
+      .exec();
+  
+    // get total documents in the Posts collection 
+    const count = await SchoolDetails.find({lang_type:lang}).count();
+  
+    // return response with posts, total pages, and current page
+    return res.json({
+      schooldetailspagination,
+      totalPages: Math.ceil(count / limit),
+      currentPage: page
+    });
+  } catch (err) {
+    return res.status(404).json(err);
+  }
+  };
+
+  //Getbyid SchoolDetailsPagination
+exports.GetbyidSchoolDetailsPagination = async (req, res) => {
+  // destructure page and limit and set default values
+  const { page = 1, limit = 10} = req.query;
+
+  try {
+    const schooldetailspagination = SchoolDetails
+      .find({lang_type: req.query.lang || "english"})
+      .limit(limit * 1)
+      .skip((page - 1) * limit)
+      .exec();
+
+    // get total documents in the Posts collection
+    const count = await SchoolDetails.find({lang_type: req.query.lang || "english"}).count();
+
+    // return response with posts, total pages, and current page
+    return res.json({
+      schooldetailspagination,
+      totalPages: Math.ceil(count / limit),
+      currentPage: page,
+    });
+  } catch (err) {
+    return res.status(404).json(err);
+  }
+};
+
