@@ -6,7 +6,6 @@ const { SECRET } = require("../config/credentials/config");
 const bcrypt = require("bcrypt");
 const AccountHolder = require("../modals/Student/AccountHolder");
 const School = require("../modals/school principal/School");
-var date = new Date();
 const secretkey = "adem001";
 // CheckAccount
 exports.CheckAccount = async (req, res) => {
@@ -18,10 +17,9 @@ exports.CheckAccount = async (req, res) => {
     if (!AccountFound) {
       return res.status(400).json({ message: "account not found" });
     } else {
-      console.log(AccountFound, "fghjkl;");
       if (AccountFound?.verify == false)
         return res.status(400).json({ message: "not verify" });
-      var data = [];
+      let data = [];
       for (let index = 0; index < AccountFound.stu_id.length; index++) {
         const element = AccountFound.stu_id[index];
         const UserDetailsFound = await StudentDetails.findById(element).select(
@@ -39,10 +37,9 @@ exports.CheckAccount = async (req, res) => {
 // Student Login
 exports.StudentLogin = async (req, res) => {
   const reqData = req.body;
-  console.log("req body", reqData.stu_id);
   try {
-    var schoolFound = [];
-    var parentFound = [];
+    let schoolFound = [];
+    let parentFound = [];
     const StudentFound = await StudentDetails.findOne({ _id: reqData.stu_id });
     if (!StudentFound)
       return res.status(400).send("Invaild UserName Or Password");
@@ -75,7 +72,7 @@ exports.StudentLogin = async (req, res) => {
     }
 
     let refreshToken = await RefreshToken.createToken(StudentFound);
-    var otherACC = [];
+    let otherACC = [];
     const FindOtherAccount = await AccountHolder.findById(StudentFound.acc_id);
     for (let index = 0; index < FindOtherAccount.stu_id.length; index++) {
       const element = FindOtherAccount.stu_id[index];
@@ -127,7 +124,6 @@ exports.refreshToken = async (req, res) => {
       res.status(403).json({ message: "Refresh token is not in database!" });
       return;
     }
-    console.log(RefreshToken.verifyExpiration(refreshToken));
     if (RefreshToken.verifyExpiration(refreshToken)) {
       RefreshToken.findByIdAndRemove(refreshToken._id, {
         useFindAndModify: false,
@@ -148,7 +144,6 @@ exports.refreshToken = async (req, res) => {
       refreshToken: refreshToken.token,
     });
   } catch (err) {
-    console.log(err);
     return res.status(400).send({ message: err });
   }
 };
@@ -167,7 +162,7 @@ exports.VerifyAccount = async (req, res) => {
     } else {
       AccountFound.verify = true;
       AccountFound.save();
-      var data = [];
+      let data = [];
       for (let index = 0; index < AccountFound.stu_id.length; index++) {
         const element = AccountFound.stu_id[index];
         const UserDetailsFound = await StudentDetails.findById(element).select(
@@ -215,7 +210,7 @@ exports.SetPasscode = async (req, res) => {
 
     DetailsFound.passcode = passcode;
     DetailsFound.verify = true;
-    const setPassword = await DetailsFound.save();
+    await DetailsFound.save();
     return res
       .status(200)
       .json({ message: `Passcode set to ${DetailsFound.name}` });
@@ -248,7 +243,7 @@ exports.ChangePasscode = async (req, res) => {
 
     if (hasValidPass) {
       StudentFound.passcode = new_passcode;
-      const setPassword = await StudentFound.save();
+      await StudentFound.save();
       return res
         .status(200)
         .json({ message: `Passcode set to ${StudentFound.name}` });
