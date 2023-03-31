@@ -7,7 +7,9 @@ exports.getSchoolDetails = async (req, res) => {
   try {
     // get all data
     SchoolDetails.find()
-      .select("_id sch_id sch_name address city user_name logo")
+      .select(
+        "_id sch_id sch_name address city state user_name logo teacher student goadem_admin dt u_dt"
+      )
       .exec(function (err, users) {
         if (users) {
           return res.status(200).json(users);
@@ -29,7 +31,7 @@ exports.addSchoolDetails = async (req, res) => {
       school_name: reqData.school_name,
       address: reqData.address,
       city: reqData.city,
-      state:reqData.state,
+      state: reqData.state,
       logo: reqData.logo,
       teacher: reqData.teacher,
       student: reqData.student,
@@ -58,7 +60,6 @@ exports.schoolAdminLogin = async (req, res) => {
       SchoolFound.passcode
     );
     if (!hasValidPass) throw { message: "Invalid email or password" };
-      
 
     jwt.sign(
       { SchoolFound },
@@ -90,47 +91,19 @@ exports.getByIdSchoolDetails = async (req, res) => {
 };
 
 //Get SchoolDetailsPagination
-exports.GetSchoolDetailsPagination = async(req,res) =>{
-
+exports.GetSchoolDetailsPagination = async (req, res) => {
   // destructure page and limit and set default values
-  const { page = 1, limit = 10,lang="english"} = req.query;
-  
+  const { page = 1, limit = 10 } = req.query;
+
   try {
     // execute query with page and limit values
-    const schooldetailspagination = await SchoolDetails
-      .find({lang_type:lang})
-      .limit(limit * 1)
-      .skip((page - 1) * limit)
-      .exec();
-  
-    // get total documents in the Posts collection 
-    const count = await SchoolDetails.find({lang_type:lang}).count();
-  
-    // return response with posts, total pages, and current page
-    return res.json({
-      schooldetailspagination,
-      totalPages: Math.ceil(count / limit),
-      currentPage: page
-    });
-  } catch (err) {
-    return res.status(404).json(err);
-  }
-  };
-
-  //Getbyid SchoolDetailsPagination
-exports.GetbyidSchoolDetailsPagination = async (req, res) => {
-  // destructure page and limit and set default values
-  const { page = 1, limit = 10} = req.query;
-
-  try {
-    const schooldetailspagination = SchoolDetails
-      .find({lang_type: req.query.lang || "english"})
+    const schooldetailspagination = await SchoolDetails.find()
       .limit(limit * 1)
       .skip((page - 1) * limit)
       .exec();
 
     // get total documents in the Posts collection
-    const count = await SchoolDetails.find({lang_type: req.query.lang || "english"}).count();
+    const count = await SchoolDetails.find().count();
 
     // return response with posts, total pages, and current page
     return res.json({
@@ -143,3 +116,30 @@ exports.GetbyidSchoolDetailsPagination = async (req, res) => {
   }
 };
 
+//Getbyid SchoolDetailsPagination
+exports.GetbyidSchoolDetailsPagination = async (req, res) => {
+  // destructure page and limit and set default values
+  const { page = 1, limit = 10 } = req.query;
+
+  try {
+    const schooldetailspagination = await SchoolDetails.findById(req.params.id)
+      .select(
+        "_id sch_id sch_name address city state user_name logo teacher student goadem_admin dt u_dt"
+      )
+      .limit(limit * 1)
+      .skip((page - 1) * limit)
+      .exec();
+
+    // get total documents in the Posts collection
+    const count = await SchoolDetails.findById(req.params.id).count();
+
+    // return response with posts, total pages, and current page
+    return res.json({
+      schooldetailspagination,
+      totalPages: Math.ceil(count / limit),
+      currentPage: page,
+    });
+  } catch (err) {
+    return res.status(404).json(err);
+  }
+};
