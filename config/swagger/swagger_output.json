@@ -468,7 +468,7 @@
         "responses": {}
       }
     },
-    "/api/v1/school/details_page": {
+    "/api/v1/school/school/details/": {
       "get": {
         "description": "",
         "parameters": [],

@@ -43,7 +43,6 @@ exports.GetbystudentidAssessmentResult = async (req, res) => {
     const assessmentResultsFound = await ASSESSMENTRESULT.find({student_id:req.query.student_id});
     return res.status(200).json(assessmentResultsFound);
   } catch (err) {
-    console.log(err);
     return res.status(400).json(err);
   }
 };
