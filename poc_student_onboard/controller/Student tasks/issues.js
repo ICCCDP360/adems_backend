@@ -1,11 +1,11 @@
-const ISSUES = require("../../modals/Student tasks/Issues");
+const issues = require("../../modals/Student tasks/Issues");
 var date = new Date();
 
 //Get Issues
 exports.GetIssues = async (req, res) => {
     let { lang = "english" } = req.query;
     try {
-      ISSUES
+      issues
         .find({ lang_type: lang || "english" })
         .exec(function (err, issuesresults) {
           if (issuesresults) {
@@ -23,14 +23,14 @@ exports.GetIssues = async (req, res) => {
   exports.PostIssues = async (req, res) => {
     const reqData = req.body;
     try {
-      const ISSUESRECORD = new ISSUES({
+      const Issues = new issues({
         assessment_id: reqData.assessment_id,
         question_id: reqData.question_id,
         student_id: reqData.student_id,
         lang_type: reqData.lang_type,
         issues_type: reqData.issues_type
       });
-      const savePostIssues = await ISSUESRECORD.save();
+      const savePostIssues = await Issues.save();
       return res.status(200).json(savePostIssues);
     } catch (err) {
       return res.status(400).json(err);
@@ -41,7 +41,7 @@ exports.GetIssues = async (req, res) => {
   
   exports.GetbystudentidIssues = async (req, res) => {
     try {
-      const issuesFound = await ISSUES.find({student_id:req.query.student_id});
+      const issuesFound = await issues.find({student_id:req.params.student_id});
       return res.status(200).json(issuesFound);
     } catch (err) {
       return res.status(400).json(err);
@@ -53,13 +53,13 @@ exports.GetIssues = async (req, res) => {
     const { page = 1, limit =10,lang="english", student_id} = req.query;
   
     try{
-      const issuespagination = await ISSUES
+      const issuespagination = await issues
       .find({lang_type:lang,student_id: student_id})
       .limit(limit * 1)
       .skip((page - 1) * limit)
       .exec()
   
-      const count = await ISSUES.find({lang_type:lang,student_id:student_id}).count()
+      const count = await issues.find({lang_type:lang,student_id:student_id}).count()
   
       return res.json({
         issuespagination,
