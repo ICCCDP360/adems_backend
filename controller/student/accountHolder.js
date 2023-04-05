@@ -16,11 +16,11 @@ exports.PostAccountHolder = async (req, res) => {
       name: reqData.name,
       relation: reqData.relation,
       email: reqData.email,
-      address:reqData.address,
-      city:reqData.city,
-      state:reqData.state,
+      address: reqData.address,
+      city: reqData.city,
+      state: reqData.state,
       stu_id: reqData.stu_id,
-      lang_type:reqData.lang_type,
+      lang_type: reqData.lang_type,
       verify: false,
     });
     const savePostAccountHolder = await PostAccountHolder.save();

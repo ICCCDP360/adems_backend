@@ -199,7 +199,6 @@ exports.GetbyidCompletedPagination = async(req,res) =>{
   
   // destructure page and limit and set default values
   const { page = 1, limit = 10, lang = 'english' } = req.query;
-
   try {
     let student_id = req.params.stu_id;
     let student_ids = [student_id];

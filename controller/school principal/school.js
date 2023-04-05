@@ -54,7 +54,7 @@ exports.addSchoolDetails = async (req, res) => {
       student: reqData.student,
       user_name: reqData.user_name,
       passcode: reqData.passcode,
-      lang_type:reqData.lang_type,
+      lang_type: reqData.lang_type,
       goadem_admin: reqData.goadem_admin,
     });
     const savePostSchool = await PostSchool.save();
@@ -111,18 +111,18 @@ exports.getByIdSchoolDetails = async (req, res) => {
 //Get SchoolDetailsPagination
 exports.GetSchoolDetailsPagination = async (req, res) => {
   // destructure page and limit and set default values
-  const { page = 1, limit = 10,lang="english" } = req.query;
+  const { page = 1, limit = 10, lang = "english" } = req.query;
 
   try {
     // execute query with page and limit values
     const schooldetailspagination = await SchoolDetails
-      .find({lang_type:lang})
+      .find({ lang_type: lang })
       .limit(limit * 1)
       .skip((page - 1) * limit)
       .exec();
 
     // get total documents in the Posts collection
-    const count = await SchoolDetails.find({lang_type:lang}).count();
+    const count = await SchoolDetails.find({ lang_type: lang }).count();
 
     // return response with posts, total pages, and current page
     return res.json({

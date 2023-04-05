@@ -68,7 +68,7 @@ exports.StudentLogin = async (req, res) => {
         parentFound = { message: "school not found" };
       }
     } catch (error) {
-       return res.status(400).json(error.message);
+      return res.status(400).json(error.message);
     }
 
     let refreshToken = await RefreshToken.createToken(StudentFound);
@@ -77,8 +77,6 @@ exports.StudentLogin = async (req, res) => {
     for (let index = 0; index < FindOtherAccount.stu_id.length; index++) {
       const element = FindOtherAccount.stu_id[index];
       if (element != StudentFound._id) {
-        console.log(element, "tfyguhijok");
-
         const accD = await StudentDetails.findById(element).select(
           "email name dp"
         );

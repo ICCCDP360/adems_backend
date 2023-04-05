@@ -5,6 +5,7 @@ let date = new Date();
 
 //Get Studentdetails
 exports.getStudentDetails = async (req, res) => {
+  let lang = req.query.lang;
   try {
     // get all data
     StudentDetails.find().exec(function (err, users) {
