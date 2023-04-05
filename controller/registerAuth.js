@@ -1,5 +1,5 @@
 const registerAuth = require("../modals/Registerauth")
-var date =new Date();
+let date =new Date();
 
 //post Registerauth
 exports.PostRegisterauth= async(req,res) => {
@@ -7,6 +7,11 @@ exports.PostRegisterauth= async(req,res) => {
     try{
         const PostRegisterauth = new registerAuth (
             {
+                type: reqData.type,
+                lang: {
+                   english: reqData.english,
+                   tamil: reqData.tamil,
+                },
                 stu_id: reqData.stu_id,
                 stu_name: reqData.stu_name,
                 std:reqData.std,
@@ -23,6 +28,7 @@ exports.PostRegisterauth= async(req,res) => {
                 p_g_contact: reqData.p_g_contact,
                 passcode: reqData.passcode,
                 assign_teacher: reqData.assign_teacher,
+                lang_type:reqData.lang_type,
                 verify:reqData.verify
                 
             }

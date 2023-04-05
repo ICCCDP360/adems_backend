@@ -1,6 +1,6 @@
 const mytask = require("../../modals/Student tasks/Mytask");
 const StudentDetails = require("../../../modals/Student/Details");
-var date = new Date();
+let date = new Date();
 
 //Get Mytask
 exports.GetMytask = async (req, res) => {

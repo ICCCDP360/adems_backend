@@ -3,6 +3,11 @@ const Schema = mongoose.Schema;
 
 const TeacherSchema = new Schema(
   {
+    type: { type: String,unique:false},
+    lang: {
+      english: {type:String},
+      tamil: {type:String},
+    },  
     teacher_id: {
       type: String,
       min: 5,
@@ -33,6 +38,12 @@ const TeacherSchema = new Schema(
       min: 2,
       max: 50,
     },
+    lang_type:{
+      type:String,
+      require:["type Required"],
+      enum:["english","tamil"],
+      default:"english"
+  },
   },
   { timestamps: { createdAt: "dt", updatedAt: "u_dt" } }
 );

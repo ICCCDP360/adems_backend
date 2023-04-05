@@ -1,5 +1,5 @@
 const assessment = require("../../modals/Student tasks/Assessment");
-var date = new Date();
+let date = new Date();
 
 //Get Assessment
 exports.GetAssessment = async (req, res) => {
@@ -8,7 +8,7 @@ exports.GetAssessment = async (req, res) => {
       // get all data
       assessment.find({ lang_type: req.query.lang || "english" }).exec(function (err, users) {
         if (users) {
-          var dataSet = [];
+          let dataSet = [];
           for (let index = 0; index < users.length; index++) {
             let element = users[index];
             let data = {
@@ -74,7 +74,6 @@ exports.GetbyidAssessment = async (req, res) => {
     const assessmentFound = await assessment.findById(req.query.id);
     return res.status(200).json(assessmentFound);
   } catch (err) {
-    console.log(err);
     return res.status(400).json(err);
   }
 };

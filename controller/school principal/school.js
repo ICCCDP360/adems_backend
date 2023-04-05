@@ -4,14 +4,26 @@ const jwt = require("jsonwebtoken");
 const secretkey = "adem001";
 //Get Sch_principal
 exports.getSchoolDetails = async (req, res) => {
+  let lang = req.query.lang;
   try {
     // get all data
-    SchoolDetails.find()
+    SchoolDetails.find({ lang_type: req.query.lang || "english" })
       .select(
         "_id sch_id sch_name address city state user_name logo teacher student goadem_admin dt u_dt"
       )
       .exec(function (err, users) {
         if (users) {
+          let dataSet = [];
+          for (let index = 0; index < users.length; index++) {
+            let element = users[index];
+            let data = {
+              header: element.type,
+              lang: element.lang[lang],
+              u_dt: element.u_dt,
+              dt: element.dt,
+            };
+            dataSet.push(data);
+          }
           return res.status(200).json(users);
         } else if (err) {
           return res.status(400).send("no data found : ", err);
@@ -27,6 +39,11 @@ exports.addSchoolDetails = async (req, res) => {
   try {
     const reqData = req.body;
     const PostSchool = new SchoolDetails({
+      type: reqData.type,
+      lang: {
+        english: reqData.english,
+        tamil: reqData.tamil,
+      },
       sch_id: reqData.sch_id,
       school_name: reqData.school_name,
       address: reqData.address,
@@ -37,6 +54,7 @@ exports.addSchoolDetails = async (req, res) => {
       student: reqData.student,
       user_name: reqData.user_name,
       passcode: reqData.passcode,
+      lang_type:reqData.lang_type,
       goadem_admin: reqData.goadem_admin,
     });
     const savePostSchool = await PostSchool.save();
@@ -93,17 +111,18 @@ exports.getByIdSchoolDetails = async (req, res) => {
 //Get SchoolDetailsPagination
 exports.GetSchoolDetailsPagination = async (req, res) => {
   // destructure page and limit and set default values
-  const { page = 1, limit = 10 } = req.query;
+  const { page = 1, limit = 10,lang="english" } = req.query;
 
   try {
     // execute query with page and limit values
-    const schooldetailspagination = await SchoolDetails.find()
+    const schooldetailspagination = await SchoolDetails
+      .find({lang_type:lang})
       .limit(limit * 1)
       .skip((page - 1) * limit)
       .exec();
 
     // get total documents in the Posts collection
-    const count = await SchoolDetails.find().count();
+    const count = await SchoolDetails.find({lang_type:lang}).count();
 
     // return response with posts, total pages, and current page
     return res.json({

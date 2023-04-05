@@ -1,5 +1,5 @@
 const ASSESSMENTRESULT = require("../../modals/Student tasks/Assessmentresult");
-var date = new Date();
+let date = new Date();
 
 //Get AssessmentResult
 exports.GetAssessmentResult = async (req, res) => {

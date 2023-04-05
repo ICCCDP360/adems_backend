@@ -4,6 +4,11 @@ const bcrypt = require("bcrypt");
 
 const SchoolSchema = new Schema(
   {
+    type: { type: String,unique:false},
+    lang: {
+      english: {type:String},
+      tamil: {type:String},
+    },  
     sch_id: {
       type: String,
       min: 5,
@@ -24,6 +29,12 @@ const SchoolSchema = new Schema(
       min: 2,
       max: 16,
     },
+    lang_type:{
+      type:String,
+      require:["type Required"],
+      enum:["english","tamil"],
+      default:"english"
+  },
     state:{ type: String },
     logo: { type: String, default:"https://www.shutterstock.com/image-vector/school-building-logo-260nw-769246243.jpg" },
     teacher: { type: Array },

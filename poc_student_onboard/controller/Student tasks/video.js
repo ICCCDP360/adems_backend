@@ -1,5 +1,5 @@
 const video = require("../../modals/Student tasks/Video");
-var date = new Date();
+let date = new Date();
 
 //Get Videos
 exports.GetVideo = async (req, res) => {
@@ -9,7 +9,7 @@ exports.GetVideo = async (req, res) => {
     video.find({ lang_type: req.query.lang || "english" }).exec(function (err, users) {
       if (users) {
         // console.log(users);
-        var dataSet = [];
+        let dataSet = [];
         for (let index = 0; index < users.length; index++) {
           let element = users[index];
           let data = {

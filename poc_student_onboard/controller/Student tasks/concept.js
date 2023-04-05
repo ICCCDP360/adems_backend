@@ -3,7 +3,7 @@ const concept = require("../../modals/Student tasks/Concept");
 const Pdf = require("../../modals/Student tasks/Pdf");
 const Practice = require("../../modals/Student tasks/Practice");
 const Video = require("../../modals/Student tasks/Video");
-var date = new Date();
+let date = new Date();
 
 //Get Concept
 exports.GetConcept = async (req, res) => {
@@ -216,7 +216,7 @@ exports.GetbyidConceptPractice = async (req, res) => {
         ) {
           let element = practiceDetailsFound[y].questions[index];
           let answeroptiondata = element.options;
-          var assessmentoptions = [];
+          let assessmentoptions = [];
           for (let l = 0; l < 4; l++) {
             let datas = {
               _id: answeroptiondata[l]._id,

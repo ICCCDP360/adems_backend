@@ -30,7 +30,7 @@ exports.CheckAccount = async (req, res) => {
       return res.status(200).json(data);
     }
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    return res.status(400).json({ message: error.message });
   }
 };
 
@@ -57,7 +57,7 @@ exports.StudentLogin = async (req, res) => {
         schoolFound = { message: "school not found" };
       }
     } catch (error) {
-      console.log(error.message);
+      return res.status(400).json(error.message);
     }
 
     try {
@@ -68,7 +68,7 @@ exports.StudentLogin = async (req, res) => {
         parentFound = { message: "school not found" };
       }
     } catch (error) {
-      console.log(error.message);
+       return res.status(400).json(error.message);
     }
 
     let refreshToken = await RefreshToken.createToken(StudentFound);
@@ -76,7 +76,6 @@ exports.StudentLogin = async (req, res) => {
     const FindOtherAccount = await AccountHolder.findById(StudentFound.acc_id);
     for (let index = 0; index < FindOtherAccount.stu_id.length; index++) {
       const element = FindOtherAccount.stu_id[index];
-      console.log(element != StudentFound._id);
       if (element != StudentFound._id) {
         console.log(element, "tfyguhijok");
 
@@ -104,8 +103,7 @@ exports.StudentLogin = async (req, res) => {
       }
     );
   } catch (err) {
-    console.log(err);
-    res.status(400).json(err);
+    return res.status(400).json(err);
   }
 };
 

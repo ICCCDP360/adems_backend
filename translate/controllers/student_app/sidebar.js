@@ -1,5 +1,5 @@
 const Sidebar = require("../../modals/student_app/Sidebar");
-var date = new Date();
+let date = new Date();
 
 //Get Sidebar
 exports.GetSidebar = async (req, res) => {
@@ -9,10 +9,9 @@ exports.GetSidebar = async (req, res) => {
     Sidebar.find().exec(function (err, users) {
       if (users) {
         // console.log(users);
-        var dataSet = [];
+        let dataSet = [];
         for (let index = 0; index < users.length; index++) {
           let element = users[index];
-          console.log(element.lang[lang]);
           let data = {
             header: element.type,
             lang: element.lang[lang],

@@ -1,5 +1,5 @@
 const pdf = require("../../modals/Student tasks/Pdf");
-var date = new Date();
+let date = new Date();
 
 //Get Pdf
 exports.GetPdf = async (req, res) => {
@@ -9,7 +9,7 @@ exports.GetPdf = async (req, res) => {
     pdf.find({ lang_type: req.query.lang || "english" }).exec(function (err, users) {
       if (users) {
         // console.log(users);
-        var dataSet = [];
+        let dataSet = [];
         for (let index = 0; index < users.length; index++) {
           let element = users[index];
           let data = {

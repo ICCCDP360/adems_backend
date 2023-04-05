@@ -1,5 +1,5 @@
 const issues = require("../../modals/Student tasks/Issues");
-var date = new Date();
+let date = new Date();
 
 //Get Issues
 exports.GetIssues = async (req, res) => {

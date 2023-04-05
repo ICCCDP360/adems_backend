@@ -1,11 +1,16 @@
 const accountHolder = require("../../modals/Student/AccountHolder");
-var date = new Date();
+let date = new Date();
 
 // Post  A/c holder
 exports.PostAccountHolder = async (req, res) => {
   const reqData = req.body;
   try {
     const PostAccountHolder = new accountHolder({
+      type: reqData.type,
+      lang: {
+        english: reqData.english,
+        tamil: reqData.tamil,
+      },
       ph_code: reqData.ph_code,
       phone: reqData.phone,
       name: reqData.name,
@@ -15,6 +20,7 @@ exports.PostAccountHolder = async (req, res) => {
       city:reqData.city,
       state:reqData.state,
       stu_id: reqData.stu_id,
+      lang_type:reqData.lang_type,
       verify: false,
     });
     const savePostAccountHolder = await PostAccountHolder.save();

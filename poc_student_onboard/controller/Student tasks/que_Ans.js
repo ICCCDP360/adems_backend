@@ -1,5 +1,5 @@
 const que_ans = require("../../modals/Student tasks/Que_ans");
-var date = new Date();
+let date = new Date();
 
 //Get Q&A
 exports.GetQue_ans = async (req, res) => {

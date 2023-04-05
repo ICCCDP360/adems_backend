@@ -3,6 +3,11 @@ const Schema =mongoose.Schema;
 const bcrypt = require("bcrypt")
 const RegisterauthSchema = new Schema (
     {
+        type: { type: String,unique:false},
+        lang: {
+           english: {type:String},
+           tamil: {type:String},
+    },  
         stu_id:{type:String},
         stu_name: { type: String, min: 4, max: 20 },
         email: { type: String, min: 5, max: 50 },
@@ -23,6 +28,12 @@ const RegisterauthSchema = new Schema (
           required: ['Password is required'],
           minlength: [8, 'Password should be at least 8 characters long']
       },
+      lang_type:{
+        type:String,
+        require:["type Required"],
+        enum:["english","tamil"],
+        default:"english"
+    },
         assign_teacher: { type: String },
         verify: { type: Boolean },
        

@@ -3,6 +3,11 @@ const Schema = mongoose.Schema;
 
 const AccountHolderSchema = new Schema(
   {
+    type: { type: String,unique:false},
+    lang: {
+      english: {type:String},
+      tamil: {type:String},
+    },  
     ph_code: {
       type: String,
       min: 2,
@@ -21,6 +26,12 @@ const AccountHolderSchema = new Schema(
       max: 20,
       require: ["Account Holder Name  is required (parents or guardian)"],
     },
+    lang_type:{
+      type:String,
+      require:["type Required"],
+      enum:["english","tamil"],
+      default:"english"
+  },
     relation: { type: String },
     email: { type: String },
     stu_id: { type: Array },

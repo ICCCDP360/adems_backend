@@ -1,22 +1,32 @@
 const SchoolDetails = require("../../modals/school principal/School");
 const StudentDetails = require("../../modals/Student/Details");
 const accountHolder = require("../../modals/Student/AccountHolder");
-var date = new Date();
+let date = new Date();
 
 //Get Studentdetails
 exports.getStudentDetails = async (req, res) => {
-  console.log(req.query.name);
   try {
     // get all data
     StudentDetails.find().exec(function (err, users) {
       if (users) {
+        let dataSet = [];
+          for (let index = 0; index < users.length; index++) {
+            let element = users[index];
+            let data = {
+              header: element.type,
+              lang: element.lang[lang],
+              u_dt: element.u_dt,
+              dt: element.dt,
+            };
+            dataSet.push(data);
+          }
         return res.status(200).json(users);
       } else if (err) {
         return res.status(400).send("no data found : ", err);
       }
     });
   } catch (err) {
-    console.log(err);
+    return res.status(404).json(err);
   }
 };
 
@@ -25,6 +35,11 @@ exports.addStudentDetails = async (req, res) => {
   const reqData = req.body;
   try {
     const StudentRegister = new StudentDetails({
+      type: reqData.type,
+      lang: {
+        english: reqData.english,
+        tamil: reqData.tamil,
+      },
       stu_id: reqData.stu_id,
       name: reqData.name,
       email: reqData.email,
@@ -39,14 +54,15 @@ exports.addStudentDetails = async (req, res) => {
       acc_id: reqData.acc_id,
       sch_id: reqData.sch_id,
       passcode: reqData.passcode,
+      lang_type:reqData.lang_type,
       points: reqData.points,
       assign_teacher: reqData.assign_teacher,
       verify: reqData.verify,
     });
     const Respone = await StudentRegister.save();
-    res.status(200).json(Respone);
+    return res.status(200).json(Respone);
   } catch (err) {
-    console.log(err);
+    return res.status(404).json(err);
   }
 };
 
@@ -54,7 +70,6 @@ exports.addStudentDetails = async (req, res) => {
 exports.updateStudentDetail = async (req, res) => {
   const reqData = req.body;
   const id = req.params.id;
-  console.log("req body", id);
 
   try {
     // get user by name
@@ -67,12 +82,10 @@ exports.updateStudentDetail = async (req, res) => {
         rawResult: true,
       }
     );
-    console.log(detailsFound);
     if (!detailsFound) return res.status(400).send("no data found");
-    console.log("kl", detailsFound);
     return res.status(200).json(detailsFound);
   } catch (err) {
-    console.log(err);
+    return res.status(404).json(err);
   }
 };
 
@@ -82,7 +95,6 @@ exports.getByIdStudentDetails = async (req, res) => {
     const detailsFound = await StudentDetails.findById(req.params.id);
     return res.status(200).json(detailsFound);
   } catch (err) {
-    console.log(err);
     return res.status(404).json(err);
   }
 };

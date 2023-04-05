@@ -1,5 +1,5 @@
 const Dashboard = require("../../modals/student_app/Dashboard");
-var date = new Date();
+let date = new Date();
 
 //Get dashboard
 exports.GetDashboard = async (req, res) => {
@@ -8,7 +8,7 @@ exports.GetDashboard = async (req, res) => {
     // get all data
     Dashboard.find().exec(function (err, users) {
       if (users) {
-        var dataSet = [];
+        let dataSet = [];
         for (let index = 0; index < users.length; index++) {
           let element = users[index];
           let data = {
@@ -26,15 +26,14 @@ exports.GetDashboard = async (req, res) => {
       }
     });
   } catch (err) {
-    console.log(err);
+    return res.status(404).json(err);
+
   }
 };
 
 // Post dashboard
 exports.PostDashboard = async (req, res) => {
   const reqData = req.body;
-  console.log("req body", reqData.tamil);
-
   try {
     const TaskRemDashboard = new Dashboard({
       type: reqData.type,
