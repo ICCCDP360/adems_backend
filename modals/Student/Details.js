@@ -35,7 +35,9 @@ const StudentSchema = new Schema(
       default:"english"
   },
     assign_teacher: { type: String },
-    verify: { type: Boolean },
+    verify: { 
+      type: Boolean,
+      default:false },
   },
   { timestamps: { createdAt: "dt", updatedAt: "u_dt" } }
 );

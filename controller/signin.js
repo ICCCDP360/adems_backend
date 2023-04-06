@@ -15,7 +15,15 @@ exports.CheckAccount = async (req, res) => {
       phone: reqData.phone,
     }).select("stu_id verify");
     if (!AccountFound) {
-      return res.status(400).json({ message: "account not found" });
+      let data = [];
+      for (let index = 0; index < AccountFound.stu_id.length; index++) {
+        const element = AccountFound.stu_id[index];
+        const UserDetailsFound = await StudentDetails.findById(element).select(
+          "_id name verify"
+        );
+        data.push(UserDetailsFound);
+      }
+      return res.status(400).json({ message: "account not found",unchecked_acc:data});
     } else {
       if (AccountFound?.verify == false)
         return res.status(400).json({ message: "not verify" });
@@ -23,7 +31,7 @@ exports.CheckAccount = async (req, res) => {
       for (let index = 0; index < AccountFound.stu_id.length; index++) {
         const element = AccountFound.stu_id[index];
         const UserDetailsFound = await StudentDetails.findById(element).select(
-          "_id name"
+          "_id name verify"
         );
         data.push(UserDetailsFound);
       }
@@ -151,8 +159,18 @@ exports.VerifyAccount = async (req, res) => {
     const otp = req.body.otp;
     const phone = req.body.phone;
     const AccountFound = await StudentAccount.findOne({ phone: phone });
-    if (AccountFound?.verify == true)
-      return res.status(400).json({ message: "already verified" });
+    if (AccountFound?.verify == true){
+      let data = [];
+      for (let index = 0; index < AccountFound.stu_id.length; index++) {
+        const element = AccountFound.stu_id[index];
+        const UserDetailsFound = await StudentDetails.findById(element).select(
+          "name roll_no std sec passcode verify"
+        );
+        data.push(UserDetailsFound);
+      }
+      return res.status(400).json({ message: "already verified",uncreated_passcode:data });
+    }
+      
     if (AccountFound.phone.slice(-4) != otp) {
       return res.status(200).json({ message: "otp not match" });
     } else {
@@ -162,7 +180,7 @@ exports.VerifyAccount = async (req, res) => {
       for (let index = 0; index < AccountFound.stu_id.length; index++) {
         const element = AccountFound.stu_id[index];
         const UserDetailsFound = await StudentDetails.findById(element).select(
-          "_id name"
+          "name roll_no std sec passcode  "
         );
         data.push(UserDetailsFound);
       }
