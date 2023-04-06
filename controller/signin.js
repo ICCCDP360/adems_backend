@@ -178,7 +178,7 @@ exports.SelectAccount = async (req, res) => {
   try {
     const stu_id = req.body.stu_id;
     const DetailsFound = await StudentDetails.findById(stu_id).select(
-      "_id name std acc_id"
+      "_id name std acc_id sec"
     );
     const AccountHolderPhone = await StudentAccount.findById(DetailsFound.acc_id).select("phone");
     DetailsFound.phone = AccountHolderPhone.phone;
