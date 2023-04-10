@@ -14,17 +14,7 @@ exports.CheckAccount = async (req, res) => {
     const AccountFound = await StudentAccount.findOne({
       phone: reqData.phone,
     }).select("stu_id verify");
-    if (!AccountFound) {
-      let data = [];
-      for (let index = 0; index < AccountFound.stu_id.length; index++) {
-        const element = AccountFound.stu_id[index];
-        const UserDetailsFound = await StudentDetails.findById(element).select(
-          "_id name verify"
-        );
-        data.push(UserDetailsFound);
-      }
-      return res.status(400).json({ message: "account not found",unchecked_acc:data});
-    } else {
+    if (!AccountFound) return res.status(400).sent("This Number is not registered. Please contact Admin.")
       if (AccountFound?.verify == false)
         return res.status(400).json({ message: "not verify" });
       let data = [];
@@ -36,7 +26,6 @@ exports.CheckAccount = async (req, res) => {
         data.push(UserDetailsFound);
       }
       return res.status(200).json(data);
-    }
   } catch (error) {
     return res.status(400).json({ message: error.message });
   }
