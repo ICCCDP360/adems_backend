@@ -14,7 +14,8 @@ exports.CheckAccount = async (req, res) => {
     const AccountFound = await StudentAccount.findOne({
       phone: reqData.phone,
     }).select("stu_id verify");
-    if (!AccountFound) return res.status(400).sent("This Number is not registered. Please contact school administration.")
+      if (!AccountFound) 
+        return res.status(400).sent("This Number is not registered. Please contact School Administration.")
       if (AccountFound?.verify == false)
         return res.status(400).json({ message: "This mobile number is unverified.Please verified" });
       let data = [];
