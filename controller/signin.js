@@ -17,7 +17,7 @@ exports.CheckAccount = async (req, res) => {
       if (!AccountFound) 
         return res.status(400).sent("This Number is not registered. Please contact School Administration.")
       if (AccountFound?.verify == false)
-        return res.status(400).json({ message: "not verify" });
+        return res.status(400).json({ message: "This mobile number is unverified.Please verified" });
       let data = [];
       for (let index = 0; index < AccountFound.stu_id.length; index++) {
         const element = AccountFound.stu_id[index];
