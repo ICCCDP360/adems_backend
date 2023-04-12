@@ -1,6 +1,6 @@
 const TABLE_NAME = "Adems";
 const config = {
-  PORT: process.env.PORT || 8080,
+  PORT: process.env.PORT || 8001,
   //DB_CONNECTION: `mongodb://localhost/${TABLE_NAME}`,
   DB_CONNECTION: `mongodb+srv://samdev:Password%40123@chessthambi.vllen.mongodb.net/adems_new`,
   SECRET: "ademslmscdp360",
