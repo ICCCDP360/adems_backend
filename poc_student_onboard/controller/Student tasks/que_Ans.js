@@ -1,5 +1,5 @@
 const que_ans = require("../../modals/Student tasks/Que_ans");
-var date = new Date();
+let date = new Date();
 
 //Get Q&A
 exports.GetQue_ans = async (req, res) => {
@@ -52,7 +52,7 @@ exports.GetQue_ansPagination = async (req, res) => {
       .skip((page - 1) * limit)
       .exec();
 
-    const count = await que_ans.find({ lang_type : req.query.lang || "english" }).count();
+    const count = await que_ans.find({ lang_type: req.query.lang || "english" }).count();
 
     return res.json({
       que_anspagination,

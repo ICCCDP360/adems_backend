@@ -6,7 +6,6 @@ const { SECRET } = require("../config/credentials/config");
 const bcrypt = require("bcrypt");
 const AccountHolder = require("../modals/Student/AccountHolder");
 const School = require("../modals/school principal/School");
-var date = new Date();
 const secretkey = "adem001";
 // CheckAccount
 exports.CheckAccount = async (req, res) => {
@@ -15,34 +14,29 @@ exports.CheckAccount = async (req, res) => {
     const AccountFound = await StudentAccount.findOne({
       phone: reqData.phone,
     }).select("stu_id verify");
-    if (!AccountFound) {
-      return res.status(400).json({ message: "account not found" });
-    } else {
-      console.log(AccountFound, "fghjkl;");
+    if (!AccountFound) return res.status(400).sent("This Number is not registered. Please contact school administration.")
       if (AccountFound?.verify == false)
-        return res.status(400).json({ message: "not verify" });
-      var data = [];
+        return res.status(400).json({ message: "This mobile number is unverified.Please verified" });
+      let data = [];
       for (let index = 0; index < AccountFound.stu_id.length; index++) {
         const element = AccountFound.stu_id[index];
         const UserDetailsFound = await StudentDetails.findById(element).select(
-          "_id name"
+          "_id name std acc_id sec roll_no verify"
         );
         data.push(UserDetailsFound);
       }
       return res.status(200).json(data);
-    }
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    return res.status(400).json({ message: error.message });
   }
 };
 
 // Student Login
 exports.StudentLogin = async (req, res) => {
   const reqData = req.body;
-  console.log("req body", reqData.stu_id);
   try {
-    var schoolFound = [];
-    var parentFound = [];
+    let schoolFound = [];
+    let parentFound = [];
     const StudentFound = await StudentDetails.findOne({ _id: reqData.stu_id });
     if (!StudentFound)
       return res.status(400).send("Invaild UserName Or Password");
@@ -60,7 +54,7 @@ exports.StudentLogin = async (req, res) => {
         schoolFound = { message: "school not found" };
       }
     } catch (error) {
-      console.log(error.message);
+      return res.status(400).json(error.message);
     }
 
     try {
@@ -71,18 +65,15 @@ exports.StudentLogin = async (req, res) => {
         parentFound = { message: "school not found" };
       }
     } catch (error) {
-      console.log(error.message);
+      return res.status(400).json(error.message);
     }
 
     let refreshToken = await RefreshToken.createToken(StudentFound);
-    var otherACC = [];
+    let otherACC = [];
     const FindOtherAccount = await AccountHolder.findById(StudentFound.acc_id);
     for (let index = 0; index < FindOtherAccount.stu_id.length; index++) {
       const element = FindOtherAccount.stu_id[index];
-      console.log(element != StudentFound._id);
       if (element != StudentFound._id) {
-        console.log(element, "tfyguhijok");
-
         const accD = await StudentDetails.findById(element).select(
           "email name dp"
         );
@@ -107,8 +98,7 @@ exports.StudentLogin = async (req, res) => {
       }
     );
   } catch (err) {
-    console.log(err);
-    res.status(400).json(err);
+    return res.status(400).json(err);
   }
 };
 
@@ -127,7 +117,6 @@ exports.refreshToken = async (req, res) => {
       res.status(403).json({ message: "Refresh token is not in database!" });
       return;
     }
-    console.log(RefreshToken.verifyExpiration(refreshToken));
     if (RefreshToken.verifyExpiration(refreshToken)) {
       RefreshToken.findByIdAndRemove(refreshToken._id, {
         useFindAndModify: false,
@@ -148,7 +137,6 @@ exports.refreshToken = async (req, res) => {
       refreshToken: refreshToken.token,
     });
   } catch (err) {
-    console.log(err);
     return res.status(400).send({ message: err });
   }
 };
@@ -160,18 +148,28 @@ exports.VerifyAccount = async (req, res) => {
     const otp = req.body.otp;
     const phone = req.body.phone;
     const AccountFound = await StudentAccount.findOne({ phone: phone });
-    if (AccountFound?.verify == true)
-      return res.status(400).json({ message: "already verified" });
+    if (AccountFound?.verify == true){
+      let data = [];
+      for (let index = 0; index < AccountFound.stu_id.length; index++) {
+        const element = AccountFound.stu_id[index];
+        const UserDetailsFound = await StudentDetails.findById(element).select(
+          "name roll_no std sec passcode verify"
+        );
+        data.push(UserDetailsFound);
+      }
+      return res.status(400).json({ message: "already verified",uncreated_passcode:data });
+    }
+      
     if (AccountFound.phone.slice(-4) != otp) {
       return res.status(200).json({ message: "otp not match" });
     } else {
       AccountFound.verify = true;
       AccountFound.save();
-      var data = [];
+      let data = [];
       for (let index = 0; index < AccountFound.stu_id.length; index++) {
         const element = AccountFound.stu_id[index];
         const UserDetailsFound = await StudentDetails.findById(element).select(
-          "_id name"
+          "name roll_no std sec passcode  "
         );
         data.push(UserDetailsFound);
       }
@@ -187,7 +185,7 @@ exports.SelectAccount = async (req, res) => {
   try {
     const stu_id = req.body.stu_id;
     const DetailsFound = await StudentDetails.findById(stu_id).select(
-      "_id name std acc_id"
+      "_id name std acc_id sec"
     );
     const AccountHolderPhone = await StudentAccount.findById(DetailsFound.acc_id).select("phone");
     DetailsFound.phone = AccountHolderPhone.phone;
@@ -215,7 +213,7 @@ exports.SetPasscode = async (req, res) => {
 
     DetailsFound.passcode = passcode;
     DetailsFound.verify = true;
-    const setPassword = await DetailsFound.save();
+    await DetailsFound.save();
     return res
       .status(200)
       .json({ message: `Passcode set to ${DetailsFound.name}` });
@@ -248,7 +246,7 @@ exports.ChangePasscode = async (req, res) => {
 
     if (hasValidPass) {
       StudentFound.passcode = new_passcode;
-      const setPassword = await StudentFound.save();
+      await StudentFound.save();
       return res
         .status(200)
         .json({ message: `Passcode set to ${StudentFound.name}` });

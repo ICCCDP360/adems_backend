@@ -1,6 +1,6 @@
 const mytask = require("../../modals/Student tasks/Mytask");
 const StudentDetails = require("../../../modals/Student/Details");
-var date = new Date();
+let date = new Date();
 
 //Get Mytask
 exports.GetMytask = async (req, res) => {
@@ -136,17 +136,17 @@ exports.GetbyidCompleted = async (req, res) => {
  exports.GetMytaskPagination = async(req,res) =>{
   
     // destructure page and limit and set default values
-    const { page = 1, limit = 10 } = req.query;
+    const { page = 1, limit = 10, lang = 'english' } = req.query;
   
     try {
       // execute query with page and limit values
-      const mytaskpagination = await Mytask.find()
+      const mytaskpagination = await mytask.find({lang_type: lang})
         .limit(limit * 1)
         .skip((page - 1) * limit)
         .exec();
   
       // get total documents in the Posts collection 
-      const count = await Mytask.countDocuments();
+      const count = await mytask.countDocuments();
   
       // return response with posts, total pages, and current page
       return res.json({
@@ -163,17 +163,22 @@ exports.GetbyidCompleted = async (req, res) => {
  exports.GetbyidStudentMytaskPagination = async(req,res) =>{
   
   // destructure page and limit and set default values
-  const { page = 1, limit = 10 } = req.query;
+  const { page = 1, limit = 10, lang = 'english' } = req.query;
 
   try {
+    let student_id = req.params.stu_id;
+    let student_ids = [student_id];
     // execute query with page and limit values
-    const studentmytaskpagination = await Mytask.find()
+    const studentmytaskpagination = await mytask.find({
+      stu_id: { $in: student_ids },
+      lang_type: lang
+    })
       .limit(limit * 1)
       .skip((page - 1) * limit)
       .exec();
 
     // get total documents in the Posts collection
-    const count = await Mytask.find({
+    const count = await mytask.find({
       stu_id: { $in: student_ids },
       lang_type: lang,
     }).count(); //await Mytask.countDocuments();
@@ -193,12 +198,11 @@ exports.GetbyidCompleted = async (req, res) => {
 exports.GetbyidCompletedPagination = async(req,res) =>{
   
   // destructure page and limit and set default values
-  const { page = 1, limit = 10 } = req.query;
-
+  const { page = 1, limit = 10, lang = 'english' } = req.query;
   try {
     let student_id = req.params.stu_id;
     let student_ids = [student_id];
-    const StudentDetailsFound = await StudentDetails.findById(student_id);
+    const StudentDetailsFound = await StudentDetails.findById(req.params.stu_id);
     let student_std = StudentDetailsFound.std;
     let standard_datas = [
       { 6: "VI" },
@@ -216,7 +220,12 @@ exports.GetbyidCompletedPagination = async(req,res) =>{
       }
     }
     // execute query with page and limit values
-    const completedpagination = await Mytask.find()
+    const completedpagination = await mytask.find({
+      stu_id: { $in: student_ids },
+      completed_percentage: req.query.percentage || 100,
+      std: filteredStd,
+      lang_type: req.query.lang || "english"
+    })
       .limit(limit * 1)
       .skip((page - 1) * limit)
       .exec();
@@ -227,7 +236,7 @@ exports.GetbyidCompletedPagination = async(req,res) =>{
         stu_id: { $in: student_ids },
         completed_percentage: req.query.percentage || 100,
         std: filteredStd,
-        lang_type: req.query.lang || "english",
+        lang_type: req.query.lang || "english"
       })
       .count(); //await Mytask.countDocuments();
 

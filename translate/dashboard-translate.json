@@ -80,6 +80,20 @@
         "topics": ["வீடியோக்கள்","PDF","பயிற்சி","மதிப்பீடு"]
       }
     }
+  ],
+  "language_List": [
+    {
+      "english": {
+        "languageName":"English",
+        "FirstAlphabet":"A"
+      }
+    },
+    {
+      "tamil": {
+        "languageName":"தமிழ்",
+        "FirstAlphabet":"அ"
+      }
+    }
   ]
 }
 

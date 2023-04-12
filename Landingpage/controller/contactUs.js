@@ -1,5 +1,5 @@
 const Contactus = require("../modals/Contactus");
-var date = new Date();
+let date = new Date();
 
 //Get Contactus
 exports.GetContactus = async (req, res) => {
@@ -20,7 +20,6 @@ exports.GetContactus = async (req, res) => {
 //post contactus
 exports.PostContactus = async (req, res) => {
   const reqData = req.body;
-  console.log("req body", reqData);
   try {
     const PostContactus = new Contactus({
       Name: reqData.Name,

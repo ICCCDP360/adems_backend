@@ -1,5 +1,5 @@
 const Course = require("../../modals/student_app/Course");
-var date = new Date();
+let date = new Date();
 
 //Get Course
 exports.GetCourse = async (req, res) => {
@@ -9,7 +9,7 @@ exports.GetCourse = async (req, res) => {
     Course.find().exec(function (err, users) {
       if (users) {
         // console.log(users);
-        var dataSet = [];
+        let dataSet = [];
         for (let index = 0; index < users.length; index++) {
           let element = users[index];
           let data = {

@@ -1,34 +1,34 @@
 const assessment = require("../../modals/Student tasks/Assessment");
-var date = new Date();
+let date = new Date();
 
 //Get Assessment
 exports.GetAssessment = async (req, res) => {
-    let lang = req.query.lang;
-    try {
-      // get all data
-      assessment.find({ lang_type: req.query.lang || "english" }).exec(function (err, users) {
-        if (users) {
-          var dataSet = [];
-          for (let index = 0; index < users.length; index++) {
-            let element = users[index];
-            let data = {
-              header: element.type,
-              lang: element.lang[lang],
-              u_dt: element.u_dt,
-              dt: element.dt,
-            };
-            dataSet.push(data);
-          }
-  
-          return res.status(200).json(dataSet);
-        } else if (err) {
-          return res.status(400).send("no data found : ", err);
+  let lang = req.query.lang;
+  try {
+    // get all data
+    assessment.find({ lang_type: req.query.lang || "english" }).exec(function (err, users) {
+      if (users) {
+        let dataSet = [];
+        for (let index = 0; index < users.length; index++) {
+          let element = users[index];
+          let data = {
+            header: element.type,
+            lang: element.lang[lang],
+            u_dt: element.u_dt,
+            dt: element.dt,
+          };
+          dataSet.push(data);
         }
-      });
-    } catch (err) {
-      return res.status(400).json(err);
-    }
-  };
+
+        return res.status(200).json(dataSet);
+      } else if (err) {
+        return res.status(400).send("no data found : ", err);
+      }
+    });
+  } catch (err) {
+    return res.status(400).json(err);
+  }
+};
 
 // Post Assessment
 exports.PostAssessment = async (req, res) => {
@@ -57,7 +57,7 @@ exports.PostAssessment = async (req, res) => {
       approved_by: reqData.approved_by,
     });
     const savePostAssessment = await Assessment.save();
-     res.status(200).json(savePostAssessment);
+    res.status(200).json(savePostAssessment);
   } catch (err) {
     if (err.message.split(" ")[0] == "A1000") {
       return res.status(400).json({ message: "already exist" });
@@ -74,7 +74,6 @@ exports.GetbyidAssessment = async (req, res) => {
     const assessmentFound = await assessment.findById(req.query.id);
     return res.status(200).json(assessmentFound);
   } catch (err) {
-    console.log(err);
     return res.status(400).json(err);
   }
 };
@@ -82,8 +81,8 @@ exports.GetbyidAssessment = async (req, res) => {
 exports.getAssesmentQuestionsByLanguageType = async (req, res) => {
   try {
     const assessmentQuestions = await assessment.find({
-      lang_type : req.body.lang_type
-    },{"_id":0,"questions":1,"status":2});
+      lang_type: req.body.lang_type
+    }, { "_id": 0, "questions": 1, "status": 2 });
     return res.status(200).json(assessmentQuestions);
   } catch (err) {
     return res.status(400).json(err);
@@ -91,49 +90,49 @@ exports.getAssesmentQuestionsByLanguageType = async (req, res) => {
 };
 
 //Get AssessmentPagination
- exports.GetAssessmentPagination = async(req,res) =>{
-  
-    // destructure page and limit and set default values
-    const { page = 1, limit = 10,lang="english" } = req.query;
-  
-    try {
-      // execute query with page and limit values
-      const assessmentpagination = await assessment
-        .find({lang_type:lang})
-        .limit(limit * 1)
-        .skip((page - 1) * limit)
-        .exec();
-  
-      // get total documents in the Posts collection 
-      const count = await assessment.find({lang_type:lang}).count()
-  
-      // return response with posts, total pages, and current page
-      return res.json({
-        assessmentpagination,
-        totalPages: Math.ceil(count / limit),
-        currentPage: page
-      });
-    } catch (err) {
-      return res.status(404).json(err);
-    }
-  };
+exports.GetAssessmentPagination = async (req, res) => {
 
-  // Getbyid AssessmentPagination
- exports.GetbyidAssessmentPagination = async(req,res) =>{
-  
   // destructure page and limit and set default values
-  const { page = 1, limit = 10,lang="english" } = req.query;
+  const { page = 1, limit = 10, lang = "english" } = req.query;
 
   try {
     // execute query with page and limit values
-    const assessmentidpagination = await assessment
-      .find({lang_type:lang})
+    const assessmentpagination = await assessment
+      .find({ lang_type: lang })
       .limit(limit * 1)
       .skip((page - 1) * limit)
       .exec();
 
     // get total documents in the Posts collection 
-    const count = await assessment.find({lang_type:lang}).count()
+    const count = await assessment.find({ lang_type: lang }).count()
+
+    // return response with posts, total pages, and current page
+    return res.json({
+      assessmentpagination,
+      totalPages: Math.ceil(count / limit),
+      currentPage: page
+    });
+  } catch (err) {
+    return res.status(404).json(err);
+  }
+};
+
+// Getbyid AssessmentPagination
+exports.GetbyidAssessmentPagination = async (req, res) => {
+
+  // destructure page and limit and set default values
+  const { page = 1, limit = 10, lang = "english" } = req.query;
+
+  try {
+    // execute query with page and limit values
+    const assessmentidpagination = await assessment
+      .find({ lang_type: lang })
+      .limit(limit * 1)
+      .skip((page - 1) * limit)
+      .exec();
+
+    // get total documents in the Posts collection 
+    const count = await assessment.find({ lang_type: lang }).count()
 
     // return response with posts, total pages, and current page
     return res.json({
