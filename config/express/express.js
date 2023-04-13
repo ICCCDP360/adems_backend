@@ -22,6 +22,7 @@ module.exports = (app) => {
         "https://students.goadem.com",
         "https://school.goadem.com",
         "https://school.cdp360.in",
+        "https://dev-lms-student.cdp360.in"
       ],
       credentials: true,
     })
