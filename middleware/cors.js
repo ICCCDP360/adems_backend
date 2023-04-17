@@ -6,6 +6,7 @@ function cors(req, res, next) {
     "https://student.goadem.com",
     "https://students.cdp360.com",
     "https://students.goadem.com",
+    "https://student-dev.cdp360.in"
 
   ]);
   res.setHeader(
