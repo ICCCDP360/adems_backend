@@ -70,12 +70,12 @@ exports.GetbyidConceptPdf = async (req, res) => {
       return res.status(404).json({ message: "Pdf Not found" });
     if (conceptFound.pdf) {
       const pdfDetailsFound = await Pdf.find(
-        {
-          $or: [
-            { _id: { $in: conceptFound.pdf } },
-            { lang_type: { $in: type_lang } },
-          ],
-        },
+        // {
+        // $or: [
+        { _id: { $in: conceptFound.pdf } },
+        // { lang_type: { $in: type_lang } },
+        // ],
+        // },
         { _id: 1, url: 2, thumnail: 3, title: 4 }
       );
       if (!pdfDetailsFound) {
@@ -106,12 +106,12 @@ exports.GetbyidConceptAssessment = async (req, res) => {
       return res.status(404).json({ message: "Concept Not found" });
     if (conceptFound.assessment) {
       const assessmentDetailsFound = await Assessment.find(
-        {
-          $or: [
-            { _id: { $in: conceptFound.assessment } },
-            { lang_type: { $in: type_lang } },
-          ],
-        },
+        // {
+        //   $or: [
+        { _id: { $in: conceptFound.assessment } },
+        //     { lang_type: { $in: type_lang } },
+        //   ],
+        // },
         { _id: 1, questions: 2, title: 3, thumnail: 4 }
       );
       if (!assessmentDetailsFound)
@@ -213,12 +213,12 @@ exports.GetbyidConceptPractice = async (req, res) => {
       return res.status(404).json({ message: "Practice Not found" });
     if (conceptFound.practice != "") {
       const practiceDetailsFound = await Practice.find(
-        {
-          $or: [
-            { _id: { $in: conceptFound.practice } },
-            { lang_type: { $in: req.query.lang || "english" } },
-          ],
-        },
+        // {
+        //   $or: [
+        { _id: { $in: conceptFound.practice } },
+        // { lang_type: { $in: req.query.lang || "english" } },
+        //   ],
+        // },
         { _id: 0, questions: 1, title: 2, thumnail: 3 }
       );
       // console.log(practiceDetailsFound, "pppp");
