@@ -160,17 +160,19 @@ exports.GetbyidConceptAssessment = async (req, res) => {
 
 exports.GetbyidConceptVideo = async (req, res) => {
   try {
+    console.log(req.params.id, "adamad");
+    let type_lang = req.query.lang || "english";
+    // console.log(type_lang, "lang ");
     const conceptFound = await concept.findById(req.params.id);
+    // console.log(conceptFound);
     if (!conceptFound)
       return res.status(404).json({ message: "Video Not found" });
     if (conceptFound.video) {
-      const videoDetailsFound = await Video.find(
-        {
-          _id: { $in: conceptFound.video },
-          lang_type: req.query.lang || "english",
-        },
-        { _id: 1, url: 2, thumnail: 3, title: 4, completed_percentage: 5 }
-      );
+      // console.log(conceptFound.video[0], type_lang);
+      const videoDetailsFound = await Video.find({
+        _id: { $in: conceptFound.video[0] },
+      }).select("_id url thumnail title completed_percentage lang_type");
+      // console.log("khgkjhnljl", videoDetailsFound);
       let videoSet = [];
       for (let k = 0; k < videoDetailsFound.length; k++) {
         let data = {
@@ -303,7 +305,7 @@ exports.GetConceptpagination = async (req, res) => {
       .exec();
 
     // get total documents in the Posts collection
-    const count = await concept.find({ lang_type: lang }).count();//await concept.countDocuments();
+    const count = await concept.find({ lang_type: lang }).count(); //await concept.countDocuments();
 
     // return response with posts, total pages, and current page
     return res.json({
@@ -326,14 +328,16 @@ exports.GetConceptSchoolPagination = async (req, res) => {
     const conceptpaginationbyschoolid = concept
       .find({
         lang_type: req.query.lang || "english",
-        assign_to: { $in: school_ids }
+        assign_to: { $in: school_ids },
       })
       .limit(limit * 1)
       .skip((page - 1) * limit)
       .exec();
 
     // get total documents in the Posts collection
-    const count = await concept.find({ lang_type: lang, assign_to: { $in: school_ids } }).count();//await concept.countDocuments();
+    const count = await concept
+      .find({ lang_type: lang, assign_to: { $in: school_ids } })
+      .count(); //await concept.countDocuments();
 
     // return response with posts, total pages, and current page
     return res.json({
