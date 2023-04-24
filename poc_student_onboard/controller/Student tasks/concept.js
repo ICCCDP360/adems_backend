@@ -166,7 +166,7 @@ exports.GetbyidConceptAssessment = async (req, res) => {
 
 exports.GetbyidConceptVideo = async (req, res) => {
   try {
-    console.log(req.params.id, "adamad");
+    // console.log(req.params.id, "adamad");
     let type_lang = req.query.lang || "english";
     // console.log(type_lang, "lang ");
     const conceptFound = await concept.findById(req.params.id);
@@ -175,13 +175,16 @@ exports.GetbyidConceptVideo = async (req, res) => {
       return res.status(404).json({ message: "Video Not found" });
     if (conceptFound.video) {
       // console.log(conceptFound.video[0], type_lang);
-      const videoDetailsFound = await Video.find({
-        $or: [
-          { _id: { $in: conceptFound.video[0] } },
-          { lang_type: { $in: type_lang } },
-        ],
-      }).select("_id url thumnail title completed_percentage lang_type");
-      // console.log("khgkjhnljl", videoDetailsFound);
+      const videoDetailsFound = await Video.find(
+        // {
+        // $or: [
+        { _id: { $in: conceptFound.video } }
+        // { lang_type: { $in: type_lang } },
+        // ],
+        // }
+      ).select("_id url thumnail title completed_percentage lang_type");
+
+      // console.log("khgkjhnljl", videoDetailsFound, "mmmmmm");
       let videoSet = [];
       for (let k = 0; k < videoDetailsFound.length; k++) {
         let data = {
@@ -218,7 +221,7 @@ exports.GetbyidConceptPractice = async (req, res) => {
         },
         { _id: 0, questions: 1, title: 2, thumnail: 3 }
       );
-      console.log(practiceDetailsFound, "pppp");
+      // console.log(practiceDetailsFound, "pppp");
       let practiceSet = [];
       // return res.status(200).json(practiceDetailsFound);
       for (let y = 0; y < practiceDetailsFound.length; y++) {
