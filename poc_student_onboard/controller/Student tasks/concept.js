@@ -98,13 +98,16 @@ exports.GetbyidConceptPdf = async (req, res) => {
 exports.GetbyidConceptAssessment = async (req, res) => {
   try {
     const conceptFound = await concept.findById(req.params.id);
+    let type_lang = req.query.lang || "english";
     if (!conceptFound)
       return res.status(404).json({ message: "Concept Not found" });
     if (conceptFound.assessment) {
       const assessmentDetailsFound = await Assessment.find(
         {
-          _id: { $in: conceptFound.assessment },
-          lang_type: req.query.lang || "english",
+          $or: [
+            { _id: { $in: conceptFound.assessment } },
+            { lang_type: { $in: type_lang } },
+          ],
         },
         { _id: 1, questions: 2, title: 3, thumnail: 4 }
       );
@@ -170,7 +173,10 @@ exports.GetbyidConceptVideo = async (req, res) => {
     if (conceptFound.video) {
       // console.log(conceptFound.video[0], type_lang);
       const videoDetailsFound = await Video.find({
-        _id: { $in: conceptFound.video[0] },
+        $or: [
+          { _id: { $in: conceptFound.video[0] } },
+          { lang_type: { $in: type_lang } },
+        ],
       }).select("_id url thumnail title completed_percentage lang_type");
       // console.log("khgkjhnljl", videoDetailsFound);
       let videoSet = [];
@@ -202,11 +208,14 @@ exports.GetbyidConceptPractice = async (req, res) => {
     if (conceptFound.practice != "") {
       const practiceDetailsFound = await Practice.find(
         {
-          _id: { $in: conceptFound.practice },
-          lang_type: req.query.lang || "english",
+          $or: [
+            { _id: { $in: conceptFound.practice } },
+            { lang_type: { $in: req.query.lang || "english" } },
+          ],
         },
         { _id: 0, questions: 1, title: 2, thumnail: 3 }
       );
+      console.log(practiceDetailsFound, "pppp");
       let practiceSet = [];
       // return res.status(200).json(practiceDetailsFound);
       for (let y = 0; y < practiceDetailsFound.length; y++) {
