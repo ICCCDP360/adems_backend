@@ -64,14 +64,17 @@ exports.GetbyidConcept = async (req, res) => {
 
 exports.GetbyidConceptPdf = async (req, res) => {
   try {
+    let type_lang = req.query.lang || "english";
     const conceptFound = await concept.findById(req.params.id);
     if (!conceptFound)
       return res.status(404).json({ message: "Pdf Not found" });
     if (conceptFound.pdf) {
       const pdfDetailsFound = await Pdf.find(
         {
-          _id: { $in: conceptFound.pdf },
-          lang_type: req.query.lang || "english",
+          $or: [
+            { _id: { $in: conceptFound.pdf } },
+            { lang_type: { $in: type_lang } },
+          ],
         },
         { _id: 1, url: 2, thumnail: 3, title: 4 }
       );
